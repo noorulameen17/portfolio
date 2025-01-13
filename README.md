@@ -2,7 +2,7 @@
 
 ## Ameen's Awesome Portfolio 🌟 
 
-(![portfolio](https://socialify.git.ci/noorulameen17/portfolio/image?description=1&font=Inter&language=1&name=1&owner=1&pattern=Plus&theme=Light))
+![portfolio](https://socialify.git.ci/noorulameen17/portfolio/image?description=1&font=Inter&language=1&name=1&owner=1&pattern=Plus&theme=Light)
 
 [![React](https://img.shields.io/badge/React-61DAFB?style=for-the-badge&logo=react&logoColor=black)](https://reactjs.org/)
 [![Next.js](https://img.shields.io/badge/Next.js-black?style=for-the-badge&logo=next.js&logoColor=white)](https://nextjs.org/)
