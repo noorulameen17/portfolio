@@ -1,62 +1,35 @@
-# 🌟 Ameen's Awesome Portfolio 🌟
+<div align="center"> 
 
-Yo! Welcome to my super cool portfolio repo. Dive in to see what I've been up to and get a sneak peek into my projects and skills. Let's get started! 🚀
+## Ameen's Awesome Portfolio 🌟 
 
-## ✨ About Me
+(![portfolio](https://socialify.git.ci/noorulameen17/portfolio/image?description=1&font=Inter&language=1&name=1&owner=1&pattern=Plus&theme=Light))
 
-Hey there! I'm Ameen, a passionate developer who loves to create and innovate. Check out my portfolio to see my journey, projects, and what makes me tick!
+[![React](https://img.shields.io/badge/React-61DAFB?style=for-the-badge&logo=react&logoColor=black)](https://reactjs.org/)
+[![Next.js](https://img.shields.io/badge/Next.js-black?style=for-the-badge&logo=next.js&logoColor=white)](https://nextjs.org/)
+[![Tailwind CSS](https://img.shields.io/badge/Tailwind_CSS-38B2AC?style=for-the-badge&logo=tailwind-css&logoColor=white)](https://tailwindcss.com/)
+[![Framer Motion](https://img.shields.io/badge/Framer_Motion-0055FF?style=for-the-badge&logo=framer&logoColor=white)](https://www.framer.com/motion/)
+[![Supabase](https://img.shields.io/badge/Supabase-3ECF8E?style=for-the-badge&logo=supabase&logoColor=white)](https://supabase.com/)
+[![Lucide React](https://img.shields.io/badge/Lucide_React-FFAB00?style=for-the-badge&logo=react&logoColor=black)](https://lucide.dev/)
+[![Radix UI](https://img.shields.io/badge/Radix_UI-663399?style=for-the-badge&logo=react&logoColor=white)](https://www.radix-ui.com/)
+[![ShadCN UI](https://img.shields.io/badge/ShadCN_UI-000000?style=for-the-badge&logo=typescript&logoColor=white)](https://shadcn.dev/)
 
-## 🌐 Live Demo
+</div>
 
-Wanna see it live? [Click here!](https://portfolio-ameenition.vercel.app)
 
-## 🛠️ Tech Stack
+## Technologies Used
 
-Here's the cool stuff powering my portfolio:
+- **Frontend**:
+  - React - UI library
+  - Next.js - Web framework
+  - Tailwind CSS - Styling
+  - Framer Motion - Animation library
+  - Shadcn - UI library
+  - Magic-Ui - UI library
+- **Backend & Database**:
+  - Supabase - Backend as a Service
+- **Dev Tools**:
+  - PostCSS - CSS transformations
+  - Webpack - Module bundling
 
-- **JavaScript** - 93.4%
-- **CSS** - 4.5%
-- **PLpg** - 2.1%
-
-## 📂 Project Structure
-
-- `src/` - All the magic happens here!
-- `public/` - Static files and assets.
-- `README.md` - You're looking at it! 😉
-
-## 🚀 Getting Started
-
-Wanna run this locally? Follow these steps:
-
-1. **Clone the Repo**
-   ```bash
-   git clone https://github.com/noorulameen17/portfolio.git
-   cd portfolio
-   ```
-
-2. **Install Dependencies**
-   ```bash
-   npm install
-   ```
-
-3. **Run the Project**
-   ```bash
-   npm start
-   ```
-
-4. **Open in Browser**
-   ```bash
-   http://localhost:3000
-   ```
-
-## 🤝 Contributing
-
-Got some cool ideas? Feel free to fork this repo, make your changes, and create a pull request. Let's make this even more awesome together!
-
-## 🌟 Show Your Support
-
-If you like what you see, give this repo a ⭐️! It means a lot.
-
-## 📫 Contact Me
-
-Got questions or just wanna say hi? Reach out to me on [GitHub](https://github.com/noorulameen17).
+## Portfolio
+🔗 [View Portfolio](https://portfolio-ameenition.vercel.app/)
