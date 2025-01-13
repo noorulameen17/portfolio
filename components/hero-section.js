@@ -5,6 +5,8 @@ import { motion, useScroll, useTransform } from "framer-motion";
 import { useTheme } from "next-themes";
 import { cn } from "@/lib/utils";
 import DotPattern from "./ui/dot-pattern";
+import { Button } from "./ui/button";
+import { RainbowButton } from "./ui/rainbow-button";
 
 export function HeroSection() {
   const ref = useRef(null);
@@ -12,6 +14,13 @@ export function HeroSection() {
     target: ref,
     offset: ["start start", "end start"],
   });
+
+  const scrollToSection = (Button) => {
+    const element = document.getElementById(Button);
+    if (element) {
+      element.scrollIntoView({ behavior: "smooth" });
+    }
+  };
 
   const opacity = useTransform(scrollYProgress, [0, 1], [1, 0]);
   const scale = useTransform(scrollYProgress, [0, 1], [1, 0.8]);
@@ -94,34 +103,32 @@ export function HeroSection() {
       style={{ opacity, scale }}
       className={cn(
         "h-screen flex items-center justify-center relative overflow-hidden",
-        theme === "dark" ? "text-white" : "text-black" // Conditional text color
+        theme === "dark" ? "text-white" : "text-black"
       )}
     >
-      {mounted && theme === "light" && ( // Conditionally render DotPattern
-        <DotPattern
-          className={cn(
-            "[mask-image:radial-gradient(600px_circle_at_center,white,transparent)]"
-          )}
-        />
-      )}
+      {mounted &&
+        theme === "light" && ( 
+          <DotPattern
+            className={cn(
+              "[mask-image:radial-gradient(600px_circle_at_center,white,transparent)]"
+            )}
+          />
+        )}
       <div className="text-center z-10 absolute inset-0 flex flex-col items-center justify-center mb-20">
         <h1 className="text-4xl sm:text-5xl md:text-6xl font-bold mb-4">
           Noorul &nbsp;A &nbsp;Ameen
         </h1>
         <p className="text-xl sm:text-2xl md:text-3xl mb-8">
-          Graphic Designer &bull; Aspiring Software Engineer
+          Aspiring Software Engineer &bull; Graphic Designer
         </p>
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ delay: 0.5 }}
         >
-          <a
-            href="#about"
-            className="bg-primary text-primary-foreground px-6 py-3 rounded-full text-lg font-semibold hover:bg-primary/90 transition-colors"
-          >
+          <RainbowButton onClick={() => scrollToSection("about")}>
             Learn More
-          </a>
+          </RainbowButton>
         </motion.div>
       </div>
     </motion.div>

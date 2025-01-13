@@ -90,47 +90,49 @@ export function Projects() {
                   onHoverStart={() => setHoveredSoftwareProject(project.id)}
                   onHoverEnd={() => setHoveredSoftwareProject(null)}
                 >
-                  <Card className="h-full overflow-hidden transition-colors duration-300 hover:bg-primary hover:text-primary-foreground">
-                    <CardContent className="p-6 h-full flex flex-col">
-                      <h3 className="text-xl font-semibold mb-2">
-                        {project.name}
-                      </h3>
-                      <div className="flex-grow">
-                        {hoveredSoftwareProject === project.id ? (
-                          <motion.div
-                            initial={{ opacity: 0 }}
-                            animate={{ opacity: 1 }}
-                            transition={{ duration: 0.3 }}
-                          >
-                            <p className="text-sm mb-4">
-                              {project.description}
-                            </p>
-                            <a
-                              href={project.link}
-                              target="_blank"
-                              rel="noopener noreferrer"
-                              className="inline-flex items-center text-sm font-medium hover:underline"
+                  
+                    <Card className="h-full overflow-hidden transition-colors duration-300 hover:bg-primary hover:text-primary-foreground">
+                      <CardContent className="p-6 h-full flex flex-col">
+                        <h3 className="text-xl font-semibold mb-2">
+                          {project.name}
+                        </h3>
+                        <div className="flex-grow">
+                          {hoveredSoftwareProject === project.id ? (
+                            <motion.div
+                              initial={{ opacity: 0 }}
+                              animate={{ opacity: 1 }}
+                              transition={{ duration: 0.3 }}
                             >
-                              View Project{" "}
-                              <ExternalLink className="ml-1 w-4 h-4" />
-                            </a>
-                          </motion.div>
-                        ) : (
-                          <div className="flex flex-wrap gap-2">
-                            {project.technologies.map((tech) => (
-                              <Badge
-                                key={tech}
-                                variant="secondary"
-                                className="transition-colors duration-300 hover:bg-primary-foreground hover:text-primary"
+                              <p className="text-sm mb-4">
+                                {project.description}
+                              </p>
+                              <a
+                                href={project.link}
+                                target="_blank"
+                                rel="noopener noreferrer"
+                                className="inline-flex items-center text-sm font-medium hover:underline"
                               >
-                                {tech}
-                              </Badge>
-                            ))}
-                          </div>
-                        )}
-                      </div>
-                    </CardContent>
-                  </Card>
+                                View Project{" "}
+                                <ExternalLink className="ml-1 w-4 h-4" />
+                              </a>
+                            </motion.div>
+                          ) : (
+                            <div className="flex flex-wrap gap-2">
+                              {project.technologies.map((tech) => (
+                                <Badge
+                                  key={tech}
+                                  variant="secondary"
+                                  className="transition-colors duration-300 hover:bg-primary-foreground hover:text-primary"
+                                >
+                                  {tech}
+                                </Badge>
+                              ))}
+                            </div>
+                          )}
+                        </div>
+                      </CardContent>
+                    </Card>
+                  
                 </motion.div>
               ))}
             </div>
@@ -146,27 +148,29 @@ export function Projects() {
                   className="relative h-64"
                   onClick={() => setSelectedGraphicProject(project.id)}
                 >
-                  <Card className="h-full overflow-hidden">
-                    <CardContent className="p-6 h-full flex flex-col justify-between">
-                      <div>
-                        <h3 className="text-xl font-semibold mb-2">
-                          {project.name}
-                        </h3>
-                        <p className="text-sm">
-                          {project.description.split("**")[0]}
-                          <strong>{project.description.split("**")[1]}</strong>
-                        </p>
-                      </div>
-                      <div className="relative h-32 w-full">
-                        <Image
-                          src={project.imageSrc}
-                          alt={project.name}
-                          fill
-                          className="object-cover"
-                        />
-                      </div>
-                    </CardContent>
-                  </Card>
+                  
+                    <Card className="h-full overflow-hidden">
+                      <CardContent className="p-6 h-full flex flex-col justify-between">
+                        <div>
+                          <h3 className="text-xl font-semibold mb-2">
+                            {project.name}
+                          </h3>
+                          <p className="text-sm">
+                            {project.description.split("**")[0]}
+                            <strong>{project.description.split("**")[1]}</strong>
+                          </p>
+                        </div>
+                        <div className="relative h-32 w-full">
+                          <Image
+                            src={project.imageSrc}
+                            alt={project.name}
+                            fill
+                            className="object-cover"
+                          />
+                        </div>
+                      </CardContent>
+                    </Card>
+                  
                 </motion.div>
               ))}
             </div>

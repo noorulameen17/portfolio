@@ -4,6 +4,7 @@ import { useState, useEffect } from 'react'
 import { useTheme } from "next-themes"
 import { Moon, Sun, Menu, X } from 'lucide-react'
 import { Button } from "../components/ui/button"
+import { RiAccountPinCircleFill } from "react-icons/ri";
 import { cn } from "../lib/utils"
 
 export function Header() {
@@ -26,17 +27,19 @@ export function Header() {
   const navButtonClasses = cn("hover-underline-animation", theme === "dark" ? "text-white" : "text-black")
 
   return (
-    <header className={cn("fixed top-0 left-0 right-0 z-50", theme === "dark" ? "text-white" : "text-black")}>
+    <header
+      className={cn(
+        "fixed top-0 left-0 right-0 z-50",
+        theme === "dark" ? "text-white" : "text-black"
+      )}
+    >
       <div className="relative">
         <div className="absolute inset-0 bg-gradient-to-r from-blue-400/30 via-purple-500/30 to-pink-500/30 blur-xl"></div>
         <div className={cn("relative bg-background/70 backdrop-blur-md")}>
           <div className="container mx-auto px-4 sm:px-6 lg:px-8 py-4">
             <div className="flex justify-between items-center">
-              <button
-                onClick={() => scrollToSection("hero")}
-                className="text-2xl font-bold"
-              >
-                NA
+              <button onClick={() => scrollToSection("hero")}>
+                <RiAccountPinCircleFill className="h-8 w-8" />
               </button>
               <nav className="hidden md:flex space-x-4">
                 <button
