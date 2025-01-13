@@ -20,7 +20,7 @@ export function AboutMe() {
      I am a Bachelor's student in Computer Science with a strong passion for technology and innovation. My skills include programming, working with AI, and solving problems using new technologies. I’ve also dabbled in graphic design, making cool flyers and content at a local restaurant using Canva. I have gained valuable experience as an AI Trainer at Outlier and as a Software Engineering Fellow at Headstarter AI, where I developed my technical and leadership skills.
             </p>
             
-  < p className = "text-lg mb-4" >
+  <p className="text-lg mb-4">
     Lowkey obsessed with AI tools - not just for work, but for pretty much everything <b>(yep, everything)</b>. Always learning, always leveling up!
     </p>
               

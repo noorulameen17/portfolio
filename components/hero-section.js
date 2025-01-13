@@ -83,15 +83,16 @@ export function HeroSection() {
 
     window.addEventListener("resize", resize);
 
-    if (ref.current) {
-      ref.current.appendChild(canvas);
+    const currentRef = ref.current;
+    if (currentRef) {
+      currentRef.appendChild(canvas);
     }
 
     return () => {
       window.removeEventListener("resize", resize);
       cancelAnimationFrame(animationFrameId);
-      if (ref.current) {
-        ref.current.removeChild(canvas);
+      if (currentRef) {
+        currentRef.removeChild(canvas);
       }
     };
   }, []);
