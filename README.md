@@ -1,36 +1,35 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+<div align="center"> 
 
-## Getting Started
+## Ameen's Awesome Portfolio 🌟 
 
-First, run the development server:
+![portfolio](https://socialify.git.ci/noorulameen17/portfolio/image?description=1&font=Inter&language=1&name=1&owner=1&pattern=Plus&theme=Light)
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
-```
+[![React](https://img.shields.io/badge/React-61DAFB?style=for-the-badge&logo=react&logoColor=black)](https://reactjs.org/)
+[![Next.js](https://img.shields.io/badge/Next.js-black?style=for-the-badge&logo=next.js&logoColor=white)](https://nextjs.org/)
+[![Tailwind CSS](https://img.shields.io/badge/Tailwind_CSS-38B2AC?style=for-the-badge&logo=tailwind-css&logoColor=white)](https://tailwindcss.com/)
+[![Framer Motion](https://img.shields.io/badge/Framer_Motion-0055FF?style=for-the-badge&logo=framer&logoColor=white)](https://www.framer.com/motion/)
+[![Supabase](https://img.shields.io/badge/Supabase-3ECF8E?style=for-the-badge&logo=supabase&logoColor=white)](https://supabase.com/)
+[![Lucide React](https://img.shields.io/badge/Lucide_React-FFAB00?style=for-the-badge&logo=react&logoColor=black)](https://lucide.dev/)
+[![Radix UI](https://img.shields.io/badge/Radix_UI-663399?style=for-the-badge&logo=react&logoColor=white)](https://www.radix-ui.com/)
+[![ShadCN UI](https://img.shields.io/badge/ShadCN_UI-000000?style=for-the-badge&logo=typescript&logoColor=white)](https://shadcn.dev/)
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+</div>
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+## Technologies Used
 
-## Learn More
+- **Frontend**:
+  - React - UI library
+  - Next.js - Web framework
+  - Tailwind CSS - Styling
+  - Framer Motion - Animation library
+  - Shadcn - UI library
+  - Magic-Ui - UI library
+- **Backend & Database**:
+  - Supabase - Backend as a Service
+- **Dev Tools**:
+  - PostCSS - CSS transformations
+  - Webpack - Module bundling
 
-To learn more about Next.js, take a look at the following resources:
-
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
-
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
-
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+## Portfolio
+🔗 [View Portfolio](https://portfolio-ameenition.vercel.app/)
