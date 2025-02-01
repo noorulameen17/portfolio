@@ -25,7 +25,26 @@ const softwareProjects = [
       "Motion",
     ],
   },
-  
+
+  {
+    id: 2,
+    name: "Fitgen",
+    description:
+      "Fitgen is a web application that allows users to plan their meals, track nutritional intake, and customize their dietary preferences. It provides a user-friendly interface where users can easily modify their meal plans and receive real-time updates as they make changes.",
+    link: "https://fitgen-ai.vercel.app/",
+    technologies: [
+      "React",
+      "Next.js",
+      "Material-UI",
+      "Shadcn/UI",
+      "Magic-UI",
+      "React-icons",
+      "Clerk",
+      "Cerebras-SDK",
+      "Vercel",
+      "Motion",
+    ],
+  },
 ];
 
 const graphicProjects = [
@@ -89,6 +108,7 @@ export function Projects() {
                   transition={{ duration: 0.3 }}
                   onHoverStart={() => setHoveredSoftwareProject(project.id)}
                   onHoverEnd={() => setHoveredSoftwareProject(null)}
+                  onClick={() => setHoveredSoftwareProject(project.id)} 
                 >
                   
                     <Card className="h-full overflow-hidden transition-colors duration-300 hover:bg-primary hover:text-primary-foreground">

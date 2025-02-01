@@ -35,41 +35,48 @@ export function Header() {
     >
       <div className="relative">
         <div className="absolute inset-0 bg-gradient-to-r from-blue-400/30 via-purple-500/30 to-pink-500/30 blur-xl"></div>
-        <div className={cn("relative bg-background/70 backdrop-blur-md")}>
+        <div className={cn("relative bg-background/70 backdrop-blur-md", theme === "dark" ? "text-white" : "text-black")}>
           <div className="container mx-auto px-4 sm:px-6 lg:px-8 py-4">
             <div className="flex justify-between items-center">
               <button onClick={() => scrollToSection("hero")}>
-                <RiAccountPinCircleFill className="h-8 w-8" />
+                <RiAccountPinCircleFill className={cn("h-8 w-8", theme === "dark" ? "text-white" : "text-black")} />
               </button>
               <nav className="hidden md:flex space-x-4">
                 <button
                   onClick={() => scrollToSection("about")}
                   className={navButtonClasses}
-                  style={{ color: theme === "dark" ? "white" : "black" }}
                 >
                   About
                 </button>
+                
+                <button
+                  onClick={() => scrollToSection("experience")}
+                  className={ navButtonClasses }
+                >
+                  Experience
+                </button>
+                
                 <button
                   onClick={() => scrollToSection("skills")}
                   className={navButtonClasses}
-                  style={{ color: theme === "dark" ? "white" : "black" }}
                 >
                   Skills
                 </button>
+                
                 <button
                   onClick={() => scrollToSection("projects")}
                   className={navButtonClasses}
-                  style={{ color: theme === "dark" ? "white" : "black" }}
                 >
                   Projects
                 </button>
+                
                 <button
                   onClick={() => scrollToSection("contact")}
                   className={navButtonClasses}
-                  style={{ color: theme === "dark" ? "white" : "black" }}
                 >
                   Contact
                 </button>
+                
               </nav>
               <div className="flex items-center space-x-4">
                 <Button
@@ -79,11 +86,11 @@ export function Header() {
                   className="w-9 px-0"
                 >
                   {theme === "dark" ? (
-                    <Sun className="h-[1.2rem] w-[1.2rem]" />
+                    <Sun className={cn("h-[1.2rem] w-[1.2rem]", theme === "dark" ? "text-white" : "text-black")} />
                   ) : (
-                    <Moon className="h-[1.2rem] w-[1.2rem]" />
+                    <Moon className={cn("h-[1.2rem] w-[1.2rem]", theme === "dark" ? "text-white" : "text-black")} />
                   )}
-                  <span className="sr-only">Toggle theme</span>
+                  
                 </Button>
                 <Button
                   variant="ghost"
@@ -92,11 +99,11 @@ export function Header() {
                   onClick={() => setIsMenuOpen(!isMenuOpen)}
                 >
                   {isMenuOpen ? (
-                    <X className="h-5 w-5" />
+                    <X className={cn("h-5 w-5", theme === "dark" ? "text-white" : "text-black")} />
                   ) : (
-                    <Menu className="h-5 w-5" />
+                    <Menu className={cn("h-5 w-5", theme === "dark" ? "text-white" : "text-black")} />
                   )}
-                  <span className="sr-only">Toggle menu</span>
+                  
                 </Button>
               </div>
             </div>
@@ -104,33 +111,35 @@ export function Header() {
         </div>
       </div>
       {isMenuOpen && (
-        <div className={cn("md:hidden mt-4 bg-background/70 backdrop-blur-md")}>
+        <div className={cn("md:hidden mt-4 bg-background/70 backdrop-blur-md", theme === "dark" ? "text-white" : "text-black")}>
           <nav className="flex flex-col space-y-2 container mx-auto px-4 py-4">
             <button
               onClick={() => scrollToSection("about")}
               className={navButtonClasses}
-              style={{ color: theme === "dark" ? "white" : "black" }}
             >
               About
             </button>
             <button
+              onClick={() => scrollToSection("experience")}
+              className={ navButtonClasses }
+            >
+              Experience
+            </button>
+            <button
               onClick={() => scrollToSection("skills")}
               className={navButtonClasses}
-              style={{ color: theme === "dark" ? "white" : "black" }}
             >
               Skills
             </button>
             <button
               onClick={() => scrollToSection("projects")}
               className={navButtonClasses}
-              style={{ color: theme === "dark" ? "white" : "black" }}
             >
               Projects
             </button>
             <button
               onClick={() => scrollToSection("contact")}
               className={navButtonClasses}
-              style={{ color: theme === "dark" ? "white" : "black" }}
             >
               Contact
             </button>

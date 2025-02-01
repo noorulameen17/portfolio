@@ -5,22 +5,18 @@ import { ThemeProvider as NextThemesProvider } from 'next-themes';
 export const CustomThemeProvider = ({
   children,
   attribute,
-  defaultTheme,
-  enableSystem,
+  defaultTheme = 'light', // Set default theme to light
+  enableSystem = false, // Disable system theme detection
   disableTransitionOnChange,
 }) => {
   const [theme, setTheme] = useState(defaultTheme);
 
   useEffect(() => {
     const root = document.documentElement;
-    const initialTheme = enableSystem
-      ? window.matchMedia('(prefers-color-scheme: dark)').matches
-        ? 'dark'
-        : 'light'
-      : defaultTheme;
+    const initialTheme = defaultTheme;
     setTheme(initialTheme);
     root.setAttribute(attribute, initialTheme);
-  }, [attribute, defaultTheme, enableSystem]);
+  }, [attribute, defaultTheme]);
 
   const toggleTheme = () => {
     const newTheme = theme === 'dark' ? 'light' : 'dark';
@@ -35,7 +31,7 @@ export const CustomThemeProvider = ({
       enableSystem={enableSystem}
       disableTransitionOnChange={disableTransitionOnChange}
     >
-      <div>
+      <div className={theme}>
         <button onClick={toggleTheme}>
           Toggle Theme
         </button>

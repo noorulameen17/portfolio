@@ -12,11 +12,10 @@ import {
 } from "@coreui/icons";
 import CIcon from "@coreui/icons-react";
 import { motion, progress } from "framer-motion";
-import { Zap } from "lucide-react";
 import { SiMui } from "react-icons/si";
 import { SiClerk } from "react-icons/si";
 import { RiSupabaseFill } from "react-icons/ri";
-import { FaMagic } from "react-icons/fa"; // Corrected icon import
+import { FaMagic } from "react-icons/fa"; 
 import { TbBrandFramerMotion } from "react-icons/tb";
 import { Card, CardContent } from "../components/ui/card";
 import { Progress } from "../components/ui/progress";
@@ -26,7 +25,7 @@ const skills = [
   { name: "HTML/CSS", icon: [cibHtml5Shield, cibCss3Shiled], progress: 80 },
   { name: "JavaScript", icon: [cibJavascript], progress: 75 },
   { name: "React", icon: [cibReact], progress: 70 },
-  { name: "Next.js", icon: [cibNextJs], progress: 65 },
+  { name: "Next.js", icon: [cibNextJs], progress: 80 },
   { name: "Supabase", icon: [RiSupabaseFill], progress: 60 },
   { name: "Material-UI", icon: [SiMui], progress: 90 },
   { name: "Magic UI", icon: [FaMagic], progress: 85 },
