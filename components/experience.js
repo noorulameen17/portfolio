@@ -6,6 +6,20 @@ import { Badge } from "@/components/ui/badge";
 
 const experiences = [
   {
+    company: "Read Automation",
+    duration: "Feb 2025 - Present",
+    role: "Web Developer Intern",
+    location: "Chennai, TamilNadu (Remote)",
+    description: [
+      "Developed responsive web applications",
+      "Optimized front-end performance",
+      "Integrated APIs for seamless functionality",
+      "Ensured cross-browser and mobile compatibility",
+      "Enhanced user experience through collaboration"
+    ],
+    skills: ["Next.js", "React.js", "Magic-UI", "Aceternity-UI", "Eldora-UI"],
+  },
+  {
     company: "Outlier",
     duration: "Oct 2024 - Present",
     role: "AI Trainer",
@@ -25,7 +39,14 @@ const experiences = [
     location: "New York (Remote)",
     description:
       "Built three AI projects using React, Material-UI, Next.js, and Firebase - including an Inventory app and an AI Chatbot. Leveraged the Groq API and Clerk for enhanced functionality and innovative solutions. Expanded my skill set and professional network through weekly virtual meetups and collaborative sessions.",
-    skills: ["React", "Next.js", "Firebase", "Material-UI", "Clerk", "Groq API"],
+    skills: [
+      "React",
+      "Next.js",
+      "Firebase",
+      "Material-UI",
+      "Clerk",
+      "Groq API",
+    ],
   },
 ];
 
@@ -41,7 +62,7 @@ export function Experience() {
         <h2 className="text-3xl font-bold mb-8 text-center">Experience</h2>
         <div className="max-w-2xl mx-auto space-y-8">
           {experiences.map((exp, index) => (
-            <Card key={index} className="w-full">
+            <Card key={exp.company} className="w-full">
               <CardContent className="p-6">
                 <div className="flex justify-between items-start mb-4">
                   <div>

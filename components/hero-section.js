@@ -132,7 +132,7 @@ export function HeroSection() {
           animate={{ opacity: 1, y: 0 }}
           transition={{ delay: 0.5 }}
         >
-          Aspiring Software Engineer &bull; UI Developer &bull; Graphic Designer
+          Aspiring Software Engineer  &bull; Graphic Designer
         </motion.p>
         <motion.div
           initial={{ opacity: 0, y: -50 }}
