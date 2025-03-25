@@ -1,6 +1,6 @@
 import { Inter } from 'next/font/google';
-import { Header } from '../components/header';
-import { Footer } from '../components/footer';
+import Navbar from '../components/navbar';
+import Footer from '../components/footer';
 import './globals.css';
 import { CustomThemeProvider } from "../components/theme-provider";
 import { Analytics } from "@vercel/analytics/react";
@@ -13,7 +13,6 @@ export const metadata = {
     "Official portfolio of Noorul Ameen, a Software Engineer & Frontend Developer skilled in React, Next.js, JavaScript, Supabase, Material-UI, Magic UI, Motion, Clerk, and more. Explore projects, graphic designs, and expertise in building modern web applications.",
 };
 
-
 export default function RootLayout({ children }) {
   return (
     <html lang="en" suppressHydrationWarning>
@@ -24,7 +23,7 @@ export default function RootLayout({ children }) {
           enableSystem={false} 
           disableTransitionOnChange
         >
-          <Header />
+          <Navbar />
           <main className="min-h-screen">{children}<Analytics/></main>
           <Footer />
         </CustomThemeProvider>

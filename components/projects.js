@@ -1,52 +1,35 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useRef, useEffect } from "react";
+import { cn } from "@/lib/utils";
+import { Button } from "@/components/ui/button";
+import { Badge } from "@/components/ui/badge";
+import { ExternalLink, Github } from "lucide-react";
+import { Tabs, TabsContent, TabsList, TabsTrigger } from "../components/ui/tabs";
+import Image from "next/image";
 import { motion } from "framer-motion";
 import { Card, CardContent } from "../components/ui/card";
-import { Badge } from "../components/ui/badge";
-import { Tabs, TabsContent, TabsList, TabsTrigger } from "../components/ui/tabs";
-import { ExternalLink } from "lucide-react";
-import Image from "next/image";
 
-const softwareProjects = [
+// Software projects data
+const projects = [
   {
-    id: 1,
-    name: "Emergence AI",
-    description:
-      "Emergence AI is an intelligent disaster management system that provides concise, actionable advice for before, during, and after disasters. The AI assistant helps users prepare for, respond to, and recover from emergency situations with clear and direct guidance.",
+    title: "Emergence AI",
+    description: "Disaster management system that uses artificial intelligence to predict, monitor, and coordinate responses to natural disasters. Features real-time data analysis and resource allocation.",
+    tags: ["React", "Next.js", "Material-UI", "Clerk", "Cerebras", "Vercel", "Motion"],
     link: "https://emergenceai.vercel.app/",
-    technologies: [
-      "React",
-      "Next.js",
-      "Material-UI",
-      "Clerk",
-      "Cerebras",
-      "Vercel",
-      "Motion",
-    ],
+    github: "#"
   },
-
   {
-    id: 2,
-    name: "Fitgen",
-    description:
-      "Fitgen is a web application that allows users to plan their meals, track nutritional intake, and customize their dietary preferences. It provides a user-friendly interface where users can easily modify their meal plans and receive real-time updates as they make changes.",
+    title: "Fitgen",
+    description: "AI-powered diet planner that won 3rd place at IHack'25. Utilizes machine learning to create personalized nutrition plans based on individual goals and health metrics.",
+    tags: ["React", "Next.js", "Material-UI", "Shadcn/UI", "Magic-UI", "Clerk", "Cerebras-SDK"],
+    achievement: "3rd Place at IHack'25",
     link: "https://fitgen-ai.vercel.app/",
-    technologies: [
-      "React",
-      "Next.js",
-      "Material-UI",
-      "Shadcn/UI",
-      "Magic-UI",
-      "React-icons",
-      "Clerk",
-      "Cerebras-SDK",
-      "Vercel",
-      "Motion",
-    ],
+    github: "#"
   },
 ];
 
+// Graphic projects data
 const graphicProjects = [
   {
     id: 1,
@@ -80,123 +63,207 @@ const graphicProjects = [
   }
 ];
 
-export function Projects() {
-  const [hoveredSoftwareProject, setHoveredSoftwareProject] = useState(null);
-  const [selectedGraphicProject, setSelectedGraphicProject] = useState(null);
+// ProjectCard component
+const ProjectCard = ({ project, index }) => {
+  const cardRef = useRef(null);
+  
+  useEffect(() => {
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add("visible");
+        }
+      },
+      { threshold: 0.1 }
+    );
+
+    if (cardRef.current) {
+      observer.observe(cardRef.current);
+    }
+
+    return () => {
+      if (cardRef.current) {
+        observer.unobserve(cardRef.current);
+      }
+    };
+  }, []);
 
   return (
-    <section id="projects" className="py-16">
-      <motion.div
-        initial={{ opacity: 0, y: 20 }}
-        whileInView={{ opacity: 1, y: 0 }}
-        transition={{ duration: 0.5 }}
-        viewport={{ once: true }}
-      >
-        <h2 className="text-3xl font-bold mb-8 text-center">Projects</h2>
+    <div 
+      ref={cardRef}
+      className={cn(
+        "animate-on-scroll glass-card rounded-xl p-6 group h-full flex flex-col",
+        index % 2 === 0 ? "delay-100" : "delay-300"
+      )}
+    >
+      <div className="mb-3 flex justify-between items-start">
+        <div>
+          <h3 className="text-xl font-semibold mb-2 group-hover:text-accent transition-colors">{project.title}</h3>
+          {project.achievement && (
+            <Badge variant="secondary" className="mb-3">
+              {project.achievement}
+            </Badge>
+          )}
+        </div>
+        <div className="flex space-x-2">
+          <a href={project.github} target="_blank" rel="noopener noreferrer" className="p-2 rounded-full hover:bg-accent/10 transition-colors">
+            <Github className="h-5 w-5" />
+          </a>
+          <a href={project.link} target="_blank" rel="noopener noreferrer" className="p-2 rounded-full hover:bg-accent/10 transition-colors">
+            <ExternalLink className="h-5 w-5" />
+          </a>
+        </div>
+      </div>
+      
+      <p className="text-muted-foreground mb-4 flex-grow">{project.description}</p>
+      
+      <div className="flex flex-wrap gap-2 mb-4">
+        {project.tags.map((tag, tagIndex) => (
+          <Badge key={tagIndex} variant="outline" className="bg-secondary/50">
+            {tag}
+          </Badge>
+        ))}
+      </div>
+    </div>
+  );
+};
+
+// GraphicProjectCard component
+const GraphicProjectCard = ({ project, index, onClick }) => {
+  const cardRef = useRef(null);
+  
+  useEffect(() => {
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add("visible");
+        }
+      },
+      { threshold: 0.1 }
+    );
+
+    if (cardRef.current) {
+      observer.observe(cardRef.current);
+    }
+
+    return () => {
+      if (cardRef.current) {
+        observer.unobserve(cardRef.current);
+      }
+    };
+  }, []);
+
+  return (
+    <div 
+      ref={cardRef}
+      onClick={() => onClick(project.id)}
+      className={cn(
+        "animate-on-scroll glass-card rounded-xl overflow-hidden h-64 cursor-pointer",
+        index % 2 === 0 ? "delay-100" : "delay-300",
+        index % 3 === 2 ? "delay-200" : ""
+      )}
+    >
+      <Card className="h-full overflow-hidden border-0 bg-transparent">
+        <CardContent className="p-6 h-full flex flex-col justify-between">
+          <div>
+            <h3 className="text-xl font-semibold mb-2">
+              {project.name}
+            </h3>
+            <p className="text-sm">
+              {project.description.split("**")[0]}
+              <strong>{project.description.split("**")[1]}</strong>
+            </p>
+          </div>
+          <div className="relative h-32 w-full">
+            <Image
+              src={project.imageSrc}
+              alt={project.name}
+              fill
+              className="object-cover rounded-md"
+            />
+          </div>
+        </CardContent>
+      </Card>
+    </div>
+  );
+};
+
+export function Projects() {
+  const sectionRef = useRef(null);
+  const [selectedGraphicProject, setSelectedGraphicProject] = useState(null);
+
+  useEffect(() => {
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        if (entry.isIntersecting) {
+          const elements = entry.target.querySelectorAll(".animate-on-scroll");
+          elements.forEach((el) => {
+            el.classList.add("visible");
+          });
+        }
+      },
+      { threshold: 0.1 }
+    );
+
+    if (sectionRef.current) {
+      observer.observe(sectionRef.current);
+    }
+
+    return () => {
+      if (sectionRef.current) {
+        observer.unobserve(sectionRef.current);
+      }
+    };
+  }, []);
+
+  return (
+    <section id="projects" className="py-24 sm:py-32" ref={sectionRef}>
+      <div className="container max-w-6xl mx-auto px-4">
+        <div className="text-center mb-16">
+          <h2 className="section-heading animate-on-scroll">
+            Notable <span className="text2-gradient">Projects</span>
+          </h2>
+          <div className="relative w-[400px] h-20 -mb-14 -mt-4 mx-auto">
+            {/* Gradient Lines */}
+            <div className="absolute inset-x-0 top-0 bg-gradient-to-r from-transparent via-indigo-500 to-transparent h-[2px] w-full blur-sm" />
+            <div className="absolute inset-x-0 top-0 bg-gradient-to-r from-transparent via-indigo-500 to-transparent h-px w-full" />
+            <div className="absolute left-1/4 right-1/4 top-0 bg-gradient-to-r from-transparent via-sky-500 to-transparent h-[5px] w-1/2 blur-sm" />
+            <div className="absolute left-1/4 right-1/4 top-0 bg-gradient-to-r from-transparent via-sky-500 to-transparent h-px w-1/2" />
+          </div>
+          <p className="shiny-text section-subheading mx-auto animate-on-scroll delay-200">
+            Innovative solutions I've developed that showcase my skills in AI
+            and software development.
+          </p>
+        </div>
+
         <Tabs defaultValue="software" className="w-full">
           <TabsList className="grid w-full grid-cols-2 mb-8">
             <TabsTrigger value="software">Software Projects</TabsTrigger>
             <TabsTrigger value="graphic">Graphic Projects</TabsTrigger>
           </TabsList>
+
           <TabsContent value="software">
-            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
-              {softwareProjects.map((project) => (
-                <motion.div
-                  key={project.id}
-                  initial={{ opacity: 0, y: 20 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  transition={{ duration: 0.3 }}
-                  onHoverStart={() => setHoveredSoftwareProject(project.id)}
-                  onHoverEnd={() => setHoveredSoftwareProject(null)}
-                  onClick={() => setHoveredSoftwareProject(project.id)} 
-                >
-                  
-                    <Card className="h-full overflow-hidden transition-colors duration-300 hover:bg-primary hover:text-primary-foreground">
-                      <CardContent className="p-6 h-full flex flex-col">
-                        <h3 className="text-xl font-semibold mb-2">
-                          {project.name}
-                        </h3>
-                        <div className="flex-grow">
-                          {hoveredSoftwareProject === project.id ? (
-                            <motion.div
-                              initial={{ opacity: 0 }}
-                              animate={{ opacity: 1 }}
-                              transition={{ duration: 0.3 }}
-                            >
-                              <p className="text-sm mb-4">
-                                {project.description}
-                              </p>
-                              <a
-                                href={project.link}
-                                target="_blank"
-                                rel="noopener noreferrer"
-                                className="inline-flex items-center text-sm font-medium hover:underline"
-                              >
-                                View Project{" "}
-                                <ExternalLink className="ml-1 w-4 h-4" />
-                              </a>
-                            </motion.div>
-                          ) : (
-                            <div className="flex flex-wrap gap-2">
-                              {project.technologies.map((tech) => (
-                                <Badge
-                                  key={tech}
-                                  variant="secondary"
-                                  className="transition-colors duration-300 hover:bg-primary-foreground hover:text-primary"
-                                >
-                                  {tech}
-                                </Badge>
-                              ))}
-                            </div>
-                          )}
-                        </div>
-                      </CardContent>
-                    </Card>
-                  
-                </motion.div>
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+              {projects.map((project, index) => (
+                <ProjectCard key={index} project={project} index={index} />
               ))}
             </div>
           </TabsContent>
+
           <TabsContent value="graphic">
             <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
-              {graphicProjects.map((project) => (
-                <motion.div
+              {graphicProjects.map((project, index) => (
+                <GraphicProjectCard
                   key={project.id}
-                  initial={{ opacity: 0, y: 20 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  transition={{ duration: 0.3 }}
-                  className="relative h-64"
-                  onClick={() => setSelectedGraphicProject(project.id)}
-                >
-                  
-                    <Card className="h-full overflow-hidden">
-                      <CardContent className="p-6 h-full flex flex-col justify-between">
-                        <div>
-                          <h3 className="text-xl font-semibold mb-2">
-                            {project.name}
-                          </h3>
-                          <p className="text-sm">
-                            {project.description.split("**")[0]}
-                            <strong>{project.description.split("**")[1]}</strong>
-                          </p>
-                        </div>
-                        <div className="relative h-32 w-full">
-                          <Image
-                            src={project.imageSrc}
-                            alt={project.name}
-                            fill
-                            className="object-cover"
-                          />
-                        </div>
-                      </CardContent>
-                    </Card>
-                  
-                </motion.div>
+                  project={project}
+                  index={index}
+                  onClick={setSelectedGraphicProject}
+                />
               ))}
             </div>
           </TabsContent>
         </Tabs>
-      </motion.div>
+      </div>
 
       {selectedGraphicProject && (
         <motion.div
@@ -207,8 +274,16 @@ export function Projects() {
           onClick={() => setSelectedGraphicProject(null)}
         >
           <Image
-            src={graphicProjects.find(project => project.id === selectedGraphicProject).imageSrc}
-            alt={graphicProjects.find(project => project.id === selectedGraphicProject).name}
+            src={
+              graphicProjects.find(
+                (project) => project.id === selectedGraphicProject
+              ).imageSrc
+            }
+            alt={
+              graphicProjects.find(
+                (project) => project.id === selectedGraphicProject
+              ).name
+            }
             fill
             className="object-contain"
           />

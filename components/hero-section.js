@@ -1,149 +1,143 @@
-"use client";
+'use client';
 
-import { useEffect, useRef, useState } from "react";
-import { motion, useScroll, useTransform } from "framer-motion";
-import { useTheme } from "next-themes";
-import { cn } from "@/lib/utils";
-import DotPattern from "./ui/dot-pattern";
+import { ArrowDown } from "lucide-react";
+import { motion, useAnimation } from "framer-motion";
+import { useEffect, useRef } from "react";
+import { useInView } from "react-intersection-observer";
+import ImageLoader from "./ImageLoaders";
+import RotatingText from "./ui/RotatingText";
+import { AuroraText } from "./ui/aurora-text";
+import CreativeBtn from "./ui/creativeBtn";
 import { RainbowButton } from "./ui/rainbow-button";
+import { LineShadowText } from "./ui/line-shadow-text";
 
-export function HeroSection() {
-  const ref = useRef(null);
-  const { scrollYProgress } = useScroll({
-    target: ref,
-    offset: ["start start", "end start"],
+
+const Hero = () => {
+  const controls = useAnimation();
+  const [ref, inView] = useInView({
+    triggerOnce: true,
+    threshold: 0.1
   });
 
-  const scrollToSection = (Button) => {
-    const element = document.getElementById(Button);
-    if (element) {
-      element.scrollIntoView({ behavior: "smooth" });
+  useEffect(() => {
+    if (inView) {
+      controls.start("visible");
+    }
+  }, [controls, inView]);
+
+  const fadeInUp = {
+    hidden: { opacity: 0, y: 20 },
+    visible: {
+      opacity: 1,
+      y: 0,
+      transition: {
+        duration: 0.5,
+        staggerChildren: 0.2,
+      }
     }
   };
 
-  const opacity = useTransform(scrollYProgress, [0, 1], [1, 0]);
-  const scale = useTransform(scrollYProgress, [0, 1], [1, 0.8]);
-
-  const { theme } = useTheme(); 
-  const [mounted, setMounted] = useState(false);
-
-  useEffect(() => {
-    setMounted(true);
-  }, []);
-
-  useEffect(() => {
-    if (theme === "dark") {
-      const canvas = document.createElement("canvas");
-      const ctx = canvas.getContext("2d");
-      let animationFrameId;
-
-      const resize = () => {
-        canvas.width = window.innerWidth;
-        canvas.height = window.innerHeight;
-      };
-
-      const particles = [];
-
-      const createParticles = () => {
-        const particleCount = 100;
-        for (let i = 0; i < particleCount; i++) {
-          particles.push({
-            x: Math.random() * canvas.width,
-            y: Math.random() * canvas.height,
-            radius: Math.random() * 1 + 0.4, 
-            vx: Math.random() * 2 - 1,
-            vy: Math.random() * 2 - 1,
-          });
-        }
-      };
-
-      const animate = () => {
-        if (!ctx) return;
-        ctx.clearRect(0, 0, canvas.width, canvas.height);
-
-        particles.forEach((particle) => {
-          particle.x += particle.vx;
-          particle.y += particle.vy;
-
-          if (particle.x < 0 || particle.x > canvas.width) particle.vx *= -1;
-          if (particle.y < 0 || particle.y > canvas.height) particle.vy *= -1;
-
-          ctx.beginPath();
-          ctx.arc(particle.x, particle.y, particle.radius, 0, Math.PI * 2);
-          ctx.fillStyle = "rgba(255, 255, 255, 0.7)";
-          ctx.fill();
-        });
-
-        animationFrameId = requestAnimationFrame(animate);
-      };
-
-      resize();
-      createParticles();
-      animate();
-
-      window.addEventListener("resize", resize);
-
-      const currentRef = ref.current;
-      if (currentRef) {
-        currentRef.appendChild(canvas);
-      }
-
-      return () => {
-        window.removeEventListener("resize", resize);
-        cancelAnimationFrame(animationFrameId);
-        if (currentRef) {
-          currentRef.removeChild(canvas);
-        }
-      };
+  const item = {
+    hidden: { opacity: 0, y: 20 },
+    visible: {
+      opacity: 1,
+      y: 0,
+      transition: { duration: 0.5 }
     }
-  }, [theme]);
+  };
+
+  const handleScrollToExperience = () => {
+    document
+      .getElementById("experience")
+      ?.scrollIntoView({ behavior: "smooth" });
+  };
 
   return (
-    <motion.div
-      id="hero"
-      ref={ref}
-      style={{ opacity, scale }}
-      className={cn(
-        "h-screen flex items-center justify-center relative overflow-hidden",
-        theme === "dark" ? "text-white" : "text-black"
-      )}
+    <section
+      id="home"
+      className="relative min-h-screen pt-20 flex items-center bg-background overflow-hidden"
     >
-      {mounted &&
-        (theme === "light" ? (
-          <DotPattern
-            className={cn(
-              "[mask-image:radial-gradient(600px_circle_at_center,white,transparent)]",
-              "opacity-150"
-            )}
-          />
-        ) : null)}
-      <div className="text-center z-10 absolute inset-0 flex flex-col items-center justify-center mb-20">
-        <motion.h1
-          className="text-4xl sm:text-5xl md:text-6xl font-bold mb-4"
-          initial={{ opacity: 0, y: -50 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ delay: 0.3 }}
+      <div className="absolute inset-0 bg-hero-pattern opacity-10"></div>
+      <div className="container max-w-6xl mx-auto px-4 z-10">
+        <motion.div 
+          ref={ref}
+          initial="hidden"
+          animate={controls}
+          variants={fadeInUp}
+          className="grid grid-cols-1 lg:grid-cols-2 gap-8 items-center"
         >
-          Noorul &nbsp;A &nbsp;Ameen
-        </motion.h1>
-        <motion.p
-          className="text-xl sm:text-2xl md:text-3xl mb-8"
-          initial={{ opacity: 0, y: -50 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ delay: 0.5 }}
-        >
-          Aspiring Software Engineer  &bull; Graphic Designer
-        </motion.p>
-        <motion.div
-          initial={{ opacity: 0, y: -50 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ delay: 0.7 }}
-        >
-          <RainbowButton onClick={() => scrollToSection("about")}>
-            Learn More
-          </RainbowButton>
+          <motion.div variants={item} className="order-2 lg:order-1">
+            <motion.div variants={item} className="inline-block px-3 py-1 mb-4 rounded-full bg-accent/10 text-accent text-sm font-medium">
+              Aspiring Software Engineer
+            </motion.div>
+
+            <motion.h1 variants={item} className="text-4xl sm:text-5xl md:text-6xl font-display font-bold text-balance mb-4 tracking-tight">
+              <span className="mr-3 sm:mr-4">Hello,</span>
+              <RotatingText
+                texts={["I", "Am"]}
+                mainClassName="inline-flex w-[60px] sm:w-[80px] md:w-[100px] px-0.5 sm:px-1 md:px-1.5 text-black overflow-hidden py-0.5 sm:py-1 md:py-2 justify-center"
+                staggerFrom={"last"}
+                initial={{ y: "100%" }}
+                animate={{ y: 0 }}
+                exit={{ y: "-120%" }}
+                staggerDuration={0.025}
+                splitLevelClassName="overflow-hidden pb-0.5 sm:pb-1 md:pb-1 "
+                transition={{ type: "spring", damping: 30, stiffness: 400 }}
+                rotationInterval={2000}
+              />
+              <span className="text-slate-900">
+                <LineShadowText shadowColor={'black'}>
+                  Noorul
+                </LineShadowText>
+              </span>{" "}
+              <AuroraText className="text-transparent bg-clip-text ml-2">
+                Ameen
+              </AuroraText>
+            </motion.h1>
+
+            <motion.p variants={item} className="text-lg md:text-xl text-muted-foreground max-w-xl mb-8">
+              An AI enthusiast and software developer passionate about
+              leveraging technology to create innovative solutions. Currently
+              working as an LLM Trainer at Outlier.
+            </motion.p>
+
+            <motion.div variants={item} className="flex flex-wrap gap-4">
+              <RainbowButton
+                className="rounded-full font-medium shadow-md hover:shadow-lg transition-all"
+                onClick={handleScrollToExperience}
+              >
+                View Experience
+              </RainbowButton>
+              <CreativeBtn />
+            </motion.div>
+          </motion.div>
+
+          <motion.div variants={item} className="order-1 lg:order-2 flex justify-center">
+            <div className="relative">
+              <div className="absolute -z-10 inset-0 rounded-full bg-blue-500 blur-[100px] opacity-70 animate-pulse-subtle"></div>
+              <div className="relative w-64 h-64 md:w-80 md:h-80 overflow-hidden rounded-full glass-card-darker p-1 shadow-xl animate-float">
+                <ImageLoader
+                  src="https://media.licdn.com/dms/image/v2/D5603AQEPC6lv8YlAVQ/profile-displayphoto-shrink_800_800/B56ZTGq8UeHwAc-/0/1738499936339?e=1748476800&v=beta&t=YberPvJ0PzP46xEvUwk9oThnw1H2W1MtIHj7SBu4WKw"
+                  alt="Noorul Ameen"
+                  className="rounded-full"
+                />
+              </div>
+            </div>
+          </motion.div>
         </motion.div>
+
+        <div className="absolute bottom-8 left-1/2 transform -translate-x-1/2 animate-bounce">
+          <a
+            href="#experience"
+            className="flex flex-col items-center text-muted-foreground hover:text-foreground transition-colors"
+          >
+            <span className="text-xs font-medium mb-2">Scroll Down</span>
+            <ArrowDown className="h-5 w-5" />
+          </a>
+        </div>
       </div>
-    </motion.div>
+    </section>
   );
-}
+};
+
+export default Hero;

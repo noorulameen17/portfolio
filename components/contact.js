@@ -1,176 +1,240 @@
-"use client";
-import { motion } from "framer-motion";
-import { Github, Linkedin, Mail } from "lucide-react";
-import { useEffect, useState } from "react";
-import { Alert, AlertDescription, AlertTitle } from "../components/ui/alert";
-import { Button } from "../components/ui/button";
-import { Card, CardContent } from "../components/ui/card";
-import { Input } from "../components/ui/input";
-import { Textarea } from "../components/ui/textarea";
-import { NeonGradientCard } from "./ui/neon-gradient-card";
-import { RiSendPlaneFill } from "react-icons/ri";
+'use client';
 
+import { motion, useMotionValue, useSpring, useTransform } from "framer-motion";
+import { Mail, Phone, MapPin, ExternalLink } from "lucide-react";
+import { BsLinkedin, BsGithub } from "react-icons/bs";
+import { RiTwitterXLine } from "react-icons/ri";
+import { useState, useEffect } from "react";
+import { Sparkles } from "lucide-react";
+import useSound from 'use-sound';
 
-export function Contact() {
-  const [name, setName] = useState("");
-  const [email, setEmail] = useState("");
-  const [message, setMessage] = useState("");
-  const [alert, setAlert] = useState(null);
-
-  const handleSubmit = async (e) => {
-    e.preventDefault();
-    if (!name || !email || !message) {
-      setAlert({
-        type: "error",
-        message: "All fields are required",
-      });
-      return;
-    }
-    try {
-      const response = await fetch("/api/contact", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({ name, email, message }),
-      });
-
-      if (!response.ok) {
-        throw new Error("Network response was not ok");
-      }
-
-      const result = await response.json();
-      console.log("Form submitted successfully:", result);
-      setAlert({ type: "success", message: "Form submitted successfully" });
-      setName("");
-      setEmail("");
-      setMessage("");
-    } catch (error) {
-      console.error("There was a problem with the form submission:", error);
-      setAlert({
-        type: "error",
-        message: "There was a problem with the form submission",
-      });
-    }
-  };
+const Contact = () => {
+  const mouseX = useMotionValue(0);
+  const mouseY = useMotionValue(0);
+  const [playHover] = useSound('/hover.mp3', { volume: 0.5 });
+  const [playClick] = useSound('/click.mp3', { volume: 0.50 });
 
   useEffect(() => {
-    if (alert) {
-      const timer = setTimeout(() => {
-        setAlert(null);
-      }, 3000);
-      return () => clearTimeout(timer);
-    }
-  }, [alert]);
+    const handleMouseMove = (e) => {
+      mouseX.set(e.clientX);
+      mouseY.set(e.clientY);
+    };
+    window.addEventListener("mousemove", handleMouseMove);
+    return () => window.removeEventListener("mousemove", handleMouseMove);
+  }, []);
 
   return (
-    <section id="contact" className="py-16">
-      <motion.div
-        initial={{ opacity: 0, y: 20 }}
-        whileInView={{ opacity: 1, y: 0 }}
-        transition={{ duration: 0.5 }}
-        viewport={{ once: true }}
-      >
-        <h2 className="text-3xl font-bold mb-8 text-center">
-          Contact Me 
-        </h2>
-        {alert && (
-          <motion.div
-            initial={{ opacity: 0, y: -20 }}
-            animate={{ opacity: 1, y: 0 }}
-            exit={{ opacity: 0, y: -20 }}
-            className="mb-8 flex justify-center"
-          >
-            <NeonGradientCard>
-              <Alert variant={alert.type === "success" ? "success" : "error"}>
-                <AlertTitle>
-                  {alert.type === "success" ? "Success" : "Error"}
-                </AlertTitle>
-                <AlertDescription>{alert.message}</AlertDescription>
-              </Alert>
-            </NeonGradientCard>
-          </motion.div>
-        )}
-        <Card>
-          <CardContent className="p-6">
-            <form onSubmit={handleSubmit} className="space-y-4">
-              <div>
-                <label
-                  htmlFor="name"
-                  className="block text-sm font-medium mb-1"
-                >
-                  Name
-                </label>
-                <Input
-                  id="name"
-                  value={name}
-                  onChange={(e) => setName(e.target.value)}
-                  required
-                />
-              </div>
-              <div>
-                <label
-                  htmlFor="email"
-                  className="block text-sm font-medium mb-1"
-                >
-                  Email
-                </label>
-                <Input
-                  id="email"
-                  type="email"
-                  value={email}
-                  onChange={(e) => setEmail(e.target.value)}
-                  required
-                />
-              </div>
-              <div>
-                <label
-                  htmlFor="message"
-                  className="block text-sm font-medium mb-1"
-                >
-                  Message
-                </label>
-                <Textarea
-                  id="message"
-                  value={message}
-                  onChange={(e) => setMessage(e.target.value)}
-                  required
-                />
-              </div>
-              <Button type="submit">
-                Send Message <RiSendPlaneFill />
-              </Button>
-            </form>
-          </CardContent>
-        </Card>
-        <div className="mt-8 flex justify-center space-x-4">
-          <motion.a
-            href="mailto:noorulameen9220@gmail.com"
-            whileHover={{ scale: 1.1 }}
-            whileTap={{ scale: 0.9 }}
-          >
-            <Mail className="w-6 h-6" />
-          </motion.a>
-          <motion.a
-            href="https://www.linkedin.com/in/noorulameen17"
-            target="_blank"
-            rel="noopener noreferrer"
-            whileHover={{ scale: 1.1 }}
-            whileTap={{ scale: 0.9 }}
-          >
-            <Linkedin className="w-6 h-6" />
-          </motion.a>
-          <motion.a
-            href="https://github.com/noorulameen17"
-            target="_blank"
-            rel="noopener noreferrer"
-            whileHover={{ scale: 1.1 }}
-            whileTap={{ scale: 0.9 }}
-          >
-            <Github className="w-6 h-6" />
-          </motion.a>
+    <section className="relative min-h-screen py-24 sm:py-32  bg-white bg-gradient-to-b from-secondary to-background overflow-hidden">
+      {/* Animated particles background */}
+      <div className="absolute inset-0 z-0">
+        <ParticlesBackground />
+      </div>
+
+      <div className="container max-w-6xl mx-auto px-4 relative z-10">
+        <motion.div
+          className="text-center mb-16"
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.8 }}
+        >
+          <span className="px-4 py-2 rounded-full bg-accent/10 text-accent text-sm font-medium inline-flex items-center gap-2 mb-4">
+            <Sparkles className="h-4 w-4" />
+            Let's Create Something Amazing Together
+          </span>
+          <h2 className="text-5xl font-bold mb-4 text2-gradient to-accent bg-clip-text text-transparent">
+            Let's Connect
+          </h2>
+          <div className="relative w-[350px] h-20 -mb-14 -mt-2 mx-auto">
+            {/* Gradient Lines */}
+            <div className="absolute inset-x-0 top-0 bg-gradient-to-r from-transparent via-indigo-500 to-transparent h-[2px] w-full blur-sm" />
+            <div className="absolute inset-x-0 top-0 bg-gradient-to-r from-transparent via-indigo-500 to-transparent h-px w-full" />
+            <div className="absolute left-1/4 right-1/4 top-0 bg-gradient-to-r from-transparent via-sky-500 to-transparent h-[5px] w-1/2 blur-sm" />
+            <div className="absolute left-1/4 right-1/4 top-0 bg-gradient-to-r from-transparent via-sky-500 to-transparent h-px w-1/2" />
+
+            {/* Sparkles with enhanced radial effect */}
+            
+          </div>
+          <p className="shiny-text text-muted-foreground max-w-2xl mx-auto text-lg">
+            Reach out through any of these platforms and let's create something
+            amazing together.
+          </p>
+        </motion.div>
+
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+          {contactMethods.map((method, i) => (
+            <FloatingCard
+              key={method.title}
+              method={method}
+              mouseX={mouseX}
+              mouseY={mouseY}
+              playHover={playHover}
+              playClick={playClick}
+              delay={i * 0.1}
+            />
+          ))}
         </div>
-      </motion.div>
+
+        <motion.div
+          className="mt-16 flex justify-center gap-8"
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          transition={ { delay: 0.5 } }
+          
+        >
+          {socialLinks.map((social) => (
+            <MagneticLink key={social.name} {...social} />
+          ))}
+        </motion.div>
+      </div>
     </section>
   );
-}
+};
+
+const FloatingCard = ({ method, mouseX, mouseY, playHover, playClick, delay }) => {
+  const [isHovered, setIsHovered] = useState(false);
+  const [dimensions, setDimensions] = useState({ width: 0, height: 0 });
+
+  useEffect(() => {
+    setDimensions({
+      width: window.innerWidth,
+      height: window.innerHeight
+    });
+  }, []);
+
+  const rotateX = useSpring(useTransform(mouseY, [0, dimensions.height], [15, -15]));
+  const rotateY = useSpring(useTransform(mouseX, [0, dimensions.width], [-15, 15]));
+
+  return (
+    <motion.div
+      className="relative group"
+      initial={{ opacity: 0, y: 20 }}
+      animate={{ opacity: 1, y: 0 }}
+      transition={{ delay }}
+      style={{
+        perspective: 1000,
+      }}
+      onMouseEnter={() => {
+        setIsHovered(true);
+        playHover();
+      }}
+      onMouseLeave={() => setIsHovered(false)}
+      onClick={playClick}
+    >
+      <motion.div
+        className="glass-card rounded-xl p-6 relative z-10 h-full"
+        style={{
+          rotateX: isHovered ? rotateX : 0,
+          rotateY: isHovered ? rotateY : 0,
+        }}
+        whileHover={{ 
+          scale: 1.05,
+          transition: { duration: 0.2 }
+        }}
+      >
+        <div className="relative z-10">
+          <div className="rounded-full p-3 bg-accent/10 w-fit mb-4">
+            {method.icon}
+          </div>
+          <h3 className="text-xl font-semibold mb-2">{method.title}</h3>
+          <a 
+            href={method.link}
+            target={method.external ? "_blank" : undefined}
+            rel={method.external ? "noopener noreferrer" : undefined}
+            className="text-muted-foreground hover:text-accent transition-colors flex items-center gap-1"
+          >
+            {method.value}
+            {method.external && <ExternalLink className="h-3 w-3" />}
+          </a>
+        </div>
+        <div className="absolute inset-0 bg-gradient-to-br from-accent/20 to-transparent opacity-0 group-hover:opacity-100 transition-opacity rounded-xl" />
+      </motion.div>
+    </motion.div>
+  );
+};
+
+const MagneticLink = ({ name, href, icon }) => {
+  const [position, setPosition] = useState({ x: 0, y: 0 });
+
+  const handleMouseMove = (e) => {
+    const bounds = e.currentTarget.getBoundingClientRect();
+    const x = e.clientX - bounds.left - bounds.width / 2;
+    const y = e.clientY - bounds.top - bounds.height / 2;
+    setPosition({ x: x * 0.3, y: y * 0.3 });
+  };
+
+  const handleMouseLeave = () => setPosition({ x: 0, y: 0 });
+
+  return (
+    <motion.a
+      href={href}
+      target="_blank"
+      rel="noopener noreferrer"
+      className="relative p-4 rounded-full bg-accent/10 text-accent hover:bg-accent hover:text-white transition-colors"
+      animate={{ x: position.x, y: position.y }}
+      transition={{ type: "spring", stiffness: 150, damping: 15 }}
+      onMouseMove={ handleMouseMove }
+      
+      onMouseLeave={handleMouseLeave}
+      whileTap={{ scale: 0.9 }}
+    >
+      {icon}
+      <span className="absolute -bottom-8 left-1/2 transform -translate-x-1/2 opacity-0 group-hover:opacity-100 transition-opacity text-sm">
+        {name}
+      </span>
+    </motion.a>
+  );
+};
+
+const ParticlesBackground = () => {
+  return (
+    <div className="absolute inset-0">
+      {/* Add your preferred particle effect library here */}
+      <div className="absolute w-[500px] h-[500px] rounded-full bg-purple-500/10 blur-3xl -top-48 -left-48 animate-pulse-slow"/>
+      <div className="absolute w-[400px] h-[400px] rounded-full bg-blue-500/10 blur-3xl -bottom-32 -right-32 animate-pulse-slow delay-1000"/>
+    </div>
+  );
+};
+
+const contactMethods = [
+  {
+    title: "Email",
+    value: "noorulameen9220@gmail.com",
+    icon: <Mail className="h-5 w-5 text-accent" />,
+    link: "mailto:noorulameen9220@gmail.com",
+    external: false
+  },
+  {
+    title: "Phone",
+    value: "+91 9952596033",
+    icon: <Phone className="h-5 w-5 text-accent" />,
+    link: "tel:+919952596033",
+    external: false
+  },
+  {
+    title: "Location",
+    value: "Vaniyambadi, Tamil Nadu, India",
+    icon: <MapPin className="h-5 w-5 text-accent" />,
+    link: "https://maps.google.com/?q=Vaniyambadi,Tamil+Nadu,India",
+    external: true
+  }
+];
+
+const socialLinks = [
+  {
+    name: "LinkedIn",
+    href: "https://www.linkedin.com/in/noorulameen17",
+    icon: <BsLinkedin className="h-5 w-5" />
+  },
+  {
+    name: "GitHub",
+    href: "https://github.com/noorulameen17",
+    icon: <BsGithub className="h-5 w-5" />
+  },
+  {
+    name: "Twitter",
+    href: "https://x.com/noorulameen_17",
+    icon: <RiTwitterXLine className="h-5 w-5" />
+  }
+];
+
+export default Contact;

@@ -1,106 +1,195 @@
-"use client";
+'use client';
 
-import { motion } from "framer-motion";
-import { Card, CardContent } from "@/components/ui/card";
-import { Badge } from "@/components/ui/badge";
+import { useState, useEffect, useRef } from "react";
+import { cn } from "@/lib/utils";
+import ImageLoader from "./ImageLoaders";
 
 const experiences = [
   {
-    company: "Read Automation",
-    duration: "Feb 2025 - Present",
-    role: "Web Developer Intern",
-    location: "Chennai, TamilNadu (Remote)",
-    description: [
-      "Developed responsive web applications",
-      "Optimized front-end performance",
-      "Integrated APIs for seamless functionality",
-      "Ensured cross-browser and mobile compatibility",
-      "Enhanced user experience through collaboration"
-    ],
-    skills: ["Next.js", "React.js", "Magic-UI", "Aceternity-UI", "Eldora-UI"],
-  },
-  {
+    title: "LLM Trainer",
     company: "Outlier",
-    duration: "Oct 2024 - Present",
-    role: "AI Trainer",
-    location: "San Francisco, CA (Remote)",
-    description: [
-      "Review and evaluate AI-generated responses",
-      "Ensure high-quality content and model accuracy",
-      "Complete training assessments within deadlines",
-      "Provide feedback for AI performance improvement",
-    ],
-    skills: ["Prompting", "Html", "CSS", "Python", "Java"],
+    period: "Present",
+    description:
+      "Working on training large language models and developing AI solutions.",
+    logoUrl:
+      "https://media.licdn.com/dms/image/v2/D560BAQHgroLObq3Vow/company-logo_400_400/company-logo_400_400/0/1684958729104?e=1748476800&v=beta&t=OhVO2NE6Z7XVVQHKC5kM1_UwdpuCssXngjGqHSBOuc0",
   },
   {
+    title: "Software Engineering Fellow",
     company: "Headstarter AI",
-    duration: "Jul 2024 - Sep 2024",
-    role: "Software Engineering Fellow",
-    location: "New York (Remote)",
+    period: "2024",
     description:
-      "Built three AI projects using React, Material-UI, Next.js, and Firebase - including an Inventory app and an AI Chatbot. Leveraged the Groq API and Clerk for enhanced functionality and innovative solutions. Expanded my skill set and professional network through weekly virtual meetups and collaborative sessions.",
-    skills: [
-      "React",
-      "Next.js",
-      "Firebase",
-      "Material-UI",
-      "Clerk",
-      "Groq API",
-    ],
+      "Participated in AI-focused software engineering fellowship program, developing practical skills in AI application development.",
+    logoUrl:
+      "https://media.licdn.com/dms/image/v2/D4E0BAQGJ5j3fUqrp5Q/company-logo_400_400/company-logo_400_400/0/1708200043507/theheadstarter_logo?e=1748476800&v=beta&t=CrbWfn6yCi2z4fqjfQ4-h55Yv59_-wl3z8pPIjBRopA",
+  },
+  {
+    title: "Web Developer Intern",
+    company: "READ",
+    period: "2025",
+    description:
+      "Developed web applications and gained practical experience in software development practices.",
+    logoUrl:
+      "https://media.licdn.com/dms/image/v2/D4D0BAQExMstlk24B7Q/company-logo_200_200/B4DZTz7.EmG8AM-/0/1739259375223/readautomation1_logo?e=1748476800&v=beta&t=F34HsGjrcn_c31cvRVD3_Rb0O0FpHemZUvgvPpXj5tc",
   },
 ];
 
-export function Experience() {
+const ExperienceItem = ({
+  experience,
+  index,
+  activeIndex,
+  setActiveIndex,
+}) => {
+  const itemRef = useRef(null);
+  const [isClicking, setIsClicking] = useState(false);
+
+  useEffect(() => {
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add("visible");
+        }
+      },
+      { threshold: 0.5 }
+    );
+
+    if (itemRef.current) {
+      observer.observe(itemRef.current);
+    }
+
+    return () => {
+      if (itemRef.current) {
+        observer.unobserve(itemRef.current);
+      }
+    };
+  }, []);
+
+  const handleClick = () => {
+    setIsClicking(true);
+    setActiveIndex(index);
+    
+    // Reset clicking state after animation completes
+    setTimeout(() => setIsClicking(false), 300);
+  };
+
   return (
-    <section id="experience" className="py-16">
-      <motion.div
-        initial={{ opacity: 0, y: 20 }}
-        whileInView={{ opacity: 1, y: 0 }}
-        transition={{ duration: 0.5 }}
-        viewport={{ once: true }}
-      >
-        <h2 className="text-3xl font-bold mb-8 text-center">Experience</h2>
-        <div className="max-w-2xl mx-auto space-y-8">
-          {experiences.map((exp, index) => (
-            <Card key={exp.company} className="w-full">
-              <CardContent className="p-6">
-                <div className="flex justify-between items-start mb-4">
-                  <div>
-                    <h3 className="text-xl font-semibold">{exp.role}</h3>
-                    <p className="text-sm text-muted-foreground">
-                      {exp.location}
-                    </p>
-                  </div>
-                  <div className="text-right">
-                    <h3 className="text-xl font-semibold text-primary">
-                      {exp.company}
-                    </h3>
-                    <span className="text-sm font-medium">{exp.duration}</span>
-                  </div>
-                </div>
-                <div className="mb-4">
-                  {Array.isArray(exp.description) ? (
-                    <ul className="list-disc list-inside">
-                      {exp.description.map((item, idx) => (
-                        <li key={idx}>{item}</li>
-                      ))}
-                    </ul>
-                  ) : (
-                    <p>{exp.description}</p>
-                  )}
-                </div>
-                <div className="flex flex-wrap gap-2">
-                  {exp.skills.map((skill, skillIndex) => (
-                    <Badge key={skillIndex} variant="secondary">
-                      {skill}
-                    </Badge>
-                  ))}
-                </div>
-              </CardContent>
-            </Card>
+    <div
+      ref={itemRef}
+      className={cn(
+        "animate-on-scroll glass-card rounded-xl overflow-hidden transition-all duration-300 cursor-pointer",
+        index % 2 === 0 ? "delay-100" : "delay-300",
+        activeIndex === index ? "ring-2 ring-primary/50 shadow-lg" : "hover:shadow-md hover:translate-y-[-4px]",
+        isClicking ? "transform scale-[0.98]" : "transform scale-100"
+      )}
+      onClick={handleClick}
+      style={{ 
+        transition: "transform 0.2s cubic-bezier(0.175, 0.885, 0.32, 1.275), box-shadow 0.3s ease",
+        opacity: 1 // Ensure opacity remains at 1 throughout
+      }}
+    >
+      <div className="flex items-center p-6">
+        <div className="mr-4 flex-shrink-0">
+          <ImageLoader
+            src={experience.logoUrl}
+            alt={`${experience.company} logo`}
+            className={cn(
+              "w-14 h-14 rounded-md transition-transform duration-300",
+              activeIndex === index ? "scale-110" : ""
+            )}
+          />
+        </div>
+        <div className="w-full">
+          <h3 className={cn(
+            "text-lg font-semibold transition-colors duration-300",
+            activeIndex === index ? "text-primary" : ""
+          )}>
+            {experience.title}
+          </h3>
+          <div className="flex items-center text-sm text-muted-foreground">
+            <span>{experience.company}</span>
+            <span className="mx-2">•</span>
+            <span>{experience.period}</span>
+          </div>
+          <div className={cn(
+            "overflow-hidden transition-all duration-300 ease-in-out",
+            activeIndex === index ? "max-h-24 mt-2" : "max-h-0"
+          )}>
+            <p className="text-sm text-opacity-100">
+              {experience.description}
+            </p>
+          </div>
+        </div>
+      </div>
+    </div>
+  );
+};
+
+const Experience = () => {
+  const [activeIndex, setActiveIndex] = useState(0);
+  const sectionRef = useRef(null);
+
+  useEffect(() => {
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        if (entry.isIntersecting) {
+          const elements = entry.target.querySelectorAll(".animate-on-scroll");
+          elements.forEach((el) => {
+            el.classList.add("visible");
+          });
+        }
+      },
+      { threshold: 0.1 }
+    );
+
+    if (sectionRef.current) {
+      observer.observe(sectionRef.current);
+    }
+
+    return () => {
+      if (sectionRef.current) {
+        observer.unobserve(sectionRef.current);
+      }
+    };
+  }, []);
+
+  return (
+    <section
+      id="experience"
+      className="bg-secondary py-24 sm:py-32"
+      ref={sectionRef}
+    >
+      <div className="container max-w-6xl mx-auto px-4">
+        <div className="text-center mb-16">
+          <h2 className="section-heading animate-on-scroll">
+            Professional <span className="text2-gradient">Experience</span>
+          </h2>
+          <div className="relative w-[600px] h-20 -mb-14 -mt-4 mx-auto">
+            {/* Gradient Lines */}
+            <div className="absolute inset-x-0 top-0 bg-gradient-to-r from-transparent via-indigo-500 to-transparent h-[2px] w-full blur-sm" />
+            <div className="absolute inset-x-0 top-0 bg-gradient-to-r from-transparent via-indigo-500 to-transparent h-px w-full" />
+            <div className="absolute left-1/4 right-1/4 top-0 bg-gradient-to-r from-transparent via-sky-500 to-transparent h-[5px] w-1/2 blur-sm" />
+            <div className="absolute left-1/4 right-1/4 top-0 bg-gradient-to-r from-transparent via-sky-500 to-transparent h-px w-1/2" />
+          </div>
+          <p className="shiny-text section-subheading mx-auto animate-on-scroll delay-200">
+            My journey through different roles that have shaped my career path
+            and expertise in AI and software development.
+          </p>
+        </div>
+
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+          {experiences.map((experience, index) => (
+            <ExperienceItem
+              key={index}
+              experience={experience}
+              index={index}
+              activeIndex={activeIndex}
+              setActiveIndex={setActiveIndex}
+            />
           ))}
         </div>
-      </motion.div>
+      </div>
     </section>
   );
-}
+};
+
+export default Experience;
