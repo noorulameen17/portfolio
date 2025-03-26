@@ -63,7 +63,7 @@ const Education = () => {
             professional journey.
           </p>
         </div>
-        <div className="h-[40rem] w-full flex items-center justify-center">
+        <div className="h-[20rem] w-full flex items-center justify-center">
           <PinContainer title={
             <div className="flex items-center gap-1 text-sm">
               CGPA : 8.5
@@ -71,7 +71,7 @@ const Education = () => {
             </div>
           }>
             <div className="flex basis-full flex-col tracking-tight w-[40rem]">
-              <div className="max-w-3xl mx-auto glass-card rounded-xl overflow-hidden animate-on-scroll bg-white backdrop-blur-sm">
+              <div className="max-w-3xl mx-auto glass-card rounded-xl overflow-hidden animate-on-scroll bg-slate-200 backdrop-blur-sm">
                 <div className="grid grid-cols-1 md:grid-cols-3">
                   <div className="bg-accent p-6 flex items-center justify-center md:h-full">
                     <div className="text-center">

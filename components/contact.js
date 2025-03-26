@@ -1,6 +1,6 @@
 'use client';
 
-import { motion, useMotionValue, useSpring, useTransform } from "framer-motion";
+import { color, motion, useMotionValue, useSpring, useTransform } from "framer-motion";
 import { Mail, Phone, MapPin, ExternalLink } from "lucide-react";
 import { BsLinkedin, BsGithub } from "react-icons/bs";
 import { RiTwitterXLine } from "react-icons/ri";
@@ -52,7 +52,6 @@ const Contact = () => {
             <div className="absolute left-1/4 right-1/4 top-0 bg-gradient-to-r from-transparent via-sky-500 to-transparent h-px w-1/2" />
 
             {/* Sparkles with enhanced radial effect */}
-            
           </div>
           <p className="shiny-text text-muted-foreground max-w-2xl mx-auto text-lg">
             Reach out through any of these platforms and let's create something
@@ -68,7 +67,6 @@ const Contact = () => {
               mouseX={mouseX}
               mouseY={mouseY}
               playHover={playHover}
-              playClick={playClick}
               delay={i * 0.1}
             />
           ))}
@@ -78,11 +76,14 @@ const Contact = () => {
           className="mt-16 flex justify-center gap-8"
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
-          transition={ { delay: 0.5 } }
-          
+          transition={{ delay: 0.5 }}
         >
           {socialLinks.map((social) => (
-            <MagneticLink key={social.name} {...social} />
+            <MagneticLink 
+              key={social.name} 
+              {...social} 
+              playClick={playClick} 
+            />
           ))}
         </motion.div>
       </div>
@@ -90,7 +91,7 @@ const Contact = () => {
   );
 };
 
-const FloatingCard = ({ method, mouseX, mouseY, playHover, playClick, delay }) => {
+const FloatingCard = ({ method, mouseX, mouseY, playHover, delay }) => {
   const [isHovered, setIsHovered] = useState(false);
   const [dimensions, setDimensions] = useState({ width: 0, height: 0 });
 
@@ -118,7 +119,6 @@ const FloatingCard = ({ method, mouseX, mouseY, playHover, playClick, delay }) =
         playHover();
       }}
       onMouseLeave={() => setIsHovered(false)}
-      onClick={playClick}
     >
       <motion.div
         className="glass-card rounded-xl p-6 relative z-10 h-full"
@@ -152,7 +152,7 @@ const FloatingCard = ({ method, mouseX, mouseY, playHover, playClick, delay }) =
   );
 };
 
-const MagneticLink = ({ name, href, icon }) => {
+const MagneticLink = ({ name, href, icon, playClick, hoverColor }) => {
   const [position, setPosition] = useState({ x: 0, y: 0 });
 
   const handleMouseMove = (e) => {
@@ -169,11 +169,11 @@ const MagneticLink = ({ name, href, icon }) => {
       href={href}
       target="_blank"
       rel="noopener noreferrer"
-      className="relative p-4 rounded-full bg-accent/10 text-accent hover:bg-accent hover:text-white transition-colors"
+      className={`relative p-4 rounded-full bg-accent/10 text-accent transition-colors ${hoverColor || 'hover:bg-accent hover:text-white'}`}
       animate={{ x: position.x, y: position.y }}
       transition={{ type: "spring", stiffness: 150, damping: 15 }}
-      onMouseMove={ handleMouseMove }
-      
+      onMouseMove={handleMouseMove}
+      onClick={playClick}
       onMouseLeave={handleMouseLeave}
       whileTap={{ scale: 0.9 }}
     >
@@ -221,19 +221,21 @@ const contactMethods = [
 
 const socialLinks = [
   {
+    name: "GitHub",
+    href: "https://github.com/noorulameen17",
+    icon: <BsGithub className="h-5 w-5" style={{ color: "#000000" }} />,
+    hoverColor: "hover:text-slate-600"
+  },
+  {
     name: "LinkedIn",
     href: "https://www.linkedin.com/in/noorulameen17",
     icon: <BsLinkedin className="h-5 w-5" />
   },
   {
-    name: "GitHub",
-    href: "https://github.com/noorulameen17",
-    icon: <BsGithub className="h-5 w-5" />
-  },
-  {
     name: "Twitter",
     href: "https://x.com/noorulameen_17",
-    icon: <RiTwitterXLine className="h-5 w-5" />
+    icon: <RiTwitterXLine className="h-5 w-5" style={{ color: "#000000" }} />,
+    hoverColor: "hover:text-slate-600"
   }
 ];
 

@@ -30,21 +30,19 @@ const Navbar = () => {
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
 
-  // Prevent hydration errors by not rendering content that depends on browser APIs until mounted
-  if (!mounted) {
-    return <header className="fixed top-0 left-0 right-0 z-50 py-5" />;
-  }
-
   return (
     <header
       className={cn(
         "fixed top-0 left-0 right-0 z-50 transition-all duration-300 ease-in-out",
-        scrolled
+        scrolled && mounted
           ? "bg-white/80 dark:bg-gray-900/80 backdrop-blur-md shadow-sm py-3"
           : "bg-transparent py-5"
       )}
     >
-      <div className="container max-w-6xl mx-auto px-4 flex items-center justify-between">
+      <div className={cn(
+        "container max-w-6xl mx-auto px-4 flex items-center justify-between",
+        !mounted && "opacity-0"
+      )}>
         <a
           href="#home"
           className="text-xl font-display font-bold text-primary flex items-center gap-2"
