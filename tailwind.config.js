@@ -226,7 +226,6 @@ module.exports = {
         "fade-in-left": "fade-in-left 0.5s ease-out",
         "scale-in": "scale-in 0.3s ease-out",
         "blur-in": "blur-in 0.4s ease-out",
-        float: "float 3s ease-in-out infinite",
         "pulse-subtle": "pulse-subtle 2s ease-in-out infinite",
         "line-shadow": "line-shadow 15s linear infinite",
       },

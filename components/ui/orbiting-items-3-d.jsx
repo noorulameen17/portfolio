@@ -1,16 +1,22 @@
+'use client';
 import { useEffect, useState } from "react";
-import { Apple, BadgeCent, BadgeInfo, BadgeX, Banana, Bolt, Computer } from "lucide-react";
-
+import { Apple, BadgeCent, BadgeInfo, BadgeX, Banana, Bolt } from "lucide-react";
+import Image from "next/image";
 import { cn } from "@/lib/utils";
 
 export const CenterIcon = (
-    <Computer
-        className="center z-0 h-32 w-32 animate-float rounded-full bg-gradient-to-r from-purple-400 to-blue-400 shadow-lg"
-        style={{
-            boxShadow: "0 0 20px 10px rgba(128, 90, 213, 0.6)",
-        }}
-    />
+    <div className="center z-0 h-80 w-80">
+        <Image
+            src="/3d.gif"
+            alt="3D Animation"
+            width={128}
+            height={128}
+            className="w-full h-full object-cover"
+            unoptimized
+        />
+    </div>
 );
+
 export const LucideIcons = [
     <Banana key="banana" className="h-12 w-12" />,
     <Bolt key="bolt" className="h-12 w-12" />,

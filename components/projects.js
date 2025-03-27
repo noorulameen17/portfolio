@@ -1,72 +1,86 @@
 "use client";
 
-import { useState, useRef, useEffect } from "react";
-import { cn } from "@/lib/utils";
-import { Button } from "@/components/ui/button";
+import { CardBody, CardContainer, CardItem } from "@/components/ui/3d-card";
 import { Badge } from "@/components/ui/badge";
-import { ExternalLink, Github } from "lucide-react";
-import { Tabs, TabsContent, TabsList, TabsTrigger } from "../components/ui/tabs";
-import Image from "next/image";
+import { cn } from "@/lib/utils";
 import { motion } from "framer-motion";
-import { Card, CardContent } from "../components/ui/card";
+import { ExternalLink, Github } from "lucide-react";
+import Image from "next/image";
+import { useEffect, useRef, useState } from "react";
+import {
+  Tabs,
+  TabsContent,
+  TabsList,
+  TabsTrigger,
+} from "../components/ui/tabs";
+import CircularGallery from "./ui/CircularGallery";
 
 // Software projects data
 const projects = [
   {
     title: "Emergence AI",
-    description: "Disaster management system that uses artificial intelligence to predict, monitor, and coordinate responses to natural disasters. Features real-time data analysis and resource allocation.",
-    tags: ["React", "Next.js", "Material-UI", "Clerk", "Cerebras", "Vercel", "Motion"],
+    description:
+      "Disaster management system that uses artificial intelligence to predict, monitor, and coordinate responses to natural disasters. Features real-time data analysis and resource allocation.",
+    tags: [
+      "React",
+      "Next.js",
+      "Material-UI",
+      "Clerk",
+      "Cerebras",
+      "Vercel",
+      "Motion",
+    ],
     link: "https://emergenceai.vercel.app/",
-    github: "#"
+    github: "#",
+    image: "/emergence 1.png",
   },
   {
     title: "Fitgen",
-    description: "AI-powered diet planner that won 3rd place at IHack'25. Utilizes machine learning to create personalized nutrition plans based on individual goals and health metrics.",
-    tags: ["React", "Next.js", "Material-UI", "Shadcn/UI", "Magic-UI", "Clerk", "Cerebras-SDK"],
+    description:
+      "AI-powered diet planner that won 3rd place at IHack'25. Utilizes machine learning to create personalized nutrition plans based on individual goals and health metrics.",
+    tags: [
+      "React",
+      "Next.js",
+      "Material-UI",
+      "Shadcn/UI",
+      "Magic-UI",
+      "Clerk",
+      "Cerebras-SDK",
+    ],
     achievement: "3rd Place at IHack'25",
     link: "https://fitgen-ai.vercel.app/",
-    github: "#"
+    github: "#",
+    image: "/fitgen1.png",
   },
 ];
 
-// Graphic projects data
 const graphicProjects = [
   {
-    id: 1,
-    name: "Avocado Shake",
-    description: "Vibrant flyer design for a local restaurant. **Click to view.**",
-    imageSrc: "/Avocado Shake.png?height=1080&width=1080",
+    image: "/Avocado Shake.png?height=1080&width=1080",
+    text: "Avocado Shake",
   },
   {
-    id: 2,
-    name: "Mango Lassi",
-    description: "A refreshing and vibrant flyer design for a local restaurant. **Click to view.**",
-    imageSrc: "/Mango Lassi.png?height=1080&width=1080",
+    image: "/Mango Lassi.png?height=1080&width=1080",
+    text: "Mango Lassi",
   },
   {
-    id: 3,
-    name: "Chicken Momos",
-    description: "A refreshing and vibrant flyer design for a local restaurant. **Click to view.**",
-    imageSrc: "/chicken Momos.png?height=400&width=300",
+    image: "/chicken Momos.png?height=400&width=300",
+    text: "Chicken Momos",
   },
   {
-    id: 4,
-    name: "Veg Combo",
-    description: "A refreshing and vibrant flyer design for a local restaurant. **Click to view.**",
-    imageSrc: "/1.png?height=400&width=300",
+    image: "/1.png?height=400&width=300",
+    text: "Veg Combo",
   },
   {
-    id: 5,
-    name: "Non Veg Combo",
-    description: "A refreshing and vibrant flyer design for a local restaurant. **Click to view.**",
-    imageSrc: "/2.jpeg?height=400&width=300",
-  }
+    image: "/2.jpeg?height=400&width=300",
+    text: "Non Veg Combo",
+  },
 ];
 
 // ProjectCard component
 const ProjectCard = ({ project, index }) => {
   const cardRef = useRef(null);
-  
+
   useEffect(() => {
     const observer = new IntersectionObserver(
       ([entry]) => {
@@ -89,102 +103,87 @@ const ProjectCard = ({ project, index }) => {
   }, []);
 
   return (
-    <div 
-      ref={cardRef}
-      className={cn(
-        "animate-on-scroll glass-card rounded-xl p-6 group h-full flex flex-col",
-        index % 2 === 0 ? "delay-100" : "delay-300"
-      )}
-    >
-      <div className="mb-3 flex justify-between items-start">
-        <div>
-          <h3 className="text-xl font-semibold mb-2 group-hover:text-accent transition-colors">{project.title}</h3>
-          {project.achievement && (
-            <Badge variant="secondary" className="mb-3">
-              {project.achievement}
-            </Badge>
-          )}
-        </div>
-        <div className="flex space-x-2">
-          <a href={project.github} target="_blank" rel="noopener noreferrer" className="p-2 rounded-full hover:bg-accent/10 transition-colors">
-            <Github className="h-5 w-5" />
-          </a>
-          <a href={project.link} target="_blank" rel="noopener noreferrer" className="p-2 rounded-full hover:bg-accent/10 transition-colors">
-            <ExternalLink className="h-5 w-5" />
-          </a>
-        </div>
-      </div>
-      
-      <p className="text-muted-foreground mb-4 flex-grow">{project.description}</p>
-      
-      <div className="flex flex-wrap gap-2 mb-4">
-        {project.tags.map((tag, tagIndex) => (
-          <Badge key={tagIndex} variant="outline" className="bg-secondary/50">
-            {tag}
-          </Badge>
-        ))}
-      </div>
-    </div>
-  );
-};
+    
+    <CardContainer className="inter-var">
+      <CardBody
+        ref={cardRef}
+        className="bg-gray-50 relative group/card dark:hover:shadow-2xl dark:hover:shadow-emerald-500/[0.1] dark:bg-black dark:border-white/[0.2] border-black/[0.1] w-auto h-auto rounded-xl p-6 border animate-on-scroll"
+      >
+        <CardItem
+          translateZ="50"
+          className="text-xl font-bold text-neutral-600 dark:text-white"
+        >
+          {project.title}
+        </CardItem>
+        
+        <CardItem
+          as="p"
+          translateZ="60"
+          className="text-neutral-500 text-sm max-w-sm mt-2 dark:text-neutral-300"
+        >
+          {project.description}
+        </CardItem>
+        
+        {project.achievement && (
+          <CardItem
+            translateZ="60"
+            className="mt-2"
+          >
+            <Badge variant="secondary">{project.achievement}</Badge>
+          </CardItem>
+        )}
 
-// GraphicProjectCard component
-const GraphicProjectCard = ({ project, index, onClick }) => {
-  const cardRef = useRef(null);
-  
-  useEffect(() => {
-    const observer = new IntersectionObserver(
-      ([entry]) => {
-        if (entry.isIntersecting) {
-          entry.target.classList.add("visible");
-        }
-      },
-      { threshold: 0.1 }
-    );
-
-    if (cardRef.current) {
-      observer.observe(cardRef.current);
-    }
-
-    return () => {
-      if (cardRef.current) {
-        observer.unobserve(cardRef.current);
-      }
-    };
-  }, []);
-
-  return (
-    <div 
-      ref={cardRef}
-      onClick={() => onClick(project.id)}
-      className={cn(
-        "animate-on-scroll glass-card rounded-xl overflow-hidden h-64 cursor-pointer",
-        index % 2 === 0 ? "delay-100" : "delay-300",
-        index % 3 === 2 ? "delay-200" : ""
-      )}
-    >
-      <Card className="h-full overflow-hidden border-0 bg-transparent">
-        <CardContent className="p-6 h-full flex flex-col justify-between">
-          <div>
-            <h3 className="text-xl font-semibold mb-2">
-              {project.name}
-            </h3>
-            <p className="text-sm">
-              {project.description.split("**")[0]}
-              <strong>{project.description.split("**")[1]}</strong>
-            </p>
-          </div>
-          <div className="relative h-32 w-full">
+        {project.image && (
+          <CardItem translateZ="100" className="w-full mt-4">
             <Image
-              src={project.imageSrc}
-              alt={project.name}
-              fill
-              className="object-cover rounded-md"
+              src={project.image}
+              alt={project.title}
+              width={500}
+              height={300}
+              className="h-60 w-full object-cover rounded-xl group-hover/card:shadow-xl"
             />
+          </CardItem>
+        )}
+
+        <div className="flex justify-between items-center mt-6">
+          <CardItem
+            translateZ={20}
+            as="a"
+            href={project.github}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="px-4 py-2 rounded-xl text-xs font-normal dark:text-white"
+          >
+            GitHub <Github className="h-3 w-3 inline ml-1" />
+          </CardItem>
+          
+          <CardItem
+            translateZ={20}
+            as="a"
+            href={project.link}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="px-4 py-2 rounded-xl bg-black dark:bg-white dark:text-black text-white text-xs font-bold"
+          >
+            Live Demo
+          </CardItem>
+        </div>
+        
+        <CardItem translateZ="30" className="w-full mt-4">
+          <div className="flex flex-wrap gap-2">
+            {project.tags.map((tag, tagIndex) => (
+              <Badge
+                key={`${project.title}-${tagIndex}`}
+                variant="outline"
+                className="bg-secondary/50 text-xs"
+              >
+                {tag}
+              </Badge>
+            ))}
           </div>
-        </CardContent>
-      </Card>
-    </div>
+        </CardItem>
+      </CardBody>
+    </CardContainer>
   );
 };
 
@@ -251,15 +250,14 @@ export function Projects() {
           </TabsContent>
 
           <TabsContent value="graphic">
-            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
-              {graphicProjects.map((project, index) => (
-                <GraphicProjectCard
-                  key={project.id}
-                  project={project}
-                  index={index}
-                  onClick={setSelectedGraphicProject}
-                />
-              ))}
+            <div className="h-[500px] w-full">
+              <CircularGallery
+                items={graphicProjects}
+                bend={3}
+                textColor="#ffffff"
+                borderRadius={0.05}
+                font="bold 24px DM Sans"
+              />
             </div>
           </TabsContent>
         </Tabs>
