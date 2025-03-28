@@ -24,7 +24,10 @@ const Contact = () => {
   }, []);
 
   return (
-    <section className="relative min-h-screen py-24 sm:py-32  bg-white bg-gradient-to-b from-secondary to-background overflow-hidden">
+    <section
+      id="contact"
+      className="relative min-h-screen py-24 sm:py-32  bg-slate-950 bg-gradient-to-b from-secondary to-background overflow-hidden"
+    >
       {/* Animated particles background */}
       <div className="absolute inset-0 z-0">
         <ParticlesBackground />
@@ -79,11 +82,7 @@ const Contact = () => {
           transition={{ delay: 0.5 }}
         >
           {socialLinks.map((social) => (
-            <MagneticLink 
-              key={social.name} 
-              {...social} 
-              playClick={playClick} 
-            />
+            <MagneticLink key={social.name} {...social} playClick={playClick} />
           ))}
         </motion.div>
       </div>

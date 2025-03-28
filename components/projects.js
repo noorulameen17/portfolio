@@ -2,9 +2,8 @@
 
 import { CardBody, CardContainer, CardItem } from "@/components/ui/3d-card";
 import { Badge } from "@/components/ui/badge";
-import { cn } from "@/lib/utils";
 import { motion } from "framer-motion";
-import { ExternalLink, Github } from "lucide-react";
+import { Github } from "lucide-react";
 import Image from "next/image";
 import { useEffect, useRef, useState } from "react";
 import {
@@ -15,12 +14,11 @@ import {
 } from "../components/ui/tabs";
 import CircularGallery from "./ui/CircularGallery";
 
-// Software projects data
 const projects = [
   {
     title: "Emergence AI",
     description:
-      "Disaster management system that uses artificial intelligence to predict, monitor, and coordinate responses to natural disasters. Features real-time data analysis and resource allocation.",
+      "Emergence AI is an intelligent disaster management system that provides concise, actionable advice for before, during, and after disasters. The AI assistant helps users prepare for, respond to, and recover from emergency situations with clear and direct guidance.",
     tags: [
       "React",
       "Next.js",
@@ -31,7 +29,7 @@ const projects = [
       "Motion",
     ],
     link: "https://emergenceai.vercel.app/",
-    github: "#",
+    github: "https://github.com/noorulameen17/Emergence_AI",
     image: "/emergence 1.png",
   },
   {
@@ -49,7 +47,7 @@ const projects = [
     ],
     achievement: "3rd Place at IHack'25",
     link: "https://fitgen-ai.vercel.app/",
-    github: "#",
+    github: "https://github.com/noorulameen17/FitGen-AI",
     image: "/fitgen1.png",
   },
 ];
@@ -103,11 +101,10 @@ const ProjectCard = ({ project, index }) => {
   }, []);
 
   return (
-    
     <CardContainer className="inter-var">
       <CardBody
         ref={cardRef}
-        className="bg-gray-50 relative group/card dark:hover:shadow-2xl dark:hover:shadow-emerald-500/[0.1] dark:bg-black dark:border-white/[0.2] border-black/[0.1] w-auto h-auto rounded-xl p-6 border animate-on-scroll"
+        className="bg-gradient-to-b from-gray-100 to-gray-300 relative group/card dark:hover:shadow-2xl dark:hover:shadow-emerald-500/[0.1] dark:bg-black dark:border-white/[0.2] border-black/[0.1] w-auto h-auto rounded-xl p-6 border animate-on-scroll"
       >
         <CardItem
           translateZ="50"
@@ -115,7 +112,7 @@ const ProjectCard = ({ project, index }) => {
         >
           {project.title}
         </CardItem>
-        
+
         <CardItem
           as="p"
           translateZ="60"
@@ -123,12 +120,9 @@ const ProjectCard = ({ project, index }) => {
         >
           {project.description}
         </CardItem>
-        
+
         {project.achievement && (
-          <CardItem
-            translateZ="60"
-            className="mt-2"
-          >
+          <CardItem translateZ="60" className="mt-2">
             <Badge variant="secondary">{project.achievement}</Badge>
           </CardItem>
         )}
@@ -156,7 +150,7 @@ const ProjectCard = ({ project, index }) => {
           >
             GitHub <Github className="h-3 w-3 inline ml-1" />
           </CardItem>
-          
+
           <CardItem
             translateZ={20}
             as="a"
@@ -168,7 +162,7 @@ const ProjectCard = ({ project, index }) => {
             Live Demo
           </CardItem>
         </div>
-        
+
         <CardItem translateZ="30" className="w-full mt-4">
           <div className="flex flex-wrap gap-2">
             {project.tags.map((tag, tagIndex) => (
@@ -216,10 +210,14 @@ export function Projects() {
   }, []);
 
   return (
-    <section id="projects" className="py-24 sm:py-32" ref={sectionRef}>
+    <section
+      id="projects"
+      className="py-24 sm:py-32 bg-slate-950 text-white"
+      ref={sectionRef}
+    >
       <div className="container max-w-6xl mx-auto px-4">
         <div className="text-center mb-16">
-          <h2 className="section-heading animate-on-scroll">
+          <h2 className="section-heading animate-on-scroll text-white">
             Notable <span className="text2-gradient">Projects</span>
           </h2>
           <div className="relative w-[400px] h-20 -mb-14 -mt-4 mx-auto">
@@ -229,14 +227,14 @@ export function Projects() {
             <div className="absolute left-1/4 right-1/4 top-0 bg-gradient-to-r from-transparent via-sky-500 to-transparent h-[5px] w-1/2 blur-sm" />
             <div className="absolute left-1/4 right-1/4 top-0 bg-gradient-to-r from-transparent via-sky-500 to-transparent h-px w-1/2" />
           </div>
-          <p className="shiny-text section-subheading mx-auto animate-on-scroll delay-200">
+          <p className="shiny-text section-subheading mx-auto animate-on-scroll delay-200 text-gray-300">
             Innovative solutions I've developed that showcase my skills in AI
             and software development.
           </p>
         </div>
 
         <Tabs defaultValue="software" className="w-full">
-          <TabsList className="grid w-full grid-cols-2 mb-8">
+          <TabsList className="grid w-full grid-cols-2 mb-8 text-gray-300">
             <TabsTrigger value="software">Software Projects</TabsTrigger>
             <TabsTrigger value="graphic">Graphic Projects</TabsTrigger>
           </TabsList>

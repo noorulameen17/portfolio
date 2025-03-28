@@ -59,88 +59,82 @@ export default function Navbar() {
     return `${baseClasses} ${responsiveClasses} ${workButtonClasses}`;
   };
 
-  // Create a non-animated version for initial render
-  if (!isMounted) {
-    return (
-      <header className="fixed inset-x-0 top-0 z-50 flex justify-center pointer-events-none mt-4 sm:mt-6 md:mt-8">
-        <div className="px-4 py-2">
-          <nav className="flex items-center justify-center rounded-full px-2 gap-1 sm:gap-2 pointer-events-auto bg-black/20 backdrop-blur-lg border border-white/10 backdrop-saturate-150">
-            {navItems.map((item) => (
-              <a
-                key={item.name}
-                href={item.path}
-                className={getNavItemClass(item.name)}
-              >
-                {item.name}
-              </a>
-            ))}
+  // Common header element structure for both server and client render
+  const headerClassName = "fixed inset-x-0 top-0 z-50 flex justify-center pointer-events-none mt-4 sm:mt-6 md:mt-8";
+  
+  const navClassName = `flex items-center justify-center rounded-full px-2 gap-1 sm:gap-2 pointer-events-auto ${
+    scrolled
+      ? "bg-black/60 backdrop-blur-xl border border-white/10 backdrop-saturate-150"
+      : "bg-black/20 backdrop-blur-lg border border-white/10 backdrop-saturate-150"
+  }`;
+
+  // Shared nav items rendering logic
+  const renderNavItems = () => (
+    navItems.map((item, index) => (
+      <a
+        key={item.name}
+        href={item.path}
+        className={getNavItemClass(item.name)}
+        onClick={(e) => scrollToSection(e, item.path)}
+      >
+        {item.name}
+      </a>
+    ))
+  );
+
+  const renderResumeLink = () => (
+    <Link
+      href="/resume"
+      className="flex items-center gap-0.5 xs:gap-1 px-1.5 py-1 xs:px-3 sm:px-4 md:px-6 md:py-3 text-white font-medium text-[10px] xs:text-xs sm:text-sm transition-all duration-200 hover:opacity-80"
+    >
+      Resume{" "}
+      <ArrowUpRight className="h-2.5 w-2.5 xs:h-3 xs:w-3 sm:h-4 sm:w-4" />
+    </Link>
+  );
+
+  // Use the same HTML structure for initial render on both server and client
+  return (
+    <header className={headerClassName}>
+      <div className="px-4 py-2">
+        {!isMounted ? (
+          // Non-animated version for server render and initial client render
+          <nav className={navClassName}>
+            {renderNavItems()}
             <div>
-              <Link
-                href="/resume"
-                className="flex items-center gap-0.5 xs:gap-1 px-1.5 py-1 xs:px-3 sm:px-4 md:px-6 md:py-3 text-white font-medium text-[10px] xs:text-xs sm:text-sm transition-all duration-200 hover:opacity-80"
-              >
-                Resume{" "}
-                <ArrowUpRight className="h-2.5 w-2.5 xs:h-3 xs:w-3 sm:h-4 sm:w-4" />
-              </Link>
+              {renderResumeLink()}
             </div>
           </nav>
-        </div>
-      </header>
-    );
-  }
-
-  // Return animated version after client-side mount
-  return (
-    <motion.header
-      initial={{ opacity: 0, y: -20 }}
-      animate={{ opacity: 1, y: 0 }}
-      transition={{ duration: 0.8, ease: "easeOut" }}
-      className="fixed inset-x-0 top-0 z-50 flex justify-center pointer-events-none mt-4 sm:mt-6 md:mt-8"
-    >
-      <motion.div
-        initial={{ opacity: 0, scale: 0.95 }}
-        animate={{ opacity: 1, scale: 1 }}
-        transition={{ duration: 0.8, delay: 0.2 }}
-        className="px-4 py-2"
-      >
-        <motion.nav
-          initial={{ opacity: 0, y: 10 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.8, delay: 0.4 }}
-          className={`flex items-center justify-center rounded-full px-2 gap-1 sm:gap-2 pointer-events-auto ${
-            scrolled
-              ? "bg-black/60 backdrop-blur-xl border border-white/10 backdrop-saturate-150"
-              : "bg-black/20 backdrop-blur-lg border border-white/10 backdrop-saturate-150"
-          }`}
-        >
-          {navItems.map((item, index) => (
-            <motion.a
-              key={item.name}
-              initial={{ opacity: 0, y: 10 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.8, delay: 0.4 + index * 0.1 }}
-              href={item.path}
-              className={getNavItemClass(item.name)}
-              onClick={(e) => scrollToSection(e, item.path)}
-            >
-              {item.name}
-            </motion.a>
-          ))}
-          <motion.div
+        ) : (
+          // Only render animated version after hydration is complete
+          <motion.nav
             initial={{ opacity: 0, y: 10 }}
             animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.8, delay: 0.8 }}
+            transition={{ duration: 0.8, delay: 0.4 }}
+            className={navClassName}
           >
-            <Link
-              href="/resume"
-              className="flex items-center gap-0.5 xs:gap-1 px-1.5 py-1 xs:px-3 sm:px-4 md:px-6 md:py-3 text-white font-medium text-[10px] xs:text-xs sm:text-sm transition-all duration-200 hover:opacity-80"
+            {navItems.map((item, index) => (
+              <motion.a
+                key={item.name}
+                initial={{ opacity: 0, y: 10 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.8, delay: 0.4 + index * 0.1 }}
+                href={item.path}
+                className={getNavItemClass(item.name)}
+                onClick={(e) => scrollToSection(e, item.path)}
+              >
+                {item.name}
+              </motion.a>
+            ))}
+            <motion.div
+              initial={{ opacity: 0, y: 10 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.8, delay: 0.8 }}
             >
-              Resume{" "}
-              <ArrowUpRight className="h-2.5 w-2.5 xs:h-3 xs:w-3 sm:h-4 sm:w-4" />
-            </Link>
-          </motion.div>
-        </motion.nav>
-      </motion.div>
-    </motion.header>
+              {renderResumeLink()}
+            </motion.div>
+          </motion.nav>
+        )}
+      </div>
+    </header>
   );
 }

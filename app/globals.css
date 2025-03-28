@@ -93,7 +93,7 @@
   }
 
   body {
-    @apply bg-background text-foreground;
+    @apply bg-slate-950 text-foreground;
     font-feature-settings: "rlig" 1, "calt" 1;
   }
 
@@ -170,7 +170,7 @@ html {
 }
 
 .text2-gradient {
-  background: linear-gradient(290deg, rgb(152, 148, 148)0%, rgba(0, 0, 0, 1) 80%);
+  background: linear-gradient(290deg, rgba(0, 0, 0, 1) 0%, rgba(255, 255, 255, 1) 80%);
   -webkit-background-clip: text;
   background-clip: text;
   -webkit-text-fill-color: transparent;

@@ -21,12 +21,12 @@ export default function Skills() {
       <div className="text-center mb-16">
         <div className="relative inline-block">
           <motion.h2
-            className="text2-gradient section-heading animate-on-scroll"
+            className="section-heading animate-on-scroll text-white"
             initial={{ opacity: 0, y: -20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.5 }}
           >
-            Skills & Expertise
+            Skills & <span className="text2-gradient">Expertise</span>
           </motion.h2>
           <motion.div
             className="absolute -right-8 top-0"
@@ -36,7 +36,7 @@ export default function Skills() {
           ></motion.div>
         </div>
 
-        <div className="relative w-[100px] h-20 -mb-14 -mt-6 mx-auto">
+        <div className="relative w-[400px] h-20 -mb-14 -mt-6 mx-auto">
           {/* Gradient Lines */}
           <div className="absolute inset-x-0 top-0 bg-gradient-to-r from-transparent via-indigo-500 to-transparent h-[2px] w-full blur-sm" />
           <div className="absolute inset-x-0 top-0 bg-gradient-to-r from-transparent via-indigo-500 to-transparent h-px w-full" />

@@ -3,32 +3,30 @@
 import { useState, useEffect, useRef } from "react";
 import { cn } from "@/lib/utils";
 import ImageLoader from "./ImageLoaders";
+import { PinContainer } from "@/components/ui/3d-pin";
 
 const experiences = [
   {
     title: "LLM Trainer",
     company: "Outlier",
-    period: "Present",
-    description:
-      "Working on training large language models and developing AI solutions.",
+    period: "Oct 2024 - Present",
+    description: "Working on training large language models.",
     logoUrl:
       "https://media.licdn.com/dms/image/v2/D560BAQHgroLObq3Vow/company-logo_400_400/company-logo_400_400/0/1684958729104?e=1748476800&v=beta&t=OhVO2NE6Z7XVVQHKC5kM1_UwdpuCssXngjGqHSBOuc0",
   },
   {
     title: "Software Engineering Fellow",
     company: "Headstarter AI",
-    period: "2024",
-    description:
-      "Participated in AI-focused software engineering fellowship program, developing practical skills in AI application development.",
+    period: "Jul - Sep 2024",
+    description: "Completed SWE AI fellowship, honed AI development skills.",
     logoUrl:
       "https://media.licdn.com/dms/image/v2/D4E0BAQGJ5j3fUqrp5Q/company-logo_400_400/company-logo_400_400/0/1708200043507/theheadstarter_logo?e=1748476800&v=beta&t=CrbWfn6yCi2z4fqjfQ4-h55Yv59_-wl3z8pPIjBRopA",
   },
   {
-    title: "Web Developer Intern",
-    company: "READ",
-    period: "2025",
-    description:
-      "Developed web applications and gained practical experience in software development practices.",
+    title: "Web Developer",
+    company: "READ Automation",
+    period: "Feb 2025",
+    description: "Built web apps, mastered software development.",
     logoUrl:
       "https://media.licdn.com/dms/image/v2/D4D0BAQExMstlk24B7Q/company-logo_200_200/B4DZTz7.EmG8AM-/0/1739259375223/readautomation1_logo?e=1748476800&v=beta&t=F34HsGjrcn_c31cvRVD3_Rb0O0FpHemZUvgvPpXj5tc",
   },
@@ -64,63 +62,57 @@ const ExperienceItem = ({
     };
   }, []);
 
-  const handleClick = () => {
-    setIsClicking(true);
-    setActiveIndex(index);
-    
-    // Reset clicking state after animation completes
-    setTimeout(() => setIsClicking(false), 300);
-  };
+  
 
   return (
-    <div
-      ref={itemRef}
-      className={cn(
-        "animate-on-scroll glass-card rounded-xl overflow-hidden transition-all duration-300 cursor-pointer",
-        index % 2 === 0 ? "delay-100" : "delay-300",
-        activeIndex === index ? "ring-2 ring-primary/50 shadow-lg" : "hover:shadow-md hover:translate-y-[-4px]",
-        isClicking ? "transform scale-[0.98]" : "transform scale-100"
-      )}
-      onClick={handleClick}
-      style={{ 
-        transition: "transform 0.2s cubic-bezier(0.175, 0.885, 0.32, 1.275), box-shadow 0.3s ease",
-        opacity: 1 // Ensure opacity remains at 1 throughout
-      }}
+    <PinContainer
+      title={experience.period} // Display working years instead of title
+      href="#experience"
+      containerClassName="w-full h-full"
     >
-      <div className="flex items-center p-6">
-        <div className="mr-4 flex-shrink-0">
-          <ImageLoader
-            src={experience.logoUrl}
-            alt={`${experience.company} logo`}
-            className={cn(
-              "w-14 h-14 rounded-md transition-transform duration-300",
-              activeIndex === index ? "scale-110" : ""
-            )}
-          />
-        </div>
-        <div className="w-full">
-          <h3 className={cn(
-            "text-lg font-semibold transition-colors duration-300",
-            activeIndex === index ? "text-primary" : ""
-          )}>
-            {experience.title}
-          </h3>
-          <div className="flex items-center text-sm text-muted-foreground">
-            <span>{experience.company}</span>
-            <span className="mx-2">•</span>
-            <span>{experience.period}</span>
+      <div
+        ref={itemRef}
+        className={cn(
+          "animate-on-scroll glass-card bg-slate-200 rounded-xl overflow-hidden transition-all duration-300 cursor-pointer",
+          "w-full md:w-[350px]", // Increase card width
+          index % 2 === 0 ? "delay-100" : "delay-300",
+          activeIndex === index ? "ring-2 ring-primary/50 shadow-lg" : "",
+          isClicking ? "transform scale-[0.98]" : "transform scale-100"
+        )}
+        
+      >
+        <div className="flex items-center p-6">
+          <div className="mr-4 flex-shrink-0">
+            <ImageLoader
+              src={experience.logoUrl}
+              alt={`${experience.company} logo`}
+              className={cn(
+                "w-14 h-14 rounded-md transition-transform duration-300",
+                activeIndex === index ? "scale-110" : ""
+              )}
+            />
           </div>
-          <div className={cn(
-            "overflow-hidden transition-all duration-300 ease-in-out",
-            activeIndex === index ? "max-h-24 mt-2" : "max-h-0"
-          )}>
-            <p className="text-sm text-opacity-100">
-              {experience.description}
-            </p>
+          <div className="w-full">
+            <h3 className={cn(
+              "text-lg font-semibold transition-colors duration-300",
+              activeIndex === index ? "text-primary" : ""
+            )}>
+              {experience.title}
+            </h3>
+            <div className="flex items-center text-sm text-muted-foreground">
+              <span>{experience.company}</span>
+              <span className="mx-2">•</span>
+              <span>{experience.period}</span>
+            </div>
+            <div className="overflow-hidden transition-all duration-300 ease-in-out max-h-24 mt-2">
+              <p className="text-sm text-opacity-100">
+                {experience.description}
+              </p>
+            </div>
           </div>
         </div>
       </div>
-    </div>
+    </PinContainer>
   );
 };
 
@@ -155,12 +147,12 @@ const Experience = () => {
   return (
     <section
       id="experience"
-      className="bg-secondary py-24 sm:py-32"
+      className="bg-slate-950 py-24 sm:py-32"
       ref={sectionRef}
     >
       <div className="container max-w-6xl mx-auto px-4">
         <div className="text-center mb-16">
-          <h2 className="section-heading animate-on-scroll">
+          <h2 className="section-heading text-white animate-on-scroll">
             Professional <span className="text2-gradient">Experience</span>
           </h2>
           <div className="relative w-[600px] h-20 -mb-14 -mt-4 mx-auto">
@@ -176,7 +168,7 @@ const Experience = () => {
           </p>
         </div>
 
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 md:gap-20"> {/* Increased gap */}
           {experiences.map((experience, index) => (
             <ExperienceItem
               key={index}
