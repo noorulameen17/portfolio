@@ -1,6 +1,7 @@
 'use client';
 
 import { color, motion, useMotionValue, useSpring, useTransform } from "framer-motion";
+import ShinyText from "./ui/ShinyText";
 import { Mail, Phone, MapPin, ExternalLink } from "lucide-react";
 import { BsLinkedin, BsGithub } from "react-icons/bs";
 import { RiTwitterXLine } from "react-icons/ri";
@@ -26,13 +27,8 @@ const Contact = () => {
   return (
     <section
       id="contact"
-      className="relative min-h-screen py-24 sm:py-32  bg-slate-950 bg-gradient-to-b from-secondary to-background overflow-hidden"
+      className="relative min-h-screen py-24 sm:py-32 overflow-hidden"
     >
-      {/* Animated particles background */}
-      <div className="absolute inset-0 z-0">
-        <ParticlesBackground />
-      </div>
-
       <div className="container max-w-6xl mx-auto px-4 relative z-10">
         <motion.div
           className="text-center mb-16"
@@ -56,10 +52,14 @@ const Contact = () => {
 
             {/* Sparkles with enhanced radial effect */}
           </div>
-          <p className="shiny-text text-muted-foreground max-w-2xl mx-auto text-lg">
-            Reach out through any of these platforms and let's create something
-            amazing together.
-          </p>
+          <ShinyText
+            text="Reach out through any of these platforms and let's create something
+            amazing together"
+            disabled={false}
+            speed={3}
+            className="custom-class"
+          />
+         
         </motion.div>
 
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
@@ -120,7 +120,7 @@ const FloatingCard = ({ method, mouseX, mouseY, playHover, delay }) => {
       onMouseLeave={() => setIsHovered(false)}
     >
       <motion.div
-        className="glass-card rounded-xl p-6 relative z-10 h-full"
+        className="bg-slate-300 rounded-xl p-6 relative z-10 h-full"
         style={{
           rotateX: isHovered ? rotateX : 0,
           rotateY: isHovered ? rotateY : 0,
@@ -184,35 +184,26 @@ const MagneticLink = ({ name, href, icon, playClick, hoverColor }) => {
   );
 };
 
-const ParticlesBackground = () => {
-  return (
-    <div className="absolute inset-0">
-      {/* Add your preferred particle effect library here */}
-      <div className="absolute w-[500px] h-[500px] rounded-full bg-purple-500/10 blur-3xl -top-48 -left-48 animate-pulse-slow"/>
-      <div className="absolute w-[400px] h-[400px] rounded-full bg-blue-500/10 blur-3xl -bottom-32 -right-32 animate-pulse-slow delay-1000"/>
-    </div>
-  );
-};
 
 const contactMethods = [
   {
     title: "Email",
     value: "noorulameen9220@gmail.com",
-    icon: <Mail className="h-5 w-5 text-accent" />,
+    icon: <Mail className="h-5 w-5 text-white" />,
     link: "mailto:noorulameen9220@gmail.com",
     external: false
   },
   {
     title: "Phone",
     value: "+91 9952596033",
-    icon: <Phone className="h-5 w-5 text-accent" />,
+    icon: <Phone className="h-5 w-5 text-white" />,
     link: "tel:+919952596033",
     external: false
   },
   {
     title: "Location",
     value: "Vaniyambadi, Tamil Nadu, India",
-    icon: <MapPin className="h-5 w-5 text-accent" />,
+    icon: <MapPin className="h-5 w-5 text-white" />,
     link: "https://maps.google.com/?q=Vaniyambadi,Tamil+Nadu,India",
     external: true
   }
@@ -222,19 +213,19 @@ const socialLinks = [
   {
     name: "GitHub",
     href: "https://github.com/noorulameen17",
-    icon: <BsGithub className="h-5 w-5" style={{ color: "#000000" }} />,
-    hoverColor: "hover:text-slate-600"
+    icon: <BsGithub className="h-5 w-5 text-white" />,
+    hoverColor: "hover:bg-slate-500"
   },
   {
     name: "LinkedIn",
     href: "https://www.linkedin.com/in/noorulameen17",
-    icon: <BsLinkedin className="h-5 w-5" />
+    icon: <BsLinkedin className="h-5 w-5 text-white" />
   },
   {
     name: "Twitter",
     href: "https://x.com/noorulameen_17",
-    icon: <RiTwitterXLine className="h-5 w-5" style={{ color: "#000000" }} />,
-    hoverColor: "hover:text-slate-600"
+    icon: <RiTwitterXLine className="h-5 w-5 text-white" />,
+    hoverColor: "hover:bg-slate-500"
   }
 ];
 

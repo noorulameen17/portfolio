@@ -12,6 +12,7 @@ import {
   TabsList,
   TabsTrigger,
 } from "../components/ui/tabs";
+import ShinyText from "./ui/ShinyText";
 import CircularGallery from "./ui/CircularGallery";
 
 const projects = [
@@ -227,10 +228,13 @@ export function Projects() {
             <div className="absolute left-1/4 right-1/4 top-0 bg-gradient-to-r from-transparent via-sky-500 to-transparent h-[5px] w-1/2 blur-sm" />
             <div className="absolute left-1/4 right-1/4 top-0 bg-gradient-to-r from-transparent via-sky-500 to-transparent h-px w-1/2" />
           </div>
-          <p className="shiny-text section-subheading mx-auto animate-on-scroll delay-200 text-gray-300">
-            Innovative solutions I've developed that showcase my skills in AI
-            and software development.
-          </p>
+          <ShinyText
+            text="Innovative solutions I've developed that showcase my skills in AI
+            and software development."
+            disabled={false}
+            speed={3}
+            className="custom-class"
+          />
         </div>
 
         <Tabs defaultValue="software" className="w-full">

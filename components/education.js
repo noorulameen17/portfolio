@@ -4,6 +4,7 @@ import { useRef, useEffect } from "react";
 import ImageLoader from "./ImageLoaders";
 import { BookOpen, Calendar, Star } from "lucide-react";
 import { PinContainer } from "./ui/3d-pin";
+import ShinyText from "./ui/ShinyText";
 const education = {
   university: "Thiruvalluvar University",
   location: "Vellore",
@@ -57,19 +58,23 @@ const Education = () => {
             <div className="absolute left-1/4 right-1/4 top-0 bg-gradient-to-r from-transparent via-sky-500 to-transparent h-[5px] w-1/2 blur-sm" />
             <div className="absolute left-1/4 right-1/4 top-0 bg-gradient-to-r from-transparent via-sky-500 to-transparent h-px w-1/2" />
           </div>
-
-          <p className="shiny-text section-subheading mx-auto animate-on-scroll delay-200">
-            My academic background that has provided the foundation for my
-            professional journey.
-          </p>
+          <ShinyText
+            text="My academic background that has provided the foundation for my
+            professional journey"
+            disabled={false}
+            speed={3}
+            className="custom-class"
+          />
         </div>
         <div className="h-[20rem] w-full flex items-center justify-center">
-          <PinContainer title={
-            <div className="flex items-center gap-1 text-sm">
-              CGPA : 8.5
-              <Star className="w-3.5 h-3.5 fill-yellow-400 stroke-yellow-400" />
-            </div>
-          }>
+          <PinContainer
+            title={
+              <div className="flex items-center gap-1 text-sm">
+                CGPA : 8.5
+                <Star className="w-3.5 h-3.5 fill-yellow-400 stroke-yellow-400" />
+              </div>
+            }
+          >
             <div className="flex basis-full flex-col tracking-tight w-[40rem]">
               <div className="max-w-3xl mx-auto glass-card rounded-xl overflow-hidden animate-on-scroll bg-slate-200 backdrop-blur-sm">
                 <div className="grid grid-cols-1 md:grid-cols-3">
@@ -85,12 +90,16 @@ const Education = () => {
                       <h3 className="text-white font-semibold">
                         {education.university}
                       </h3>
-                      <p className="text-white/70 text-sm">{education.location}</p>
+                      <p className="text-white/70 text-sm">
+                        {education.location}
+                      </p>
                     </div>
                   </div>
 
                   <div className="p-6 md:col-span-2">
-                    <h3 className="text-xl font-semibold mb-2 text-gray-900">{education.degree}</h3>
+                    <h3 className="text-xl font-semibold mb-2 text-gray-900">
+                      {education.degree}
+                    </h3>
                     <div className="flex items-center text-sm text-gray-600 mb-4">
                       <Calendar className="w-4 h-4 mr-1" />
                       <span>{education.period}</span>
@@ -100,7 +109,9 @@ const Education = () => {
                     </p>
                     <div className="flex items-center">
                       <BookOpen className="w-5 h-5 text-accent mr-2" />
-                      <span className="text-sm font-medium text-gray-900">Computer Science</span>
+                      <span className="text-sm font-medium text-gray-900">
+                        Computer Science
+                      </span>
                     </div>
                   </div>
                 </div>

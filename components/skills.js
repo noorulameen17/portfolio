@@ -3,6 +3,7 @@
 import { motion } from "framer-motion";
 import Image from "next/image";
 import OrbitingItems3D from "./ui/orbiting-items-3-d";
+import ShinyText from "./ui/ShinyText";
 import {
   SiMui,
   SiClerk,
@@ -44,12 +45,16 @@ export default function Skills() {
           <div className="absolute left-1/4 right-1/4 top-0 bg-gradient-to-r from-transparent via-sky-500 to-transparent h-px w-1/2" />
         </div>
         <motion.p
-          className="shiny-text section-subheading mx-auto animate-on-scroll"
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
           transition={{ duration: 0.5, delay: 0.2 }}
         >
-          A comprehensive showcase of my technical abilities and expertise
+          <ShinyText
+            text="A comprehensive showcase of my technical abilities and expertise"
+            disabled={false}
+            speed={3}
+            className="custom-class"
+          />
         </motion.p>
       </div>
 

@@ -4,6 +4,7 @@ import { useState, useEffect, useRef } from "react";
 import { cn } from "@/lib/utils";
 import ImageLoader from "./ImageLoaders";
 import { PinContainer } from "@/components/ui/3d-pin";
+import ShinyText from "./ui/ShinyText";
 
 const experiences = [
   {
@@ -162,13 +163,18 @@ const Experience = () => {
             <div className="absolute left-1/4 right-1/4 top-0 bg-gradient-to-r from-transparent via-sky-500 to-transparent h-[5px] w-1/2 blur-sm" />
             <div className="absolute left-1/4 right-1/4 top-0 bg-gradient-to-r from-transparent via-sky-500 to-transparent h-px w-1/2" />
           </div>
-          <p className="shiny-text section-subheading mx-auto animate-on-scroll delay-200">
-            My journey through different roles that have shaped my career path
-            and expertise in AI and software development.
-          </p>
+          <ShinyText
+            text="My journey through different roles that have shaped my career path
+            and expertise in AI and software development."
+            disabled={false}
+            speed={3}
+            className="custom-class"
+          />
         </div>
 
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 md:gap-20"> {/* Increased gap */}
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 md:gap-20">
+          {" "}
+          {/* Increased gap */}
           {experiences.map((experience, index) => (
             <ExperienceItem
               key={index}

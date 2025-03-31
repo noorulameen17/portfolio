@@ -1,8 +1,17 @@
-'use client';
+"use client";
 
 import { ArrowUp } from "lucide-react";
+import { useEffect, useState } from "react";
+import ImageLoader from "./ImageLoaders";
+import { Sparkles } from "./ui/sparkles";
 
 const Footer = () => {
+  const [isHovered, setIsHovered] = useState(null);
+  const [isMounted, setIsMounted] = useState(false);
+
+  useEffect(() => {
+    setIsMounted(true);
+  }, []);
   const scrollToTop = () => {
     window.scrollTo({
       top: 0,
@@ -11,107 +20,122 @@ const Footer = () => {
   };
 
   return (
-    <footer className="bg-primary text-primary-foreground pt-12 pb-8">
-      <div className="container max-w-6xl mx-auto px-4">
-        <div className="flex flex-col md:flex-row justify-between items-center mb-8">
-          <div className="mb-6 md:mb-0">
-            <a
-              href="#home"
-              className="text-2xl font-display font-bold flex items-center gap-2"
-            >
-              <span className="bg-accent text-white px-2 py-0.5 rounded">
-                NA
-              </span>
-              Noorul Ameen
-            </a>
-            <p className="mt-3 text-primary-foreground/70 max-w-md">
-              AI enthusiast and software developer passionate about leveraging
-              technology to create innovative solutions.
-            </p>
-          </div>
+    <div>
+      <div className="relative">
+        <footer className="relative text-white py-2 xs:py-3 sm:py-6 md:py-4 lg:py-8 px-4 xs:px-6 sm:px-8 lg:px-12 w-full bottom-0 rounded-t-[25px] xs:rounded-t-[30px] sm:rounded-t-[35px] lg:rounded-t-[40px] overflow-hidden">
+          <div className="container max-w-6xl mx-auto px-4 relative z-10">
+            <div className="flex flex-col md:flex-row justify-between items-center mb-8">
+              <div className="flex flex-col items-center xs:items-start space-y-2 xs:space-y-3 sm:space-y-6 md:space-y-4 lg:space-y-8">
+                <div className="relative flex justify-center md:-mb-12">
+                  {/* Decreased size for md (tablet) viewport */}
+                  <div className="relative h-36 w-36 xs:h-28 xs:w-28 sm:h-32 sm:w-32 md:h-28 md:w-28 lg:h-40 lg:w-40 xl:h-44 xl:w-44">
+                    <style jsx>{`
+                      .rotating-text {
+                        animation-name: rotate-circle;
+                        animation-duration: 10s;
+                        animation-timing-function: linear;
+                        animation-iteration-count: infinite;
+                        opacity: ${isMounted ? 1 : 0};
+                        transition: opacity 0.3s ease-in;
+                      }
 
-          <div className="flex flex-col items-center md:items-end">
-            <button
-              onClick={scrollToTop}
-              className="group bg-accent/20 hover:bg-accent text-accent hover:text-white rounded-full p-3 transition-colors mb-4"
-              aria-label="Scroll to top"
-            >
-              <ArrowUp className="h-5 w-5 transition-transform group-hover:-translate-y-1" />
-            </button>
+                      .counter-rotate {
+                        animation-name: rotate-circle;
+                        animation-direction: reverse;
+                        animation-duration: 5s;
+                        animation-timing-function: linear;
+                        animation-iteration-count: infinite;
+                      }
 
-            <div className="flex space-x-3">
-              <a
-                href="https://linkedin.com/"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="bg-primary-foreground/10 hover:bg-primary-foreground/20 rounded-full p-2 transition-colors"
-                aria-label="LinkedIn"
-              >
-                <svg
-                  className="w-5 h-5"
-                  fill="currentColor"
-                  viewBox="0 0 24 24"
+                      @keyframes rotate-circle {
+                        to {
+                          transform: rotate(1turn);
+                        }
+                      }
+                    `}</style>
+
+                    {/* Wrapper div around both SVG and image */}
+                    <div className="relative w-full h-full">
+                      {/* Circular rotating text SVG */}
+                      <svg
+                        className="rotating-text absolute inset-0 w-full h-full"
+                        viewBox="0 0 200 200"
+                        width="100%"
+                        height="100%"
+                      >
+                        <defs>
+                          <path
+                            id="circle"
+                            d="M 100, 100 m -85, 0 a 85, 85 0 1, 0 170, 0 a 85, 85 0 1, 0 -170, 0"
+                          />
+                        </defs>
+                        <text width="400" fill="white">
+                          <textPath
+                            alignmentBaseline="top"
+                            href="#circle"
+                            className="uppercase text-xs xs:text-base font-semibold tracking-[0.18rem]"
+                          >
+                            LET&apos;S • TALK • LET&apos;S • TALK • LET&apos;S •
+                            TALK • LET&apos;S • TALK •
+                          </textPath>
+                        </text>
+                      </svg>
+
+                      {/* Center image - restored to original size */}
+                      <div className="absolute inset-0 flex items-center justify-center">
+                        <div className="h-[65%] w-[65%] overflow-hidden rounded-full border-white/20">
+                          <ImageLoader
+                            src="https://media.licdn.com/dms/image/v2/D5603AQEPC6lv8YlAVQ/profile-displayphoto-shrink_800_800/B56ZTGq8UeHwAc-/0/1738499936339?e=1748476800&v=beta&t=YberPvJ0PzP46xEvUwk9oThnw1H2W1MtIHj7SBu4WKw"
+                            alt="Noorul Ameen"
+                            className="rounded-full"
+                          />
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <div className="flex flex-col items-center md:items-end">
+                <button
+                  onClick={scrollToTop}
+                  className="group bg-accent/20 hover:bg-accent text-accent hover:text-white rounded-full p-3 transition-colors mb-4"
+                  aria-label="Scroll to top"
                 >
-                  <path d="M19 0h-14c-2.761 0-5 2.239-5 5v14c0 2.761 2.239 5 5 5h14c2.762 0 5-2.239 5-5v-14c0-2.761-2.238-5-5-5zm-11 19h-3v-11h3v11zm-1.5-12.268c-.966 0-1.75-.79-1.75-1.764s.784-1.764 1.75-1.764 1.75.79 1.75 1.764-.783 1.764-1.75 1.764zm13.5 12.268h-3v-5.604c0-3.368-4-3.113-4 0v5.604h-3v-11h3v1.765c1.396-2.586 7-2.777 7 2.476v6.759z" />
-                </svg>
-              </a>
-              <a
-                href="https://github.com/"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="bg-primary-foreground/10 hover:bg-primary-foreground/20 rounded-full p-2 transition-colors"
-                aria-label="GitHub"
-              >
-                <svg
-                  className="w-5 h-5"
-                  fill="currentColor"
-                  viewBox="0 0 24 24"
-                >
-                  <path d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z" />
-                </svg>
-              </a>
-              <a
-                href="https://twitter.com/"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="bg-primary-foreground/10 hover:bg-primary-foreground/20 rounded-full p-2 transition-colors"
-                aria-label="Twitter"
-              >
-                <svg
-                  className="w-5 h-5"
-                  fill="currentColor"
-                  viewBox="0 0 24 24"
-                >
-                  <path d="M23.953 4.57a10 10 0 01-2.825.775 4.958 4.958 0 002.163-2.723 10.1 10.1 0 01-3.127 1.184 4.92 4.92 0 00-8.384 4.482C7.69 8.095 4.067 6.13 1.64 3.162a4.822 4.822 0 00-.666 2.475c0 1.71.87 3.213 2.188 4.096a4.904 4.904 0 01-2.228-.616v.06a4.923 4.923 0 003.946 4.827 4.996 4.996 0 01-2.212.085 4.936 4.936 0 004.604 3.417 9.867 9.867 0 01-6.102 2.105c-.39 0-.779-.023-1.17-.067a13.995 13.995 0 007.557 2.209c9.053 0 13.998-7.496 13.998-13.985 0-.21 0-.42-.015-.63A9.935 9.935 0 0024 4.59z" />
-                </svg>
-              </a>
+                  <ArrowUp className="h-5 w-5 transition-transform group-hover:-translate-y-1" />
+                </button>
+
+              </div>
+            </div>
+
+            {/* Bottom section with solid background */}
+            <div className="relative mt-12">
+              {" "}
+              {/* Changed from border-t and adjusted margin */}
+              <div className="relative z-20 flex flex-col md:flex-row justify-between items-center">
+                <p className="text-sm text-primary-foreground/70 mb-4 md:mb-0">
+                  © {new Date().getFullYear()} Noorul Ameen. All rights
+                  reserved.
+                </p>
+              </div>
             </div>
           </div>
-        </div>
 
-        <div className="border-t border-primary-foreground/10 pt-8 mt-8">
-          <div className="flex flex-col md:flex-row justify-between items-center">
-            <p className="text-sm text-primary-foreground/70 mb-4 md:mb-0">
-              © {new Date().getFullYear()} Noorul Ameen. All rights reserved.
-            </p>
-            <div className="flex space-x-6">
-              <a
-                href="#"
-                className="text-sm text-primary-foreground/70 hover:text-primary-foreground transition-colors"
-              >
-                Privacy Policy
-              </a>
-              <a
-                href="#"
-                className="text-sm text-primary-foreground/70 hover:text-primary-foreground transition-colors"
-              >
-                Terms of Service
-              </a>
-            </div>
+          {/* Updated Gradient and Sparkles effect */}
+          <div className="absolute -bottom-28 h-[360px] w-[200vw] left-1/2 -translate-x-1/2 overflow-hidden [mask-image:radial-gradient(50%_50%,white,transparent)] before:absolute before:inset-0 before:bg-[radial-gradient(circle_at_bottom_center,#3273ff,transparent_90%)] before:opacity-40 after:absolute after:-left-1/2 after:top-1/2 after:aspect-[1/0.7] after:w-[200%] ">
+            <Sparkles
+              density={1000}
+              speed={1.2}
+              size={1.5}
+              direction="top"
+              opacitySpeed={2}
+              color="#32A7FF"
+              className="absolute inset-x-0 bottom-0 h-full w-full"
+            />
           </div>
-        </div>
+        </footer>
       </div>
-    </footer>
+    </div>
   );
 };
 
