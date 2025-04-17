@@ -5,7 +5,7 @@ import Image from "next/image";
 import { cn } from "@/lib/utils";
 
 export const CenterIcon = (
-    <div className="center z-0 h-80 w-80">
+    <div className="center z-0 h-40 w-40 sm:h-56 sm:w-56 md:h-72 md:w-72 lg:h-80 lg:w-80">
         <Image
             src="/3d.gif"
             alt="3D Animation"
@@ -79,7 +79,7 @@ export default function OrbitingItems3D({
     return (
         <div
             className={cn(
-                "storybook-fix group flex items-center justify-center py-32",
+                "storybook-fix group flex items-center justify-center py-16 sm:py-24 md:py-32",
                 containerClassName,
             )}
         >
@@ -91,7 +91,7 @@ export default function OrbitingItems3D({
             />
             <div
                 className={cn(
-                    "relative flex h-64 w-64 items-center justify-center ease-linear repeat-infinite",
+                    "relative flex h-60 w-60 sm:h-80 sm:w-80 md:h-96 md:w-96 lg:h-[28rem] lg:w-[28rem] items-center justify-center ease-linear repeat-infinite",
                     className,
                 )}
             >
@@ -100,7 +100,7 @@ export default function OrbitingItems3D({
                     return (
                         <div
                             key={index}
-                            className="absolute flex h-20 w-20 items-center justify-center rounded-full bg-white/30 shadow-xl shadow-purple-500/30 backdrop-blur-md transition-transform duration-500 ease-out"
+                            className="absolute flex h-12 w-12 sm:h-16 sm:w-16 md:h-20 md:w-20 items-center justify-center rounded-full bg-white/30 shadow-xl shadow-purple-500/30 backdrop-blur-md transition-transform duration-500 ease-out"
                             style={CalculateItemStyle({
                                 index,
                                 radiusX,

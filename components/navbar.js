@@ -28,8 +28,8 @@ export default function Navbar() {
 
   const navItems = [
     { name: "Work", path: "#projects" },
-    { name: "Services", path: "#services" },
-    { name: "About Me", path: "#about-me" },
+    { name: "Skills", path: "#skills" },
+    { name: "About Me", path: "#home" },
     { name: "Contact", path: "#contact" },
   ];
 

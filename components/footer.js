@@ -4,6 +4,7 @@ import { ArrowUp } from "lucide-react";
 import { useEffect, useState } from "react";
 import ImageLoader from "./ImageLoaders";
 import { Sparkles } from "./ui/sparkles";
+import LEDBoard from "./ui/led-board";
 
 const Footer = () => {
   const [isHovered, setIsHovered] = useState(null);
@@ -99,12 +100,11 @@ const Footer = () => {
               <div className="flex flex-col items-center md:items-end">
                 <button
                   onClick={scrollToTop}
-                  className="group bg-accent/20 hover:bg-accent text-accent hover:text-white rounded-full p-3 transition-colors mb-4"
+                  className="group bg-accent/20 hover:bg-accent text-accent hover:text-white rounded-full p-3 transition-colors -mb-16"
                   aria-label="Scroll to top"
                 >
                   <ArrowUp className="h-5 w-5 transition-transform group-hover:-translate-y-1" />
                 </button>
-
               </div>
             </div>
 
@@ -117,6 +117,9 @@ const Footer = () => {
                   © {new Date().getFullYear()} Noorul Ameen. All rights
                   reserved.
                 </p>
+                <div className="w-full md:w-[400px] lg:w-[600px] xl:w-[800px] md:absolute md:right-4 md:-top-20 md:-translate-y-12 md:-translate-x-16">
+                  <LEDBoard word="CONNECT WITH ME" />
+                </div>
               </div>
             </div>
           </div>

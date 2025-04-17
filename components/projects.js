@@ -228,13 +228,15 @@ export function Projects() {
             <div className="absolute left-1/4 right-1/4 top-0 bg-gradient-to-r from-transparent via-sky-500 to-transparent h-[5px] w-1/2 blur-sm" />
             <div className="absolute left-1/4 right-1/4 top-0 bg-gradient-to-r from-transparent via-sky-500 to-transparent h-px w-1/2" />
           </div>
-          <ShinyText
-            text="Innovative solutions I've developed that showcase my skills in AI
-            and software development."
-            disabled={false}
-            speed={3}
-            className="custom-class"
-          />
+          <div className="text-sm sm:text-base">
+            <ShinyText
+              text="Innovative solutions I've developed that showcase my skills in AI
+              and software development."
+              disabled={false}
+              speed={3}
+              className="custom-class"
+            />
+          </div>
         </div>
 
         <Tabs defaultValue="software" className="w-full">
@@ -244,7 +246,7 @@ export function Projects() {
           </TabsList>
 
           <TabsContent value="software">
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 sm:gap-6 md:gap-8">
               {projects.map((project, index) => (
                 <ProjectCard key={index} project={project} index={index} />
               ))}
@@ -252,13 +254,13 @@ export function Projects() {
           </TabsContent>
 
           <TabsContent value="graphic">
-            <div className="h-[500px] w-full">
+            <div className="h-[300px] sm:h-[400px] md:h-[500px] w-full">
               <CircularGallery
                 items={graphicProjects}
                 bend={3}
                 textColor="#ffffff"
                 borderRadius={0.05}
-                font="bold 24px DM Sans"
+                font="bold clamp(16px, 2vw, 24px) DM Sans"
               />
             </div>
           </TabsContent>

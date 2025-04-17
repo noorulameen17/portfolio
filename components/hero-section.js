@@ -10,6 +10,7 @@ import { AuroraText } from "./ui/aurora-text";
 import { RainbowButton } from "./ui/rainbow-button";
 import { LineShadowText } from "./ui/line-shadow-text";
 import { LuMouse } from "react-icons/lu";
+import { Sparkles } from "./ui/sparkles";
 
 
 const Hero = () => {
@@ -100,9 +101,9 @@ const Hero = () => {
               <span className="text-white">
                 <LineShadowText shadowColor={"white"}>Noorul</LineShadowText>
               </span>{" "}
-              <AuroraText className="text-transparent bg-clip-text ml-2">
-                Ameen
-              </AuroraText>
+              <span className="text-white">
+                <LineShadowText shadowColor={"white"}>Ameen</LineShadowText>
+              </span>{" "}
             </motion.h1>
 
             <motion.p
@@ -121,14 +122,13 @@ const Hero = () => {
               >
                 View Experience
               </RainbowButton>
-              
+
               <RainbowButton
                 className="rounded-full font-medium shadow-md hover:shadow-lg transition-all"
                 onClick={handleScrollToContact}
               >
                 Contact Me
               </RainbowButton>
-              
             </motion.div>
           </motion.div>
 
@@ -155,11 +155,22 @@ const Hero = () => {
             className="flex flex-col items-center text-muted-foreground hover:text-accent transition-colors"
           >
             <span className="mb-2">
-              <LuMouse className="h-6 w-6"/>
+              <LuMouse className="h-6 w-6" />
             </span>
             <ArrowDown className="h-5 w-5" />
           </a>
         </div>
+      </div>
+      <div className="absolute -bottom-28 h-[600px] w-[200vw] left-1/2 -translate-x-1/2 overflow-hidden [mask-image:radial-gradient(50%_50%,white,transparent)] before:absolute before:inset-0 before:bg-[radial-gradient(circle_at_bottom_center,#3273ff,transparent_90%)] before:opacity-40 after:absolute after:-left-1/2 after:top-1/2 after:aspect-[1/0.7] after:w-[200%] ">
+        <Sparkles
+          density={1000}
+          speed={1.2}
+          size={1.5}
+          direction="top"
+          opacitySpeed={2}
+          color="#32A7FF"
+          className="absolute inset-x-0 bottom-0 h-full w-full"
+        />
       </div>
     </section>
   );

@@ -22,7 +22,11 @@ export const PinContainer = ({
 
   return (
     (<Link
-      className={cn("relative group/pin z-50  cursor-pointer", containerClassName)}
+      className={cn(
+        // Responsive width/height and flex centering
+        "relative group/pin z-50 cursor-pointer flex items-center justify-center w-full max-w-lg sm:max-w-xl md:max-w-2xl mx-auto",
+        containerClassName
+      )}
       onMouseEnter={onMouseEnter}
       onMouseLeave={onMouseLeave}
       href={href || "/"}>
@@ -31,13 +35,75 @@ export const PinContainer = ({
           perspective: "1000px",
           transform: "rotateX(70deg) translateZ(0deg)",
         }}
-        className="absolute left-1/2 top-1/2 ml-[0.09375rem] mt-4 -translate-x-1/2 -translate-y-1/2">
+        // Responsive height/width for the pin container
+        className="absolute left-1/2 top-1/2 ml-[0.09375rem] mt-4 -translate-x-1/2 -translate-y-1/2 w-[98vw] max-w-[28rem] h-[80vw] max-h-[28rem] sm:w-96 sm:h-80"
+      >
+        <>
+          <motion.div
+            initial={{
+              opacity: 0,
+              scale: 0,
+              x: "-50%",
+              y: "-50%",
+            }}
+            animate={{
+              opacity: [0, 1, 0.5, 0],
+              scale: 1,
+              z: 0,
+            }}
+            transition={{
+              duration: 6,
+              repeat: Infinity,
+              delay: 0,
+            }}
+            className="absolute left-1/2 top-1/2 h-[40vw] w-[40vw] max-h-[11.25rem] max-w-[11.25rem] rounded-[50%] bg-sky-500/[0.08] shadow-[0_8px_16px_rgb(0_0_0/0.4)]"
+          ></motion.div>
+          <motion.div
+            initial={{
+              opacity: 0,
+              scale: 0,
+              x: "-50%",
+              y: "-50%",
+            }}
+            animate={{
+              opacity: [0, 1, 0.5, 0],
+              scale: 1,
+              z: 0,
+            }}
+            transition={{
+              duration: 6,
+              repeat: Infinity,
+              delay: 2,
+            }}
+            className="absolute left-1/2 top-1/2 h-[40vw] w-[40vw] max-h-[11.25rem] max-w-[11.25rem] rounded-[50%] bg-sky-500/[0.08] shadow-[0_8px_16px_rgb(0_0_0/0.4)]"
+          ></motion.div>
+          <motion.div
+            initial={{
+              opacity: 0,
+              scale: 0,
+              x: "-50%",
+              y: "-50%",
+            }}
+            animate={{
+              opacity: [0, 1, 0.5, 0],
+              scale: 1,
+              z: 0,
+            }}
+            transition={{
+              duration: 6,
+              repeat: Infinity,
+              delay: 4,
+            }}
+            className="absolute left-1/2 top-1/2 h-[40vw] w-[40vw] max-h-[11.25rem] max-w-[11.25rem] rounded-[50%] bg-sky-500/[0.08] shadow-[0_8px_16px_rgb(0_0_0/0.4)]"
+          ></motion.div>
+        </>
         <div
           style={{
             transform: transform,
           }}
-          className="absolute left-1/2 p-4 top-1/2  flex justify-start items-start rounded-2xl shadow-[0_8px_16px_rgb(0_0_0/0.4)] bg-black border border-zinc-200 border-white/[0.1] group-hover/pin:border-white/[0.2] transition duration-700 overflow-hidden dark:border-zinc-800">
-          <div className={cn("relative z-50", className)}>{children}</div>
+          className="absolute left-1/2 p-4 top-1/2 flex justify-start items-start rounded-2xl shadow-[0_8px_16px_rgb(0_0_0/0.4)] bg-black border border-zinc-200 border-white/[0.1] group-hover/pin:border-white/[0.2] transition duration-700 overflow-hidden dark:border-zinc-800 w-full h-full"
+        >
+          <div className={cn("relative z-50 w-full", className)}>{children}</div>
         </div>
       </div>
       <PinPerspective title={title} href={href} />

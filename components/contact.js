@@ -1,19 +1,25 @@
-'use client';
+"use client";
 
-import { color, motion, useMotionValue, useSpring, useTransform } from "framer-motion";
+import {
+  color,
+  motion,
+  useMotionValue,
+  useSpring,
+  useTransform,
+} from "framer-motion";
 import ShinyText from "./ui/ShinyText";
 import { Mail, Phone, MapPin, ExternalLink } from "lucide-react";
 import { BsLinkedin, BsGithub } from "react-icons/bs";
 import { RiTwitterXLine } from "react-icons/ri";
 import { useState, useEffect } from "react";
 import { Sparkles } from "lucide-react";
-import useSound from 'use-sound';
+import useSound from "use-sound";
 
 const Contact = () => {
   const mouseX = useMotionValue(0);
   const mouseY = useMotionValue(0);
-  const [playHover] = useSound('/hover.mp3', { volume: 0.5 });
-  const [playClick] = useSound('/click.mp3', { volume: 0.50 });
+  const [playHover] = useSound("/hover.mp3", { volume: 0.5 });
+  const [playClick] = useSound("/click.mp3", { volume: 0.5 });
 
   useEffect(() => {
     const handleMouseMove = (e) => {
@@ -27,42 +33,41 @@ const Contact = () => {
   return (
     <section
       id="contact"
-      className="relative min-h-screen py-24 sm:py-32 overflow-hidden"
+      className="relative min-h-screen py-16 sm:py-20 md:py-24 lg:py-32 overflow-hidden flex flex-col justify-center items-center px-4 sm:px-6"
     >
-      <div className="container max-w-6xl mx-auto px-4 relative z-10">
+      <div className="container max-w-6xl mx-auto relative z-10 flex flex-col items-center">
         <motion.div
-          className="text-center mb-16"
+          className="text-center mb-8 sm:mb-12 md:mb-16 w-full"
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.8 }}
         >
-          <span className="px-4 py-2 rounded-full bg-accent/10 text-accent text-sm font-medium inline-flex items-center gap-2 mb-4">
-            <Sparkles className="h-4 w-4" />
+          <span className="px-3 py-1.5 sm:px-4 sm:py-2 rounded-full bg-accent/10 text-accent text-xs sm:text-sm font-medium inline-flex items-center gap-1 sm:gap-2 mb-3 sm:mb-4">
+            <Sparkles className="h-3 w-3 sm:h-4 sm:w-4" />
             Let's Create Something Amazing Together
           </span>
-          <h2 className="text-5xl font-bold mb-4 text2-gradient to-accent bg-clip-text text-transparent">
+          <h2 className="text-3xl sm:text-4xl md:text-5xl font-bold mb-3 sm:mb-4 text2-gradient to-accent bg-clip-text text-transparent">
             Let's Connect
           </h2>
-          <div className="relative w-[350px] h-20 -mb-14 -mt-2 mx-auto">
+          <div className="relative w-full max-w-[350px] h-16 sm:h-20 -mb-10 sm:-mb-14 -mt-1 sm:-mt-2 mx-auto">
             {/* Gradient Lines */}
             <div className="absolute inset-x-0 top-0 bg-gradient-to-r from-transparent via-indigo-500 to-transparent h-[2px] w-full blur-sm" />
             <div className="absolute inset-x-0 top-0 bg-gradient-to-r from-transparent via-indigo-500 to-transparent h-px w-full" />
             <div className="absolute left-1/4 right-1/4 top-0 bg-gradient-to-r from-transparent via-sky-500 to-transparent h-[5px] w-1/2 blur-sm" />
             <div className="absolute left-1/4 right-1/4 top-0 bg-gradient-to-r from-transparent via-sky-500 to-transparent h-px w-1/2" />
-
-            {/* Sparkles with enhanced radial effect */}
           </div>
-          <ShinyText
-            text="Reach out through any of these platforms and let's create something
-            amazing together"
-            disabled={false}
-            speed={3}
-            className="custom-class"
-          />
-         
+          {/* Fix: Change from paragraph to div to prevent nesting issues */}
+          <div className="text-sm sm:text-base">
+            <ShinyText
+              text="Reach out through any of these platforms and let's create something amazing together"
+              disabled={false}
+              speed={3}
+              className="custom-class text-sm sm:text-base"
+            />
+          </div>
         </motion.div>
 
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-6 md:gap-8 w-full">
           {contactMethods.map((method, i) => (
             <FloatingCard
               key={method.title}
@@ -76,7 +81,7 @@ const Contact = () => {
         </div>
 
         <motion.div
-          className="mt-16 flex justify-center gap-8"
+          className="mt-10 sm:mt-12 md:mt-16 flex justify-center gap-5 sm:gap-8 w-full"
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
           transition={{ delay: 0.5 }}
@@ -85,6 +90,15 @@ const Contact = () => {
             <MagneticLink key={social.name} {...social} playClick={playClick} />
           ))}
         </motion.div>
+      </div>
+      {/* Fix: Wrap ShinyText in a div instead of potential p tag */}
+      <div className="text-center mt-6 sm:mt-8 mx-auto max-w-xs sm:max-w-sm md:max-w-xl text-xs sm:text-sm">
+        <ShinyText
+          text="Available for freelance opportunities and collaborations"
+          disabled={false}
+          speed={3}
+          className="text-xs sm:text-sm"
+        />
       </div>
     </section>
   );
@@ -97,12 +111,16 @@ const FloatingCard = ({ method, mouseX, mouseY, playHover, delay }) => {
   useEffect(() => {
     setDimensions({
       width: window.innerWidth,
-      height: window.innerHeight
+      height: window.innerHeight,
     });
   }, []);
 
-  const rotateX = useSpring(useTransform(mouseY, [0, dimensions.height], [15, -15]));
-  const rotateY = useSpring(useTransform(mouseX, [0, dimensions.width], [-15, 15]));
+  const rotateX = useSpring(
+    useTransform(mouseY, [0, dimensions.height], [15, -15])
+  );
+  const rotateY = useSpring(
+    useTransform(mouseX, [0, dimensions.width], [-15, 15])
+  );
 
   return (
     <motion.div
@@ -120,26 +138,26 @@ const FloatingCard = ({ method, mouseX, mouseY, playHover, delay }) => {
       onMouseLeave={() => setIsHovered(false)}
     >
       <motion.div
-        className="bg-slate-300 rounded-xl p-6 relative z-10 h-full"
+        className="bg-slate-300 rounded-xl p-4 sm:p-6 relative z-10 h-full"
         style={{
           rotateX: isHovered ? rotateX : 0,
           rotateY: isHovered ? rotateY : 0,
         }}
-        whileHover={{ 
+        whileHover={{
           scale: 1.05,
-          transition: { duration: 0.2 }
+          transition: { duration: 0.2 },
         }}
       >
         <div className="relative z-10">
-          <div className="rounded-full p-3 bg-accent/10 w-fit mb-4">
+          <div className="rounded-full p-2 sm:p-3 bg-accent/10 w-fit mb-3 sm:mb-4">
             {method.icon}
           </div>
-          <h3 className="text-xl font-semibold mb-2">{method.title}</h3>
-          <a 
+          <h3 className="text-lg sm:text-xl font-semibold mb-1 sm:mb-2">{method.title}</h3>
+          <a
             href={method.link}
             target={method.external ? "_blank" : undefined}
             rel={method.external ? "noopener noreferrer" : undefined}
-            className="text-muted-foreground hover:text-accent transition-colors flex items-center gap-1"
+            className="text-sm sm:text-base text-muted-foreground hover:text-accent transition-colors flex items-center gap-1"
           >
             {method.value}
             {method.external && <ExternalLink className="h-3 w-3" />}
@@ -168,7 +186,9 @@ const MagneticLink = ({ name, href, icon, playClick, hoverColor }) => {
       href={href}
       target="_blank"
       rel="noopener noreferrer"
-      className={`relative p-4 rounded-full bg-accent/10 text-accent transition-colors ${hoverColor || 'hover:bg-accent hover:text-white'}`}
+      className={`relative p-3 sm:p-4 rounded-full bg-accent/10 text-accent transition-colors ${
+        hoverColor || "hover:bg-accent hover:text-white"
+      }`}
       animate={{ x: position.x, y: position.y }}
       transition={{ type: "spring", stiffness: 150, damping: 15 }}
       onMouseMove={handleMouseMove}
@@ -177,13 +197,12 @@ const MagneticLink = ({ name, href, icon, playClick, hoverColor }) => {
       whileTap={{ scale: 0.9 }}
     >
       {icon}
-      <span className="absolute -bottom-8 left-1/2 transform -translate-x-1/2 opacity-0 group-hover:opacity-100 transition-opacity text-sm">
+      <span className="absolute -bottom-6 sm:-bottom-8 left-1/2 transform -translate-x-1/2 opacity-0 group-hover:opacity-100 transition-opacity text-xs sm:text-sm whitespace-nowrap">
         {name}
       </span>
     </motion.a>
   );
 };
-
 
 const contactMethods = [
   {
@@ -191,22 +210,22 @@ const contactMethods = [
     value: "noorulameen9220@gmail.com",
     icon: <Mail className="h-5 w-5 text-white" />,
     link: "mailto:noorulameen9220@gmail.com",
-    external: false
+    external: false,
   },
   {
     title: "Phone",
     value: "+91 9952596033",
     icon: <Phone className="h-5 w-5 text-white" />,
     link: "tel:+919952596033",
-    external: false
+    external: false,
   },
   {
     title: "Location",
     value: "Vaniyambadi, Tamil Nadu, India",
     icon: <MapPin className="h-5 w-5 text-white" />,
     link: "https://maps.google.com/?q=Vaniyambadi,Tamil+Nadu,India",
-    external: true
-  }
+    external: true,
+  },
 ];
 
 const socialLinks = [
@@ -214,19 +233,19 @@ const socialLinks = [
     name: "GitHub",
     href: "https://github.com/noorulameen17",
     icon: <BsGithub className="h-5 w-5 text-white" />,
-    hoverColor: "hover:bg-slate-500"
+    hoverColor: "hover:bg-slate-500",
   },
   {
     name: "LinkedIn",
     href: "https://www.linkedin.com/in/noorulameen17",
-    icon: <BsLinkedin className="h-5 w-5 text-white" />
+    icon: <BsLinkedin className="h-5 w-5 text-white" />,
   },
   {
     name: "Twitter",
     href: "https://x.com/noorulameen_17",
     icon: <RiTwitterXLine className="h-5 w-5 text-white" />,
-    hoverColor: "hover:bg-slate-500"
-  }
+    hoverColor: "hover:bg-slate-500",
+  },
 ];
 
 export default Contact;

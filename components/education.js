@@ -58,24 +58,26 @@ const Education = () => {
             <div className="absolute left-1/4 right-1/4 top-0 bg-gradient-to-r from-transparent via-sky-500 to-transparent h-[5px] w-1/2 blur-sm" />
             <div className="absolute left-1/4 right-1/4 top-0 bg-gradient-to-r from-transparent via-sky-500 to-transparent h-px w-1/2" />
           </div>
-          <ShinyText
-            text="My academic background that has provided the foundation for my
-            professional journey"
-            disabled={false}
-            speed={3}
-            className="custom-class"
-          />
+          <div className="text-sm sm:text-base">
+            <ShinyText
+              text="My academic background that has provided the foundation for my
+              professional journey"
+              disabled={false}
+              speed={3}
+              className="custom-class"
+            />
+          </div>
         </div>
-        <div className="h-[20rem] w-full flex items-center justify-center">
+        <div className="h-auto min-h-[20rem] w-full flex items-center justify-center px-4 sm:px-6 md:px-8">
           <PinContainer
             title={
-              <div className="flex items-center gap-1 text-sm">
+              <div className="flex items-center gap-1 text-xs sm:text-sm">
                 CGPA : 8.5
-                <Star className="w-3.5 h-3.5 fill-yellow-400 stroke-yellow-400" />
+                <Star className="w-3 h-3 sm:w-3.5 sm:h-3.5 fill-yellow-400 stroke-yellow-400" />
               </div>
             }
           >
-            <div className="flex basis-full flex-col tracking-tight w-[40rem]">
+            <div className="flex basis-full flex-col tracking-tight w-full sm:w-[30rem] md:w-[40rem]">
               <div className="max-w-3xl mx-auto glass-card rounded-xl overflow-hidden animate-on-scroll bg-slate-200 backdrop-blur-sm">
                 <div className="grid grid-cols-1 md:grid-cols-3">
                   <div className="bg-accent p-6 flex items-center justify-center md:h-full">

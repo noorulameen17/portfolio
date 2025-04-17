@@ -81,6 +81,11 @@ module.exports = {
         sm: "calc(var(--radius) - 4px)",
       },
       keyframes: {
+        led: {
+          "0%": { fill: "currentColor", brightness: "1" },
+          "50%": { fill: "#a855f7", brightness: "500%" },
+          "100%": { fill: "currentColor", brightness: "1" },
+        },
         "line-shadow": {
           "0%": { "background-position": "0 0" },
           "100%": { "background-position": "100% -100%" },
@@ -212,8 +217,9 @@ module.exports = {
           },
         },
       },
-      animation: {         
-        float: 'float 3s ease-in-out infinite',
+      animation: {
+        led: "led 100ms ease-in-out",
+        float: "float 3s ease-in-out infinite",
         "accordion-down": "accordion-down 0.2s ease-out",
         "accordion-up": "accordion-up 0.2s ease-out",
         meteor: "meteor 5s linear infinite",

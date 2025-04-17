@@ -156,12 +156,15 @@ const Experience = () => {
           <h2 className="section-heading text-white animate-on-scroll">
             Professional <span className="text2-gradient">Experience</span>
           </h2>
-          <div className="relative w-[600px] h-20 -mb-14 -mt-4 mx-auto">
+          <div className="relative w-full md:w-[600px] h-20 -mb-14 -mt-4 mx-auto">
             {/* Gradient Lines */}
+            {/* Indigo lines: always full width */}
             <div className="absolute inset-x-0 top-0 bg-gradient-to-r from-transparent via-indigo-500 to-transparent h-[2px] w-full blur-sm" />
             <div className="absolute inset-x-0 top-0 bg-gradient-to-r from-transparent via-indigo-500 to-transparent h-px w-full" />
-            <div className="absolute left-1/4 right-1/4 top-0 bg-gradient-to-r from-transparent via-sky-500 to-transparent h-[5px] w-1/2 blur-sm" />
-            <div className="absolute left-1/4 right-1/4 top-0 bg-gradient-to-r from-transparent via-sky-500 to-transparent h-px w-1/2" />
+            {/* Sky lines: responsive width/position */}
+            {/* On md+: left/right 1/4, w-1/2; on small screens: full width */}
+            <div className="absolute top-0 bg-gradient-to-r from-transparent via-sky-500 to-transparent h-[5px] blur-sm w-full md:left-1/4 md:right-1/4 md:w-1/2" />
+            <div className="absolute top-0 bg-gradient-to-r from-transparent via-sky-500 to-transparent h-px w-full md:left-1/4 md:right-1/4 md:w-1/2" />
           </div>
           <ShinyText
             text="My journey through different roles that have shaped my career path
