@@ -1,19 +1,20 @@
-'use client';
+"use client";
 
-import { useRef, useEffect } from "react";
+import { BookOpen, Calendar } from "lucide-react";
+import { useEffect, useRef } from "react";
 import ImageLoader from "./ImageLoaders";
-import { BookOpen, Calendar, Star } from "lucide-react";
-import { PinContainer } from "./ui/3d-pin";
+import { PinContainer } from "./ui/3d-pin"; // Import the PinContainer component
 import ShinyText from "./ui/ShinyText";
+
 const education = {
   university: "Thiruvalluvar University",
   location: "Vellore",
-  degree: "Bachelor of Science (BS) in Computer Science",
+  degree: "Bachelor of Science in Computer Science",
   period: "2022-2025",
   description:
-    "Currently pursuing a comprehensive Computer Science degree, focusing on software engineering, core programming, database management and advanced computing concepts.",
+    "Graduated with a Computer Science degree specializing in software engineering, database management, and advanced computing concepts",
   logoUrl:
-    "https://media.licdn.com/dms/image/v2/C4E0BAQHYLXwJ-jOXLw/company-logo_400_400/company-logo_400_400/0/1631356511246?e=1748476800&v=beta&t=3SticDx9LGPkmrLhQ4aFgzgT_2uytev7dOvk-NwBdk8",
+    "https://media.licdn.com/dms/image/v2/C4E0BAQHYLXwJ-jOXLw/company-logo_200_200/company-logo_200_200/0/1631356511246?e=1756339200&v=beta&t=jFw4vItS_ddsnbYpnPEOINIlyCUun-elIemH67qBRFY",
 };
 
 const Education = () => {
@@ -45,7 +46,7 @@ const Education = () => {
 
   return (
     <section id="education" className="py-24 sm:py-32" ref={sectionRef}>
-      <div className="container max-w-6xl mx-auto px-4">
+      <div className="container max-w-4xl mx-auto px-4">
         <div className="text-center mb-16">
           <h2 className="text2-gradient section-heading animate-on-scroll">
             Education
@@ -68,53 +69,50 @@ const Education = () => {
             />
           </div>
         </div>
-        <div className="h-auto min-h-[20rem] w-full flex items-center justify-center px-4 sm:px-6 md:px-8">
-          <PinContainer
-            title={
-              <div className="flex items-center gap-1 text-xs sm:text-sm">
-                CGPA : 8.5
-                <Star className="w-3 h-3 sm:w-3.5 sm:h-3.5 fill-yellow-400 stroke-yellow-400" />
-              </div>
-            }
-          >
-            <div className="flex basis-full flex-col tracking-tight w-full sm:w-[30rem] md:w-[40rem]">
-              <div className="max-w-3xl mx-auto glass-card rounded-xl overflow-hidden animate-on-scroll bg-slate-200 backdrop-blur-sm">
-                <div className="grid grid-cols-1 md:grid-cols-3">
-                  <div className="bg-accent p-6 flex items-center justify-center md:h-full">
-                    <div className="text-center">
-                      <div className="w-24 h-24 mx-auto bg-white rounded-full p-2 mb-4 transform transition-transform duration-300 hover:scale-110">
-                        <ImageLoader
-                          src={education.logoUrl}
-                          alt={education.university}
-                          className="rounded-full"
-                        />
-                      </div>
-                      <h3 className="text-white font-semibold">
-                        {education.university}
-                      </h3>
-                      <p className="text-white/70 text-sm">
-                        {education.location}
-                      </p>
-                    </div>
-                  </div>
 
-                  <div className="p-6 md:col-span-2">
-                    <h3 className="text-xl font-semibold mb-2 text-gray-900">
-                      {education.degree}
+        <div className="max-w-2xl mx-auto">
+          {/* Replace regular card with 3D Pin Container */}
+          <PinContainer
+            title="CGPA : 8.5 ⭐"
+            className="pb-6"
+            containerClassName="animate-on-scroll min-h-[32rem] sm:min-h-[24rem] relative py-10"
+          >
+            <div className="glass-card rounded-xl overflow-hidden bg-slate-200 backdrop-blur-sm shadow-xl h-auto sm:h-72">
+              <div className="grid grid-cols-1 md:grid-cols-3">
+                <div className="bg-accent p-4 sm:p-6 flex items-center justify-center md:h-full">
+                  <div className="text-center">
+                    <div className="w-16 h-16 sm:w-24 sm:h-24 mx-auto bg-white rounded-full p-2 mb-3 sm:mb-4 transform transition-transform duration-300 hover:scale-110">
+                      <ImageLoader
+                        src={education.logoUrl}
+                        alt={education.university}
+                        className="rounded-full"
+                      />
+                    </div>
+                    <h3 className="text-white font-semibold text-sm sm:text-base">
+                      {education.university}
                     </h3>
-                    <div className="flex items-center text-sm text-gray-600 mb-4">
-                      <Calendar className="w-4 h-4 mr-1" />
-                      <span>{education.period}</span>
-                    </div>
-                    <p className="text-gray-600 mb-4">
-                      {education.description}
+                    <p className="text-white/70 text-xs sm:text-sm">
+                      {education.location}
                     </p>
-                    <div className="flex items-center">
-                      <BookOpen className="w-5 h-5 text-accent mr-2" />
-                      <span className="text-sm font-medium text-gray-900">
-                        Computer Science
-                      </span>
-                    </div>
+                  </div>
+                </div>
+
+                <div className="p-4 sm:p-6 md:p-8 md:col-span-2">
+                  <h3 className="text-base sm:text-xl font-semibold mb-2 sm:mb-3 text-gray-900">
+                    {education.degree}
+                  </h3>
+                  <div className="flex items-center text-xs sm:text-sm text-gray-600 mb-2 sm:mb-4">
+                    <Calendar className="w-3 h-3 sm:w-4 sm:h-4 mr-1 sm:mr-2" />
+                    <span>{education.period}</span>
+                  </div>
+                  <p className="text-xs sm:text-base text-gray-600 mb-2 sm:mb-4">
+                    {education.description}
+                  </p>
+                  <div className="flex items-center">
+                    <BookOpen className="w-4 h-4 sm:w-5 sm:h-5 text-accent mr-1 sm:mr-2" />
+                    <span className="text-xs sm:text-sm font-medium text-gray-900">
+                      Computer Science
+                    </span>
                   </div>
                 </div>
               </div>
