@@ -3,7 +3,7 @@
 import { BookOpen, Calendar } from "lucide-react";
 import { useEffect, useRef } from "react";
 import ImageLoader from "./ImageLoaders";
-import { PinContainer } from "./ui/3d-pin"; // Import the PinContainer component
+import { PinContainer } from "./ui/3d-pin";
 import ShinyText from "./ui/ShinyText";
 
 const education = {
@@ -71,17 +71,17 @@ const Education = () => {
         </div>
 
         <div className="max-w-2xl mx-auto">
-          {/* Replace regular card with 3D Pin Container */}
+          {/* Wrap the card with PinContainer */}
           <PinContainer
             title="CGPA : 8.5 ⭐"
-            className="pb-6"
-            containerClassName="animate-on-scroll min-h-[32rem] sm:min-h-[24rem] relative py-10"
+            className="h-auto"
+            containerClassName="animate-on-scroll"
           >
-            <div className="glass-card rounded-xl overflow-hidden bg-slate-200 backdrop-blur-sm shadow-xl h-auto sm:h-72">
+            <div className="glass-card rounded-xl overflow-hidden bg-slate-200 backdrop-blur-sm shadow-xl h-auto -pb-1">
               <div className="grid grid-cols-1 md:grid-cols-3">
                 <div className="bg-accent p-4 sm:p-6 flex items-center justify-center md:h-full">
                   <div className="text-center">
-                    <div className="w-16 h-16 sm:w-24 sm:h-24 mx-auto bg-white rounded-full p-2 mb-3 sm:mb-4 transform transition-transform duration-300 hover:scale-110">
+                    <div className="w-16 h-16 sm:w-24 sm:h-24 mx-auto bg-white rounded-full p-2 mb-2 sm:mb-3 transform transition-transform duration-300 hover:scale-110">
                       <ImageLoader
                         src={education.logoUrl}
                         alt={education.university}
@@ -105,7 +105,7 @@ const Education = () => {
                     <Calendar className="w-3 h-3 sm:w-4 sm:h-4 mr-1 sm:mr-2" />
                     <span>{education.period}</span>
                   </div>
-                  <p className="text-xs sm:text-base text-gray-600 mb-2 sm:mb-4">
+                  <p className="text-xs sm:text-base text-gray-600 mb-2 sm:mb-2">
                     {education.description}
                   </p>
                   <div className="flex items-center">
