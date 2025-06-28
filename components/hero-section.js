@@ -130,7 +130,7 @@ const Hero = () => {
             >
               An AI enthusiast and software developer passionate about
               leveraging technology to create innovative solutions&#46;
-              Currently working as an LLM Trainer at Outlier&#46;
+              
             </motion.p>
 
             <motion.div
