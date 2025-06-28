@@ -12,16 +12,20 @@ import ShinyText from "./ui/ShinyText";
 import { useEffect, useState } from "react";
 
 export default function Skills() {
-  // Responsive radii for OrbitingItems3D
+  // Responsive radii and icon size for OrbitingItems3D
   const [radii, setRadii] = useState({ x: 100, y: 32 });
+  const [iconSize, setIconSize] = useState(48);
 
   useEffect(() => {
     function handleResize() {
       const width = window.innerWidth;
       setRadii({
-        x: Math.max(60, Math.min(width / 3.2, 160)), // smaller min for mobile
-        y: Math.max(18, Math.min(width / 10, 48)),
+        x: Math.max(18, Math.min(width / 8, 60)), 
+        y: Math.max(8, Math.min(width / 24, 28)), 
       });
+      setIconSize(
+        width < 400 ? 32 : width < 640 ? 40 : width < 1024 ? 48 : 56
+      );
     }
     handleResize();
     window.addEventListener("resize", handleResize);
@@ -31,9 +35,9 @@ export default function Skills() {
   return (
     <section
       id="skills"
-      className="py-16 sm:py-24 md:py-32 container mx-auto px-4"
+      className="py-10 sm:py-16 md:py-24 lg:py-32 container mx-auto px-2 sm:px-4 -mt-20"
     >
-      <div className="text-center mb-12 sm:mb-16">
+      <div className="text-center mb-8 sm:mb-12 md:mb-16">
         <div className="relative inline-block">
           <motion.h2
             className="section-heading animate-on-scroll text-white"
@@ -52,20 +56,7 @@ export default function Skills() {
         </div>
 
         <div
-          className="
-            relative
-            w-full
-            max-w-xs
-            sm:max-w-md
-            md:max-w-lg
-            h-16
-            sm:h-20
-            -mb-10
-            sm:-mb-14
-            -mt-4
-            sm:-mt-6
-            mx-auto
-          "
+          className="relative w-full max-w-[90vw] sm:max-w-md md:max-w-lg h-12 sm:h-16 md:h-20 -mb-6 sm:-mb-10 md:-mb-14 -mt-2 sm:-mt-4 md:-mt-6 mx-auto"
         >
           {/* Gradient Lines */}
           <div className="absolute inset-x-0 top-0 bg-gradient-to-r from-transparent via-indigo-500 to-transparent h-[2px] w-full blur-sm" />
@@ -77,7 +68,7 @@ export default function Skills() {
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
           transition={{ duration: 0.5, delay: 0.2 }}
-          className="text-sm sm:text-base"
+          className="text-xs sm:text-sm md:text-base"
         >
           <ShinyText
             text="A comprehensive showcase of my technical abilities and expertise"
@@ -88,45 +79,94 @@ export default function Skills() {
         </motion.div>
       </div>
 
-      <div className="flex justify-center items-center">
+      <div className="flex justify-center items-center min-h-[200px] sm:min-h-[260px] md:min-h-[320px] -mt-20 -mb-40">
         <OrbitingItems3D
-          duration={25}
+          duration={30}
           items={[
-            <FaHtml5 key="html" className="h-12 w-12 text-orange-500" />,
-            <FaCss3Alt key="css" className="h-12 w-12 text-blue-500" />,
-            <FaJs key="javascript" className="h-12 w-12 text-yellow-400" />,
-            <FaReact key="react" className="h-12 w-12 text-sky-400" />,
-            <RiNextjsFill key="nextjs" className="h-12 w-12" />,
-            <SiMui key="material-ui" className="h-12 w-12 text-blue-600" />,
-
+            <FaHtml5
+              key="html"
+              className={`text-orange-500`}
+              style={{ width: iconSize, height: iconSize }}
+            />,
+            <FaCss3Alt
+              key="css"
+              className={`text-blue-500`}
+              style={{ width: iconSize, height: iconSize }}
+            />,
+            <FaJs
+              key="javascript"
+              className={`text-yellow-400`}
+              style={{ width: iconSize, height: iconSize }}
+            />,
+            <FaReact
+              key="react"
+              className={`text-sky-400`}
+              style={{ width: iconSize, height: iconSize }}
+            />,
+            <RiNextjsFill
+              key="nextjs"
+              style={{ width: iconSize, height: iconSize }}
+            />,
+            <SiMui
+              key="material-ui"
+              className="text-blue-600"
+              style={{ width: iconSize, height: iconSize }}
+            />,
             <PiGreaterThanFill
               key="aceternity-ui"
-              className="h-12 w-12 text-black"
+              className="text-black"
+              style={{ width: iconSize, height: iconSize }}
             />,
             <RiTailwindCssFill
               key="tailwind"
-              className="h-12 w-12 text-sky-500"
+              className="text-sky-500"
+              style={{ width: iconSize, height: iconSize }}
             />,
             <Image
               key="bits"
-              src="/bits.ico"
+              src="/icon/bits.ico"
               alt="Bits Logo"
-              width={48}
-              height={48}
-              className="h-12 w-12"
+              width={iconSize}
+              height={iconSize}
+              className=""
+              style={{ width: iconSize, height: iconSize }}
             />,
             <Image
-              key="bits"
-              src="/magic.ico"
-              alt="Bits Logo"
-              width={48}
-              height={48}
-              className="h-12 w-12"
+              key="magic"
+              src="/icon/magic.ico"
+              alt="Magic Logo"
+              width={iconSize}
+              height={iconSize}
+              className=""
+              style={{ width: iconSize, height: iconSize }}
             />,
-            <SiClerk key="clerk" className="h-12 w-12" />,
-            <SiSupabase key="supabase" className="h-12 w-12 text-green-500" />,
-            <SiVercel key="vercel" className="h-12 w-12" />,
-            <FaGitAlt key="git" className="h-12 w-12 text-orange-600" />,
+            <Image
+              key="python"
+              src="/icon/python.png"
+              alt="Python Logo"
+              width={iconSize}
+              height={iconSize}
+              className=""
+              style={{ width: iconSize, height: iconSize }}
+            />,
+            <SiClerk
+              key="clerk"
+              style={{ width: iconSize, height: iconSize }}
+            />,
+            <SiSupabase
+              key="supabase"
+              className="text-green-500"
+              style={{ width: iconSize, height: iconSize }}
+            />,
+            <SiVercel
+              key="vercel"
+              style={{ width: iconSize, height: iconSize }}
+            />,
+            <FaGitAlt
+              key="git"
+              className="text-orange-600"
+              style={{ width: iconSize, height: iconSize }}
+            />,
           ]}
           radiusX={radii.x}
           radiusY={radii.y}

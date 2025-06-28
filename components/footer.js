@@ -7,7 +7,6 @@ import { Sparkles } from "./ui/sparkles";
 import LEDBoard from "./ui/led-board";
 
 const Footer = () => {
-  const [isHovered, setIsHovered] = useState(null);
   const [isMounted, setIsMounted] = useState(false);
 
   useEffect(() => {
@@ -28,7 +27,6 @@ const Footer = () => {
             <div className="flex flex-col md:flex-row justify-between items-center mb-8">
               <div className="flex flex-col items-center xs:items-start space-y-2 xs:space-y-3 sm:space-y-6 md:space-y-4 lg:space-y-8">
                 <div className="relative flex justify-center md:-mb-12">
-                  {/* Decreased size for md (tablet) viewport */}
                   <div className="relative h-36 w-36 xs:h-28 xs:w-28 sm:h-32 sm:w-32 md:h-28 md:w-28 lg:h-40 lg:w-40 xl:h-44 xl:w-44">
                     <style jsx>{`
                       .rotating-text {
@@ -55,7 +53,6 @@ const Footer = () => {
                       }
                     `}</style>
 
-                    {/* Wrapper div around both SVG and image */}
                     <div className="relative w-full h-full">
                       {/* Circular rotating text SVG */}
                       <svg
@@ -82,11 +79,10 @@ const Footer = () => {
                         </text>
                       </svg>
 
-                      {/* Center image - restored to original size */}
                       <div className="absolute inset-0 flex items-center justify-center">
                         <div className="h-[65%] w-[65%] overflow-hidden rounded-full border-white/20">
                           <ImageLoader
-                            src="https://media.licdn.com/dms/image/v2/D5603AQEPC6lv8YlAVQ/profile-displayphoto-shrink_800_800/B56ZTGq8UeHwAc-/0/1738499936339?e=1748476800&v=beta&t=YberPvJ0PzP46xEvUwk9oThnw1H2W1MtIHj7SBu4WKw"
+                            src="https://media.licdn.com/dms/image/v2/D5603AQEPC6lv8YlAVQ/profile-displayphoto-shrink_400_400/B56ZTGq8UeHwAg-/0/1738499936338?e=1756339200&v=beta&t=W8MGqdDD82711cAIx38JupnJmWBlzNtMvcw5SwVI0wg"
                             alt="Noorul Ameen"
                             className="rounded-full"
                           />
@@ -111,7 +107,6 @@ const Footer = () => {
             {/* Bottom section with solid background */}
             <div className="relative mt-12">
               {" "}
-              {/* Changed from border-t and adjusted margin */}
               <div className="relative z-20 flex flex-col md:flex-row justify-between items-center">
                 <p className="text-sm text-primary-foreground/70 mb-4 md:mb-0">
                   © {new Date().getFullYear()} Noorul Ameen. All rights
@@ -124,16 +119,13 @@ const Footer = () => {
             </div>
           </div>
 
-          {/* Updated Gradient and Sparkles effect */}
-          <div className="absolute -bottom-28 h-[360px] w-[200vw] left-1/2 -translate-x-1/2 overflow-hidden [mask-image:radial-gradient(50%_50%,white,transparent)] before:absolute before:inset-0 before:bg-[radial-gradient(circle_at_bottom_center,#3273ff,transparent_90%)] before:opacity-40 after:absolute after:-left-1/2 after:top-1/2 after:aspect-[1/0.7] after:w-[200%] ">
+          <div className="absolute -bottom-28 h-[360px] w-full left-1/2 -translate-x-1/2 overflow-hidden [mask-image:radial-gradient(50%_50%,white,transparent)] before:absolute before:inset-0 before:bg-[radial-gradient(circle_at_bottom_center,#3273ff,transparent_90%)] before:opacity-40 after:absolute after:-left-1/2 after:top-1/2 after:aspect-[1/0.7] after:w-[200%] ">
             <Sparkles
               density={1000}
               speed={1.2}
               size={1.5}
               direction="top"
               opacitySpeed={2}
-              color="#32A7FF"
-              className="absolute inset-x-0 bottom-0 h-full w-full"
             />
           </div>
         </footer>

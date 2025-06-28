@@ -1,7 +1,6 @@
 "use client";
 
 import { useState, useEffect } from "react";
-import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { ArrowUpRight } from "lucide-react";
 import { motion } from "framer-motion";
@@ -12,7 +11,6 @@ export default function Navbar() {
   const [scrolled, setScrolled] = useState(false);
   const [isMounted, setIsMounted] = useState(false);
 
-  // Handle scroll effect and client-side mounting
   useEffect(() => {
     setIsMounted(true);
     const handleScroll = () => {
@@ -59,7 +57,6 @@ export default function Navbar() {
     return `${baseClasses} ${responsiveClasses} ${workButtonClasses}`;
   };
 
-  // Common header element structure for both server and client render
   const headerClassName = "fixed inset-x-0 top-0 z-50 flex justify-center pointer-events-none mt-4 sm:mt-6 md:mt-8";
   
   const navClassName = `flex items-center justify-center rounded-full px-2 gap-1 sm:gap-2 pointer-events-auto ${
@@ -68,9 +65,8 @@ export default function Navbar() {
       : "bg-black/20 backdrop-blur-lg border border-white/10 backdrop-saturate-150"
   }`;
 
-  // Shared nav items rendering logic
   const renderNavItems = () => (
-    navItems.map((item, index) => (
+    navItems.map((item) => (
       <a
         key={item.name}
         href={item.path}
@@ -83,21 +79,21 @@ export default function Navbar() {
   );
 
   const renderResumeLink = () => (
-    <Link
-      href="/resume"
+    <a
+      href="/Noorul Ameen Resume.pdf"
+      target="_blank"
+      rel="noopener noreferrer"
       className="flex items-center gap-0.5 xs:gap-1 px-1.5 py-1 xs:px-3 sm:px-4 md:px-6 md:py-3 text-white font-medium text-[10px] xs:text-xs sm:text-sm transition-all duration-200 hover:opacity-80"
     >
       Resume{" "}
       <ArrowUpRight className="h-2.5 w-2.5 xs:h-3 xs:w-3 sm:h-4 sm:w-4" />
-    </Link>
+    </a>
   );
 
-  // Use the same HTML structure for initial render on both server and client
   return (
     <header className={headerClassName}>
       <div className="px-4 py-2">
         {!isMounted ? (
-          // Non-animated version for server render and initial client render
           <nav className={navClassName}>
             {renderNavItems()}
             <div>
@@ -105,7 +101,6 @@ export default function Navbar() {
             </div>
           </nav>
         ) : (
-          // Only render animated version after hydration is complete
           <motion.nav
             initial={{ opacity: 0, y: 10 }}
             animate={{ opacity: 1, y: 0 }}

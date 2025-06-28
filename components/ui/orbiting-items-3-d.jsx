@@ -47,12 +47,20 @@ export default function OrbitingItems3D({
         const angleStep = 360 / totalItems;
         const [angle, setAngle] = useState(index * angleStep);
         useEffect(() => {
-            const animation = setInterval(() => {
-                setAngle((prevAngle) => (prevAngle + 1) % 360);
-            }, duration);
-
-            return () => clearInterval(animation);
-        }, [duration]);
+            // Stagger start for each item
+            const delay = (duration / totalItems) * index;
+            let animation;
+            const start = () => {
+                animation = setInterval(() => {
+                    setAngle((prevAngle) => (prevAngle + 1) % 360);
+                }, duration);
+            };
+            const timeout = setTimeout(start, delay);
+            return () => {
+                clearTimeout(timeout);
+                if (animation) clearInterval(animation);
+            };
+        }, [duration, index, totalItems]);
 
         const radians = (angle * Math.PI) / 180;
 

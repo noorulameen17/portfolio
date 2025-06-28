@@ -12,10 +12,45 @@ import {
   TabsList,
   TabsTrigger,
 } from "../components/ui/tabs";
-import ShinyText from "./ui/ShinyText";
 import CircularGallery from "./ui/CircularGallery";
+import ShinyText from "./ui/ShinyText";
 
 const projects = [
+  {
+    title: "PathLyst",
+    description:
+      "PathLyst is an AI-powered career planning assistant that helps students, professionals, and curious minds navigate their future with confidence. By leveraging the Perplexity Sonar API, PathLyst delivers real-time, citation-backed career insights tailored to your skills, interests, and goals.",
+    tags: [
+      "React",
+      "Next.js",
+      "Shadcn/UI",
+      "Magic-UI",
+      "Aceternity-UI",
+      "Reactbits",
+      "Sonar API",
+    ],
+    link: "https://path-lyst.vercel.app/",
+    github: "https://github.com/noorulameen17/PathLyst",
+    image: "/pathlyst.png",
+  },
+  {
+    title: "Fitgen",
+    description:
+      "AI-powered diet planner that won 3rd place at IHack'25. Utilizes machine learning to create personalized nutrition plans based on individual goals and health metrics.",
+    tags: [
+      "React",
+      "Next.js",
+      "Material-UI",
+      "Shadcn/UI",
+      "Magic-UI",
+      "Clerk",
+      "Cerebras-SDK",
+    ],
+    achievement: "3rd Place at InnoHack'25",
+    link: "https://fitgen-ai.vercel.app/",
+    github: "https://github.com/noorulameen17/FitGen-AI",
+    image: "/fitgen1.png",
+  },
   {
     title: "Emergence AI",
     description:
@@ -32,24 +67,6 @@ const projects = [
     link: "https://emergenceai.vercel.app/",
     github: "https://github.com/noorulameen17/Emergence_AI",
     image: "/emergence 1.png",
-  },
-  {
-    title: "Fitgen",
-    description:
-      "AI-powered diet planner that won 3rd place at IHack'25. Utilizes machine learning to create personalized nutrition plans based on individual goals and health metrics.",
-    tags: [
-      "React",
-      "Next.js",
-      "Material-UI",
-      "Shadcn/UI",
-      "Magic-UI",
-      "Clerk",
-      "Cerebras-SDK",
-    ],
-    achievement: "3rd Place at IHack'25",
-    link: "https://fitgen-ai.vercel.app/",
-    github: "https://github.com/noorulameen17/FitGen-AI",
-    image: "/fitgen1.png",
   },
 ];
 
@@ -147,9 +164,16 @@ const ProjectCard = ({ project, index }) => {
             href={project.github}
             target="_blank"
             rel="noopener noreferrer"
-            className="px-4 py-2 rounded-xl text-xs font-normal dark:text-white"
           >
-            GitHub <Github className="h-3 w-3 inline ml-1" />
+            <Badge className="flex items-center gap-1 px-3 py-1.5 bg-gray-200 dark:bg-gray-800 hover:bg-gray-300 dark:hover:bg-gray-700 transition-colors">
+              <span className="text-black font-medium dark:text-white" style={{ 
+                textShadow: "0 0 2px rgba(0,0,0,0.3)",
+                color: "#000000" 
+              }}>
+                GitHub
+              </span> 
+              <Github className="h-3.5 w-3.5 text-black dark:text-white" />
+            </Badge>
           </CardItem>
 
           <CardItem
@@ -242,7 +266,7 @@ export function Projects() {
         <Tabs defaultValue="software" className="w-full">
           <TabsList className="grid w-full grid-cols-2 mb-8 text-gray-300">
             <TabsTrigger value="software">Software Projects</TabsTrigger>
-            <TabsTrigger value="graphic">Graphic Projects</TabsTrigger>
+            <TabsTrigger value="graphic">Graphic Designs</TabsTrigger>
           </TabsList>
 
           <TabsContent value="software">

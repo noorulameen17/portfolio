@@ -1,7 +1,6 @@
 "use client";
 
 import {
-  color,
   motion,
   useMotionValue,
   useSpring,
@@ -13,13 +12,11 @@ import { BsLinkedin, BsGithub } from "react-icons/bs";
 import { RiTwitterXLine } from "react-icons/ri";
 import { useState, useEffect } from "react";
 import { Sparkles } from "lucide-react";
-import useSound from "use-sound";
+import { GlareCard } from "./ui/glare-card";
 
 const Contact = () => {
   const mouseX = useMotionValue(0);
   const mouseY = useMotionValue(0);
-  const [playHover] = useSound("/hover.mp3", { volume: 0.5 });
-  const [playClick] = useSound("/click.mp3", { volume: 0.5 });
 
   useEffect(() => {
     const handleMouseMove = (e) => {
@@ -69,14 +66,35 @@ const Contact = () => {
 
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-6 md:gap-8 w-full">
           {contactMethods.map((method, i) => (
-            <FloatingCard
+            <GlareCard
               key={method.title}
-              method={method}
-              mouseX={mouseX}
-              mouseY={mouseY}
-              playHover={playHover}
-              delay={i * 0.1}
-            />
+              className="bg-gradient-to-br from-slate-900 to-slate-800"
+            >
+              <a
+                href={method.link}
+                target={method.external ? "_blank" : undefined}
+                rel={method.external ? "noopener noreferrer" : undefined}
+                className="block p-4 sm:p-6 rounded-xl focus:outline-none focus:ring-2 focus:ring-accent transition-colors hover:bg-accent/5 h-full"
+                aria-label={
+                  method.external
+                    ? `${method.title}: ${method.value} (opens in a new tab)`
+                    : `${method.title}: ${method.value}`
+                }
+              >
+                <div className="rounded-full p-2 sm:p-3 bg-accent/10 w-fit mb-3 sm:mb-4" aria-hidden="true">
+                  {method.icon}
+                </div>
+                <h3 className="text-lg sm:text-xl font-semibold mb-1 sm:mb-2 text-white">
+                  {method.title}
+                </h3>
+                <div className="relative z-10 text-sm sm:text-base text-slate-300 hover:text-accent transition-colors flex items-center gap-1">
+                  <span>{method.value}</span>
+                  {method.external && (
+                    <ExternalLink className="h-3 w-3" aria-label="(external link)" />
+                  )}
+                </div>
+              </a>
+            </GlareCard>
           ))}
         </div>
 
@@ -87,11 +105,11 @@ const Contact = () => {
           transition={{ delay: 0.5 }}
         >
           {socialLinks.map((social) => (
-            <MagneticLink key={social.name} {...social} playClick={playClick} />
+            <MagneticLink key={social.name} {...social} />
           ))}
         </motion.div>
       </div>
-      {/* Fix: Wrap ShinyText in a div instead of potential p tag */}
+      
       <div className="text-center mt-6 sm:mt-8 mx-auto max-w-xs sm:max-w-sm md:max-w-xl text-xs sm:text-sm">
         <ShinyText
           text="Available for freelance opportunities and collaborations"
@@ -104,7 +122,7 @@ const Contact = () => {
   );
 };
 
-const FloatingCard = ({ method, mouseX, mouseY, playHover, delay }) => {
+const FloatingCard = ({ method, mouseX, mouseY, delay }) => {
   const [isHovered, setIsHovered] = useState(false);
   const [dimensions, setDimensions] = useState({ width: 0, height: 0 });
 
@@ -133,7 +151,6 @@ const FloatingCard = ({ method, mouseX, mouseY, playHover, delay }) => {
       }}
       onMouseEnter={() => {
         setIsHovered(true);
-        playHover();
       }}
       onMouseLeave={() => setIsHovered(false)}
     >
@@ -158,6 +175,7 @@ const FloatingCard = ({ method, mouseX, mouseY, playHover, delay }) => {
             target={method.external ? "_blank" : undefined}
             rel={method.external ? "noopener noreferrer" : undefined}
             className="text-sm sm:text-base text-muted-foreground hover:text-accent transition-colors flex items-center gap-1"
+            aria-label={method.title + ": " + method.value}
           >
             {method.value}
             {method.external && <ExternalLink className="h-3 w-3" />}
@@ -169,7 +187,7 @@ const FloatingCard = ({ method, mouseX, mouseY, playHover, delay }) => {
   );
 };
 
-const MagneticLink = ({ name, href, icon, playClick, hoverColor }) => {
+const MagneticLink = ({ name, href, icon, hoverColor }) => {
   const [position, setPosition] = useState({ x: 0, y: 0 });
 
   const handleMouseMove = (e) => {
@@ -192,7 +210,6 @@ const MagneticLink = ({ name, href, icon, playClick, hoverColor }) => {
       animate={{ x: position.x, y: position.y }}
       transition={{ type: "spring", stiffness: 150, damping: 15 }}
       onMouseMove={handleMouseMove}
-      onClick={playClick}
       onMouseLeave={handleMouseLeave}
       whileTap={{ scale: 0.9 }}
     >
