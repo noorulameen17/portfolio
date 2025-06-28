@@ -25,11 +25,10 @@
   - Framer Motion - Animation library
   - Shadcn - UI library
   - Magic-Ui - UI library
-- **Backend & Database**:
-  - Supabase - Backend as a Service
+
 - **Dev Tools**:
   - PostCSS - CSS transformations
   - Webpack - Module bundling
 
 ## Portfolio
-🔗 [View Portfolio](https://portfolio-ameenition.vercel.app/)
+🔗 [View Portfolio](https://noorulameen.me/)
