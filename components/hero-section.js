@@ -99,7 +99,9 @@ const Hero = () => {
               variants={item}
               className="text-3xl xs:text-4xl sm:text-5xl md:text-6xl font-display font-bold text-balance mb-3 sm:mb-6 tracking-tight"
             >
-              <span className="mr-2 xs:mr-3 sm:mr-5 text-white">Hello,</span>
+              <span className="mr-2 xs:mr-3 sm:mr-5 text-white">
+                Hello&#44;
+              </span>
               <span className="inline-block mr-2 xs:mr-3 sm:mr-3 md:mr-0">
                 <RotatingText
                   texts={["I", "Am"]}
@@ -127,8 +129,8 @@ const Hero = () => {
               className="text-base xs:text-lg sm:text-xl md:text-xl text-muted-foreground max-w-xl mb-4 sm:mb-10"
             >
               An AI enthusiast and software developer passionate about
-              leveraging technology to create innovative solutions. Currently
-              working as an LLM Trainer at Outlier.
+              leveraging technology to create innovative solutions&#46;
+              Currently working as an LLM Trainer at Outlier&#46;
             </motion.p>
 
             <motion.div

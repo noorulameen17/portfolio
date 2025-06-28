@@ -171,7 +171,7 @@ const Experience = () => {
           </div>
           <ShinyText
             text="My journey through different roles that have shaped my career path
-            and expertise in AI and software development."
+            and expertise in AI and software development"
             disabled={false}
             speed={3}
             className="custom-class"

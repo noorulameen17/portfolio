@@ -109,8 +109,8 @@ const Footer = () => {
               {" "}
               <div className="relative z-20 flex flex-col md:flex-row justify-between items-center">
                 <p className="text-sm text-primary-foreground/70 mb-4 md:mb-0">
-                  © {new Date().getFullYear()} Noorul Ameen. All rights
-                  reserved.
+                  © {new Date().getFullYear()} Noorul Ameen&#46; All rights
+                  reserved&#46;
                 </p>
                 <div className="w-full md:w-[400px] lg:w-[600px] xl:w-[800px] md:absolute md:right-4 md:-top-20 md:-translate-y-12 md:-translate-x-16">
                   <LEDBoard word="CONNECT WITH ME" />

@@ -45,7 +45,7 @@ export default function Skills() {
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.5 }}
           >
-            Skills & <span className="text2-gradient">Expertise</span>
+            Skills &#38; <span className="text2-gradient">Expertise</span>
           </motion.h2>
           <motion.div
             className="absolute -right-8 top-0"
@@ -55,9 +55,7 @@ export default function Skills() {
           ></motion.div>
         </div>
 
-        <div
-          className="relative w-full max-w-[90vw] sm:max-w-md md:max-w-lg h-12 sm:h-16 md:h-20 -mb-6 sm:-mb-10 md:-mb-14 -mt-2 sm:-mt-4 md:-mt-6 mx-auto"
-        >
+        <div className="relative w-full max-w-[90vw] sm:max-w-md md:max-w-lg h-12 sm:h-16 md:h-20 -mb-6 sm:-mb-10 md:-mb-14 -mt-2 sm:-mt-4 md:-mt-6 mx-auto">
           {/* Gradient Lines */}
           <div className="absolute inset-x-0 top-0 bg-gradient-to-r from-transparent via-indigo-500 to-transparent h-[2px] w-full blur-sm" />
           <div className="absolute inset-x-0 top-0 bg-gradient-to-r from-transparent via-indigo-500 to-transparent h-px w-full" />

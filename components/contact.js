@@ -41,10 +41,10 @@ const Contact = () => {
         >
           <span className="px-3 py-1.5 sm:px-4 sm:py-2 rounded-full bg-accent/10 text-accent text-xs sm:text-sm font-medium inline-flex items-center gap-1 sm:gap-2 mb-3 sm:mb-4">
             <Sparkles className="h-3 w-3 sm:h-4 sm:w-4" />
-            Let's Create Something Amazing Together
+            Let&#39;s Create Something Amazing Together
           </span>
           <h2 className="text-3xl sm:text-4xl md:text-5xl font-bold mb-3 sm:mb-4 text2-gradient to-accent bg-clip-text text-transparent">
-            Let's Connect
+            Let&#39;s Connect
           </h2>
           <div className="relative w-full max-w-[350px] h-16 sm:h-20 -mb-10 sm:-mb-14 -mt-1 sm:-mt-2 mx-auto">
             {/* Gradient Lines */}
@@ -81,7 +81,10 @@ const Contact = () => {
                     : `${method.title}: ${method.value}`
                 }
               >
-                <div className="rounded-full p-2 sm:p-3 bg-accent/10 w-fit mb-3 sm:mb-4" aria-hidden="true">
+                <div
+                  className="rounded-full p-2 sm:p-3 bg-accent/10 w-fit mb-3 sm:mb-4"
+                  aria-hidden="true"
+                >
                   {method.icon}
                 </div>
                 <h3 className="text-lg sm:text-xl font-semibold mb-1 sm:mb-2 text-white">
@@ -90,7 +93,10 @@ const Contact = () => {
                 <div className="relative z-10 text-sm sm:text-base text-slate-300 hover:text-accent transition-colors flex items-center gap-1">
                   <span>{method.value}</span>
                   {method.external && (
-                    <ExternalLink className="h-3 w-3" aria-label="(external link)" />
+                    <ExternalLink
+                      className="h-3 w-3"
+                      aria-label="(external link)"
+                    />
                   )}
                 </div>
               </a>
@@ -109,7 +115,7 @@ const Contact = () => {
           ))}
         </motion.div>
       </div>
-      
+
       <div className="text-center mt-6 sm:mt-8 mx-auto max-w-xs sm:max-w-sm md:max-w-xl text-xs sm:text-sm">
         <ShinyText
           text="Available for freelance opportunities and collaborations"
