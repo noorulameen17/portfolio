@@ -35,7 +35,7 @@ export default function Skills() {
   return (
     <section
       id="skills"
-      className="py-10 sm:py-16 md:py-24 lg:py-32 container mx-auto px-2 sm:px-4 -mt-20"
+      className="py-10 sm:py-16 md:py-24 lg:py-32 container mx-auto px-2 sm:px-4 -mt-6"
     >
       <div className="text-center mb-8 sm:mb-12 md:mb-16">
         <div className="relative inline-block">
@@ -77,7 +77,7 @@ export default function Skills() {
         </motion.div>
       </div>
 
-      <div className="flex justify-center items-center min-h-[200px] sm:min-h-[260px] md:min-h-[320px] -mt-20 -mb-40">
+      <div className="flex justify-center items-center min-h-[200px] sm:min-h-[260px] md:min-h-[320px] -mt-8 sm:-mt-16 md:-mt-20 -mb-16">
         <OrbitingItems3D
           duration={30}
           items={[

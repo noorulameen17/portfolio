@@ -1,9 +1,9 @@
 "use client";
 
-import { useState, useEffect } from "react";
-import { usePathname } from "next/navigation";
-import { ArrowUpRight } from "lucide-react";
 import { motion } from "framer-motion";
+import { ArrowUpRight } from "lucide-react";
+import { usePathname } from "next/navigation";
+import React, { useEffect, useState } from "react";
 
 export default function Navbar() {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
@@ -43,39 +43,135 @@ export default function Navbar() {
     }
   };
 
-  const getNavItemClass = (itemName) => {
-    const baseClasses = "transition-all duration-200";
+  const getNavItemClass = (itemName, isActive) => {
+    const baseClasses = "transition-all duration-200 relative z-10";
     const responsiveClasses =
       "px-1.5 py-1 xs:px-3 sm:px-4 md:px-6 md:py-3 text-white font-medium text-[10px] xs:text-xs sm:text-sm hover:opacity-80";
-
-    if (itemName === "Work") {
-      return `${baseClasses} px-1.5 py-1 xs:px-2 sm:px-3 md:px-4 md:py-2 text-white font-medium text-[10px] xs:text-xs sm:text-sm hover:opacity-80 bg-white/10 rounded-full`;
-    }
-
-    const workButtonClasses =
-      pathname === itemName.toLowerCase() ? "opacity-100" : "opacity-70";
-    return `${baseClasses} ${responsiveClasses} ${workButtonClasses}`;
+    return `${baseClasses} ${responsiveClasses} ${
+      isActive ? "opacity-100" : "opacity-70"
+    }`;
   };
 
-  const headerClassName = "fixed inset-x-0 top-0 z-50 flex justify-center pointer-events-none mt-4 sm:mt-6 md:mt-8";
-  
+  const headerClassName =
+    "fixed inset-x-0 top-0 z-50 flex justify-center pointer-events-none mt-4 sm:mt-6 md:mt-8";
+
   const navClassName = `flex items-center justify-center rounded-full px-2 gap-1 sm:gap-2 pointer-events-auto ${
     scrolled
       ? "bg-black/60 backdrop-blur-xl border border-white/10 backdrop-saturate-150"
       : "bg-black/20 backdrop-blur-lg border border-white/10 backdrop-saturate-150"
   }`;
 
+  // Refs for nav item positions
+  const [navRefs, setNavRefs] = useState([]);
+  useEffect(() => {
+    setNavRefs((refs) =>
+      Array(navItems.length)
+        .fill()
+        .map((_, i) => refs[i] || React.createRef())
+    );
+  }, [navItems.length]);
+
+  // Track which section is in view using Intersection Observer
+  const [activeIndex, setActiveIndex] = useState(0);
+  useEffect(() => {
+    const sectionIds = navItems.map((item) => item.path.replace("#", ""));
+    const sectionElements = sectionIds.map((id) => document.getElementById(id));
+    if (sectionElements.some((el) => !el)) return; // Wait until all sections are mounted
+
+    let ticking = false;
+    let lastRatio = Array(sectionElements.length).fill(0);
+
+    const observer = new window.IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          const idx = sectionElements.findIndex((el) => el === entry.target);
+          if (idx !== -1) {
+            lastRatio[idx] = entry.intersectionRatio;
+          }
+        });
+        if (!ticking) {
+          window.requestAnimationFrame(() => {
+            const max = Math.max(...lastRatio);
+            const idx = lastRatio.findIndex((r) => r === max);
+            setActiveIndex(idx);
+            ticking = false;
+          });
+          ticking = true;
+        }
+      },
+      {
+        root: null,
+        rootMargin: "-60px 0px 0px 0px", // offset for navbar
+        threshold: Array.from({ length: 21 }, (_, i) => i * 0.05),
+      }
+    );
+    sectionElements.forEach((el) => {
+      if (el) observer.observe(el);
+    });
+    return () => {
+      sectionElements.forEach((el) => {
+        if (el) observer.unobserve(el);
+      });
+      observer.disconnect();
+    };
+  }, [navItems]);
+
+  // Also update activeIndex on nav click
+  const handleNavClick = (e, path, idx) => {
+    scrollToSection(e, path);
+    setActiveIndex(idx);
+  };
+
+  // Get pill position and size
+  const [pillStyle, setPillStyle] = useState({
+    left: 0,
+    top: 0,
+    width: 0,
+    height: 0,
+  });
+  useEffect(() => {
+    if (navRefs[activeIndex] && navRefs[activeIndex].current) {
+      const rect = navRefs[activeIndex].current.getBoundingClientRect();
+      const parentRect =
+        navRefs[activeIndex].current.parentNode.getBoundingClientRect();
+      setPillStyle({
+        left: rect.left - parentRect.left,
+        top: rect.top - parentRect.top,
+        width: rect.width,
+        height: rect.height,
+      });
+    }
+  }, [activeIndex, navRefs, isMounted, scrolled]);
+
   const renderNavItems = () => (
-    navItems.map((item) => (
-      <a
-        key={item.name}
-        href={item.path}
-        className={getNavItemClass(item.name)}
-        onClick={(e) => scrollToSection(e, item.path)}
-      >
-        {item.name}
-      </a>
-    ))
+    <div className="relative flex">
+      {/* Animated pill */}
+      <motion.div
+        className="absolute bg-white/10 rounded-full z-0 border-2 border-white font-bold shadow-[0_0_16px_4px_rgba(255,255,255,0.5)]"
+        style={{
+          left: pillStyle.left,
+          top: pillStyle.top,
+          width: pillStyle.width,
+          height: pillStyle.height,
+        }}
+        layout
+        transition={{ type: "spring", stiffness: 500, damping: 40 }}
+      />
+      {navItems.map((item, idx) => {
+        const isActive = idx === activeIndex;
+        return (
+          <a
+            key={item.name}
+            href={item.path}
+            className={getNavItemClass(item.name, isActive)}
+            onClick={(e) => handleNavClick(e, item.path, idx)}
+            ref={navRefs[idx]}
+          >
+            {item.name}
+          </a>
+        );
+      })}
+    </div>
   );
 
   const renderResumeLink = () => (
@@ -96,9 +192,7 @@ export default function Navbar() {
         {!isMounted ? (
           <nav className={navClassName}>
             {renderNavItems()}
-            <div>
-              {renderResumeLink()}
-            </div>
+            <div>{renderResumeLink()}</div>
           </nav>
         ) : (
           <motion.nav
@@ -107,19 +201,7 @@ export default function Navbar() {
             transition={{ duration: 0.8, delay: 0.4 }}
             className={navClassName}
           >
-            {navItems.map((item, index) => (
-              <motion.a
-                key={item.name}
-                initial={{ opacity: 0, y: 10 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.8, delay: 0.4 + index * 0.1 }}
-                href={item.path}
-                className={getNavItemClass(item.name)}
-                onClick={(e) => scrollToSection(e, item.path)}
-              >
-                {item.name}
-              </motion.a>
-            ))}
+            {renderNavItems()}
             <motion.div
               initial={{ opacity: 0, y: 10 }}
               animate={{ opacity: 1, y: 0 }}

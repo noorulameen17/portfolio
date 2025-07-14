@@ -164,9 +164,9 @@
 .delay-400 { transition-delay: 400ms; }
 .delay-500 { transition-delay: 500ms; }
 
-/* Smooth scrolling */
+
 html {
-  scroll-behavior: smooth;
+  scroll-behavior: auto !important;
 }
 
 .text2-gradient {
