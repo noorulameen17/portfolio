@@ -1,18 +1,12 @@
 "use client";
 
-import {
-  motion,
-  useMotionValue,
-  useSpring,
-  useTransform,
-} from "framer-motion";
-import ShinyText from "./ui/ShinyText";
-import { Mail, Phone, MapPin, ExternalLink } from "lucide-react";
-import { BsLinkedin, BsGithub } from "react-icons/bs";
+import { motion, useMotionValue, useSpring, useTransform } from "framer-motion";
+import { ExternalLink, Mail, MapPin, Phone, Sparkles } from "lucide-react";
+import { useEffect, useState } from "react";
+import { BsGithub, BsLinkedin } from "react-icons/bs";
 import { RiTwitterXLine } from "react-icons/ri";
-import { useState, useEffect } from "react";
-import { Sparkles } from "lucide-react";
 import { GlareCard } from "./ui/glare-card";
+import ShinyText from "./ui/ShinyText";
 
 const Contact = () => {
   const mouseX = useMotionValue(0);
@@ -66,41 +60,42 @@ const Contact = () => {
 
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-6 md:gap-8 w-full">
           {contactMethods.map((method, i) => (
-            <GlareCard
+            <a
               key={method.title}
-              className="bg-gradient-to-br from-slate-900 to-slate-800"
+              href={method.link}
+              target={method.external ? "_blank" : undefined}
+              rel={method.external ? "noopener noreferrer" : undefined}
+              className="focus:outline-none focus:ring-2 focus:ring-accent rounded-xl group"
+              aria-label={
+                method.external
+                  ? `${method.title}: ${method.value} (opens in a new tab)`
+                  : `${method.title}: ${method.value}`
+              }
+              tabIndex={0}
             >
-              <a
-                href={method.link}
-                target={method.external ? "_blank" : undefined}
-                rel={method.external ? "noopener noreferrer" : undefined}
-                className="block p-4 sm:p-6 rounded-xl focus:outline-none focus:ring-2 focus:ring-accent transition-colors hover:bg-accent/5 h-full"
-                aria-label={
-                  method.external
-                    ? `${method.title}: ${method.value} (opens in a new tab)`
-                    : `${method.title}: ${method.value}`
-                }
-              >
-                <div
-                  className="rounded-full p-2 sm:p-3 bg-accent/10 w-fit mb-3 sm:mb-4"
-                  aria-hidden="true"
-                >
-                  {method.icon}
+              <GlareCard className="bg-gradient-to-br from-slate-900 to-slate-800 h-full">
+                <div className="block p-4 sm:p-6 rounded-xl transition-colors hover:bg-accent/5 h-full">
+                  <div
+                    className="rounded-full p-2 sm:p-3 bg-accent/10 w-fit mb-3 sm:mb-4"
+                    aria-hidden="true"
+                  >
+                    {method.icon}
+                  </div>
+                  <h3 className="text-lg sm:text-xl font-semibold mb-1 sm:mb-2 text-white">
+                    {method.title}
+                  </h3>
+                  <div className="relative z-10 text-sm sm:text-base text-slate-300 group-hover:text-accent transition-colors flex items-center gap-1">
+                    <span>{method.value}</span>
+                    {method.external && (
+                      <ExternalLink
+                        className="h-3 w-3"
+                        aria-label="(external link)"
+                      />
+                    )}
+                  </div>
                 </div>
-                <h3 className="text-lg sm:text-xl font-semibold mb-1 sm:mb-2 text-white">
-                  {method.title}
-                </h3>
-                <div className="relative z-10 text-sm sm:text-base text-slate-300 hover:text-accent transition-colors flex items-center gap-1">
-                  <span>{method.value}</span>
-                  {method.external && (
-                    <ExternalLink
-                      className="h-3 w-3"
-                      aria-label="(external link)"
-                    />
-                  )}
-                </div>
-              </a>
-            </GlareCard>
+              </GlareCard>
+            </a>
           ))}
         </div>
 
@@ -175,7 +170,9 @@ const FloatingCard = ({ method, mouseX, mouseY, delay }) => {
           <div className="rounded-full p-2 sm:p-3 bg-accent/10 w-fit mb-3 sm:mb-4">
             {method.icon}
           </div>
-          <h3 className="text-lg sm:text-xl font-semibold mb-1 sm:mb-2">{method.title}</h3>
+          <h3 className="text-lg sm:text-xl font-semibold mb-1 sm:mb-2">
+            {method.title}
+          </h3>
           <a
             href={method.link}
             target={method.external ? "_blank" : undefined}
