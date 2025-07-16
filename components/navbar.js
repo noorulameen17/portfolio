@@ -45,8 +45,9 @@ export default function Navbar() {
 
   const getNavItemClass = (itemName, isActive) => {
     const baseClasses = "transition-all duration-200 relative z-10";
+    // Increase vertical padding for mobile (default) breakpoint
     const responsiveClasses =
-      "px-1.5 py-1 xs:px-3 sm:px-4 md:px-6 md:py-3 text-white font-medium text-[10px] xs:text-xs sm:text-sm hover:opacity-80";
+      "px-1.5 py-3 xs:px-3 sm:px-4 md:px-6 md:py-3 text-white font-medium text-[10px] xs:text-xs sm:text-sm hover:opacity-80";
     return `${baseClasses} ${responsiveClasses} ${
       isActive ? "opacity-100" : "opacity-70"
     }`;
@@ -57,9 +58,11 @@ export default function Navbar() {
 
   const navClassName = `flex items-center justify-center rounded-full px-2 gap-1 sm:gap-2 pointer-events-auto ${
     scrolled
-      ? "bg-black/60 backdrop-blur-xl border border-white/10 backdrop-saturate-150"
-      : "bg-black/20 backdrop-blur-lg border border-white/10 backdrop-saturate-150"
+      ? "bg-black/60 backdrop-blur-xl border-3 border-white backdrop-saturate-150"
+      : "bg-black/20 backdrop-blur-lg border-3 border-white backdrop-saturate-150"
   }`;
+  // Increase vertical padding for mobile (default) breakpoint
+  const navContainerPadding = "py-3 xs:py-4 sm:py-4";
 
   // Refs for nav item positions
   const [navRefs, setNavRefs] = useState([]);
@@ -134,10 +137,15 @@ export default function Navbar() {
       const rect = navRefs[activeIndex].current.getBoundingClientRect();
       const parentRect =
         navRefs[activeIndex].current.parentNode.getBoundingClientRect();
+      let extraWidth = 16; // Default for desktop/tablet
+      if (window.innerWidth < 640) {
+        // Tailwind's sm breakpoint is 640px
+        extraWidth = 4; // Slightly reduce pill width for mobile
+      }
       setPillStyle({
-        left: rect.left - parentRect.left,
+        left: rect.left - parentRect.left - extraWidth / 2, // Center the pill
         top: rect.top - parentRect.top,
-        width: rect.width,
+        width: rect.width + extraWidth,
         height: rect.height,
       });
     }
@@ -179,16 +187,18 @@ export default function Navbar() {
       href="/Noorul Ameen Resume.pdf"
       target="_blank"
       rel="noopener noreferrer"
-      className="flex items-center gap-0.5 xs:gap-1 px-1.5 py-1 xs:px-3 sm:px-4 md:px-6 md:py-3 text-white font-medium text-[10px] xs:text-xs sm:text-sm transition-all duration-200 hover:opacity-80"
+      className="group flex items-center gap-0.5 xs:gap-1 px-1.5 py-1 xs:px-3 sm:px-4 md:px-6 md:py-3 text-white font-medium text-[10px] xs:text-xs sm:text-sm transition-all duration-200 hover:opacity-80"
     >
       Resume{" "}
-      <ArrowUpRight className="h-2.5 w-2.5 xs:h-3 xs:w-3 sm:h-4 sm:w-4" />
+      <ArrowUpRight className="h-2.5 w-2.5 xs:h-3 xs:w-3 sm:h-4 sm:w-4 transition-transform duration-300 group-hover:translate-x-1" />
     </a>
   );
 
   return (
     <header className={headerClassName}>
-      <div className="px-4 py-2">
+      <div
+        className={`pl-10 pr-10 sm:pl-4 sm:pr-6 max-w-full sm:max-w-xl mx-auto ${navContainerPadding}`}
+      >
         {!isMounted ? (
           <nav className={navClassName}>
             {renderNavItems()}
