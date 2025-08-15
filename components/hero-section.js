@@ -1,16 +1,15 @@
 "use client";
 
-import { ArrowDown } from "lucide-react";
 import { motion, useAnimation } from "framer-motion";
+import { ArrowDown } from "lucide-react";
 import { useEffect, useState } from "react";
+import { LuMouse } from "react-icons/lu";
 import { useInView } from "react-intersection-observer";
 import ImageLoader from "./ImageLoaders";
 import RotatingText from "./ui/RotatingText";
-import { RainbowButton } from "./ui/rainbow-button";
 import { LineShadowText } from "./ui/line-shadow-text";
-import { LuMouse } from "react-icons/lu";
+import { RainbowButton } from "./ui/rainbow-button";
 import { Sparkles } from "./ui/sparkles";
-
 
 const Hero = () => {
   const controls = useAnimation();
@@ -20,14 +19,13 @@ const Hero = () => {
   });
 
   const [isMobile, setIsMobile] = useState(false);
-  
-  useEffect(() => {
 
-    if (typeof window !== 'undefined') {
+  useEffect(() => {
+    if (typeof window !== "undefined") {
       const checkMobile = () => setIsMobile(window.innerWidth < 640);
       checkMobile();
-      window.addEventListener('resize', checkMobile);
-      return () => window.removeEventListener('resize', checkMobile);
+      window.addEventListener("resize", checkMobile);
+      return () => window.removeEventListener("resize", checkMobile);
     }
   }, []);
 
@@ -102,7 +100,7 @@ const Hero = () => {
               <span className="mr-2 xs:mr-3 sm:mr-5 text-white">
                 Hello&#44;
               </span>
-              <span className="inline-block mr-2 xs:mr-3 sm:mr-3 md:mr-0">
+              <span className="inline-block mr-3 xs:mr-4 sm:mr-1 md:mr-1">
                 <RotatingText
                   texts={["I", "Am"]}
                   mainClassName="inline-flex text-white w-[50px] xs:w-[60px] sm:w-[80px] md:w-[100px] px-0.5 sm:px-1 md:px-1.5 text-black overflow-hidden py-0.5 sm:py-1 md:py-2 justify-center"
@@ -116,7 +114,7 @@ const Hero = () => {
                   rotationInterval={2000}
                 />
               </span>
-              <span className="text-white sm:ml-1">
+              <span className="text-white ml-2 sm:ml-0 md:ml-0">
                 <LineShadowText shadowColor={"white"}>Noorul</LineShadowText>
               </span>{" "}
               <span className="text-white sm:ml-2">
@@ -130,12 +128,11 @@ const Hero = () => {
             >
               An AI enthusiast and software developer passionate about
               leveraging technology to create innovative solutions&#46;
-              
             </motion.p>
 
             <motion.div
               variants={item}
-              className="flex flex-wrap gap-2 sm:gap-5 md:gap-6"
+              className="flex flex-wrap justify-center sm:justify-start gap-4 sm:gap-6 md:gap-8"
             >
               <RainbowButton
                 className="rounded-full text-sm sm:text-base font-medium shadow-md hover:shadow-lg transition-all py-1.5 sm:py-2.5"
