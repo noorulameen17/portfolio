@@ -2,15 +2,23 @@
 
 import { Analytics } from "@vercel/analytics/react";
 import { Inter } from "next/font/google";
+import React from "react";
 import Footer from "../components/footer";
 import LenisProvider from "../components/LenisProvider";
-import Navbar from "../components/navbar";
+import Loader from "../components/loader";
 import { CustomThemeProvider } from "../components/theme-provider";
 import "./globals.css";
 
 const inter = Inter({ subsets: ["latin"] });
 
 export default function RootLayout({ children }) {
+  const [isLoading, setIsLoading] = React.useState(true);
+
+  React.useEffect(() => {
+    const timeout = setTimeout(() => setIsLoading(false), 1800);
+    return () => clearTimeout(timeout);
+  }, []);
+
   return (
     <LenisProvider>
       <html lang="en" suppressHydrationWarning>
@@ -110,10 +118,17 @@ export default function RootLayout({ children }) {
             enableSystem={false}
             disableTransitionOnChange
           >
-            <Navbar />
-            <main className="min-h-screen">
-              {children}
-              <Analytics />
+            <main className="min-h-screen flex items-center justify-center">
+              {isLoading ? (
+                <div className="flex flex-col items-center justify-center w-full h-screen">
+                  <Loader />
+                </div>
+              ) : (
+                <div className="w-full">
+                  {children}
+                  <Analytics />
+                </div>
+              )}
             </main>
             <Footer />
           </CustomThemeProvider>
