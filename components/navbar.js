@@ -56,7 +56,7 @@ export default function Navbar() {
   const headerClassName =
     "fixed inset-x-0 top-0 z-50 flex justify-center pointer-events-none mt-4 sm:mt-6 md:mt-8";
 
-  const navClassName = `flex items-center justify-center rounded-full px-2 gap-1 sm:gap-2 pointer-events-auto ${
+  const navClassName = `w-full sm:w-auto flex items-center justify-center rounded-full px-2 gap-1 sm:gap-2 pointer-events-auto ${
     scrolled
       ? "bg-black/60 backdrop-blur-xl border-3 border-white backdrop-saturate-150"
       : "bg-black/20 backdrop-blur-lg border-3 border-white backdrop-saturate-150"
@@ -152,7 +152,7 @@ export default function Navbar() {
   }, [activeIndex, navRefs, isMounted, scrolled]);
 
   const renderNavItems = () => (
-    <div className="relative flex">
+    <div className="relative flex w-full sm:w-auto justify-between sm:justify-normal">
       {/* Animated pill */}
       <motion.div
         className="absolute bg-white/10 rounded-full z-0 border-2 border-white font-bold shadow-[0_0_16px_4px_rgba(255,255,255,0.5)]"
@@ -171,7 +171,10 @@ export default function Navbar() {
           <a
             key={item.name}
             href={item.path}
-            className={getNavItemClass(item.name, isActive)}
+            className={`${getNavItemClass(
+              item.name,
+              isActive
+            )} flex-1 text-center sm:flex-initial`}
             onClick={(e) => handleNavClick(e, item.path, idx)}
             ref={navRefs[idx]}
           >
@@ -197,7 +200,7 @@ export default function Navbar() {
   return (
     <header className={headerClassName}>
       <div
-        className={`pl-10 pr-10 sm:pl-4 sm:pr-6 max-w-full sm:max-w-xl mx-auto ${navContainerPadding}`}
+        className={`w-full px-1 sm:pl-4 sm:pr-6 max-w-full sm:max-w-xl mx-auto ${navContainerPadding}`}
       >
         {!isMounted ? (
           <nav className={navClassName}>
