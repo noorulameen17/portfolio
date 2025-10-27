@@ -99,7 +99,9 @@ export function OrbitRotation({
               style={{
                 width: orbitSize,
                 height: orbitSize,
-                "--duration": animationDuration,
+                // Use full animation declaration inline to ensure compatibility on browsers
+                // that don't support CSS variables in animation shorthands.
+                animation: `orbit-spin ${animationDuration} linear infinite`,
               }}
             >
               {icons
