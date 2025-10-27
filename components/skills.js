@@ -4,33 +4,214 @@ import { motion } from "framer-motion";
 import Image from "next/image";
 import { FaCss3Alt, FaGitAlt } from "react-icons/fa";
 import { FaHtml5, FaJs, FaReact } from "react-icons/fa6";
-import { PiGreaterThanFill } from "react-icons/pi";
 import { RiNextjsFill, RiTailwindCssFill } from "react-icons/ri";
-import { SiClerk, SiMui, SiSupabase, SiVercel } from "react-icons/si";
-import OrbitingItems3D from "./ui/orbiting-items-3-d";
-import ShinyText from "./ui/ShinyText";
-import { useEffect, useState } from "react";
+import {
+  SiClerk,
+  SiMui,
+  SiShadcnui,
+  SiSupabase,
+  SiVercel,
+} from "react-icons/si";
+
+import useIsMobile from "../hooks/useIsMobile";
+import { OrbitRotation } from "./ui/orbit-rotation";
+import { TextShimmerWave } from "./ui/text-shimmer-wave";
 
 export default function Skills() {
-  // Responsive radii and icon size for OrbitingItems3D
-  const [radii, setRadii] = useState({ x: 100, y: 32 });
-  const [iconSize, setIconSize] = useState(48);
+  const sizeFromClass = (cls = "") =>
+    cls.includes("w-10") ? 40 : cls.includes("w-8") ? 32 : 24;
 
-  useEffect(() => {
-    function handleResize() {
-      const width = window.innerWidth;
-      setRadii({
-        x: Math.max(18, Math.min(width / 8, 60)), 
-        y: Math.max(8, Math.min(width / 24, 28)), 
-      });
-      setIconSize(
-        width < 400 ? 32 : width < 640 ? 40 : width < 1024 ? 48 : 56
+  const isMobile = useIsMobile();
+
+  const techIcons = [
+    {
+      Icon: ({ className }) => (
+        <FaHtml5 className={className} color="#E34F26" />
+      ),
+      name: "HTML5",
+    },
+    {
+      Icon: ({ className }) => (
+        <FaCss3Alt className={className} color="#1572B6" />
+      ),
+      name: "CSS3",
+    },
+    {
+      Icon: ({ className }) => <FaJs className={className} color="#F7DF1E" />,
+      name: "JavaScript",
+    },
+    {
+      Icon: ({ className }) => (
+        <FaReact className={className} color="#61DAFB" />
+      ),
+      name: "React",
+    },
+    {
+      Icon: ({ className }) => (
+        <RiNextjsFill className={className} color="#ffffff" />
+      ),
+      name: "Next.js",
+    },
+    {
+      Icon: ({ className }) => (
+        <RiTailwindCssFill className={className} color="#38BDF8" />
+      ),
+      name: "Tailwind CSS",
+    },
+    {
+      Icon: ({ className }) => (
+        <FaGitAlt className={className} color="#F05032" />
+      ),
+      name: "Git",
+    },
+    {
+      Icon: ({ className }) => (
+        <SiVercel className={className} color="#ffffff" />
+      ),
+      name: "Vercel",
+    },
+    {
+      Icon: ({ className }) => (
+        <SiClerk className={className} color="#6C47FF" />
+      ),
+      name: "Clerk",
+    },
+    {
+      Icon: ({ className }) => <SiMui className={className} color="#007FFF" />,
+      name: "MUI",
+    },
+    {
+      Icon: ({ className }) => (
+        <SiSupabase className={className} color="#3ECF8E" />
+      ),
+      name: "Supabase",
+    },
+    {
+      Icon: ({ className }) => {
+        const size = sizeFromClass(className);
+        return (
+          <Image
+            key="aceternity"
+            src="/icon/aceternity.png"
+            alt="Aceternity Logo"
+            width={size}
+            height={size}
+            className={className}
+            style={{ width: size, height: size }}
+          />
+        );
+      },
+      name: "Aceternity",
+    },
+    {
+      Icon: ({ className }) => {
+        const size = sizeFromClass(className);
+        return (
+          <Image
+            key="bits"
+            src="/icon/bits.ico"
+            alt="Bits Logo"
+            width={size}
+            height={size}
+            className={className}
+            style={{ width: size, height: size }}
+          />
+        );
+      },
+      name: "Bits",
+    },
+    {
+      Icon: ({ className }) => {
+        const size = sizeFromClass(className);
+        return (
+          <Image
+            key="magic"
+            src="/icon/magic.ico"
+            alt="Magic Logo"
+            width={size}
+            height={size}
+            className={className}
+            style={{ width: size, height: size }}
+          />
+        );
+      },
+      name: "Magic",
+    },
+    {
+      Icon: ({ className }) => {
+        const size = sizeFromClass(className);
+        return (
+          <Image
+            key="python"
+            src="/icon/python.png"
+            alt="Python Logo"
+            width={size}
+            height={size}
+            className={className}
+            style={{ width: size, height: size }}
+          />
+        );
+      },
+      name: "Python",
+    },
+    {
+      Icon: ({ className }) => {
+        const size = sizeFromClass(className);
+        return (
+          <Image
+            key="Eldora"
+            src="/icon/eldora.ico"
+            alt="Eldora Logo"
+            width={size}
+            height={size}
+            className={className}
+            style={{ width: size, height: size }}
+          />
+        );
+      },
+      name: "EldoraUI",
+    },
+    {
+      Icon: ({ className }) => (
+        <SiShadcnui className={className} color="#ffffff" />
+      ),
+      name: "shadcn/ui",
+    },
+    {
+      Icon: ({ className }) => {
+        const size = sizeFromClass(className);
+        return (
+          <Image
+            key="Motion"
+            src="/icon/motion.ico"
+            alt="Motion Logo"
+            width={size}
+            height={size}
+            className={className}
+            style={{ width: size, height: size }}
+          />
+        );
+      },
+      name: "Motion",
+    },
+  ];
+
+  const centerIcon = {
+    Icon: ({ className }) => {
+      const size = sizeFromClass(className);
+      return (
+        <Image
+          src="/icon/icon1.svg"
+          alt="Center Logo"
+          width={size}
+          height={size}
+          className={className}
+          style={{ width: 150, height: 150 }}
+        />
       );
-    }
-    handleResize();
-    window.addEventListener("resize", handleResize);
-    return () => window.removeEventListener("resize", handleResize);
-  }, []);
+    },
+    name: "Logo",
+  };
 
   return (
     <section
@@ -68,108 +249,22 @@ export default function Skills() {
           transition={{ duration: 0.5, delay: 0.2 }}
           className="text-xs sm:text-sm md:text-base"
         >
-          <ShinyText
-            text="A comprehensive showcase of my technical abilities and expertise"
-            disabled={false}
-            speed={3}
-            className="custom-class"
-          />
+          <TextShimmerWave as="p" duration={3} className="custom-class">
+            A comprehensive showcase of my technical abilities and expertise
+          </TextShimmerWave>
         </motion.div>
       </div>
 
-      <div className="flex justify-center items-center min-h-[200px] sm:min-h-[260px] md:min-h-[320px] -mt-8 sm:-mt-16 md:-mt-20 -mb-16">
-        <OrbitingItems3D
-          duration={30}
-          items={[
-            <FaHtml5
-              key="html"
-              className={`text-orange-500`}
-              style={{ width: iconSize, height: iconSize }}
-            />,
-            <FaCss3Alt
-              key="css"
-              className={`text-blue-500`}
-              style={{ width: iconSize, height: iconSize }}
-            />,
-            <FaJs
-              key="javascript"
-              className={`text-yellow-400`}
-              style={{ width: iconSize, height: iconSize }}
-            />,
-            <FaReact
-              key="react"
-              className={`text-sky-400`}
-              style={{ width: iconSize, height: iconSize }}
-            />,
-            <RiNextjsFill
-              key="nextjs"
-              style={{ width: iconSize, height: iconSize }}
-            />,
-            <SiMui
-              key="material-ui"
-              className="text-blue-600"
-              style={{ width: iconSize, height: iconSize }}
-            />,
-            <PiGreaterThanFill
-              key="aceternity-ui"
-              className="text-black"
-              style={{ width: iconSize, height: iconSize }}
-            />,
-            <RiTailwindCssFill
-              key="tailwind"
-              className="text-sky-500"
-              style={{ width: iconSize, height: iconSize }}
-            />,
-            <Image
-              key="bits"
-              src="/icon/bits.ico"
-              alt="Bits Logo"
-              width={iconSize}
-              height={iconSize}
-              className=""
-              style={{ width: iconSize, height: iconSize }}
-            />,
-            <Image
-              key="magic"
-              src="/icon/magic.ico"
-              alt="Magic Logo"
-              width={iconSize}
-              height={iconSize}
-              className=""
-              style={{ width: iconSize, height: iconSize }}
-            />,
-            <Image
-              key="python"
-              src="/icon/python.png"
-              alt="Python Logo"
-              width={iconSize}
-              height={iconSize}
-              className=""
-              style={{ width: iconSize, height: iconSize }}
-            />,
-            <SiClerk
-              key="clerk"
-              style={{ width: iconSize, height: iconSize }}
-            />,
-            <SiSupabase
-              key="supabase"
-              className="text-green-500"
-              style={{ width: iconSize, height: iconSize }}
-            />,
-            <SiVercel
-              key="vercel"
-              style={{ width: iconSize, height: iconSize }}
-            />,
-            <FaGitAlt
-              key="git"
-              className="text-orange-600"
-              style={{ width: iconSize, height: iconSize }}
-            />,
-          ]}
-          radiusX={radii.x}
-          radiusY={radii.y}
-          tiltAngle={330}
-        />
+      <div className="flex justify-center items-center min-h-[200px] sm:min-h-[260px] md:min-h-[320px] mt-24 sm:mt-36 md:mt-48 mb-16">
+        <div className="flex flex-wrap justify-center items-center gap-6">
+          <OrbitRotation
+            icons={techIcons}
+            orbitCount={3}
+            orbitGap={isMobile ? 6 : 8}
+            centerIcon={centerIcon}
+            size="md"
+          />
+        </div>
       </div>
     </section>
   );

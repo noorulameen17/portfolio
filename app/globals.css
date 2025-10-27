@@ -100,7 +100,7 @@
   h1, h2, h3, h4, h5, h6 {
     @apply font-display font-bold tracking-tight;
   }
-  
+
   .font-display {
     font-family: 'Inter', sans-serif;
   }
@@ -164,7 +164,6 @@
 .delay-400 { transition-delay: 400ms; }
 .delay-500 { transition-delay: 500ms; }
 
-
 html {
   scroll-behavior: auto !important;
 }
@@ -209,4 +208,15 @@ html {
   background: linear-gradient(135deg, #FF6B6B, #4ECDC4);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
+}
+
+@theme inline {
+  @keyframes orbit-spin {
+  from {
+    transform: rotate(0deg);
+    }
+  to {
+    transform: rotate(360deg);
+    }
+  }
 }

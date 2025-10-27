@@ -1,19 +1,26 @@
 "use client";
 
+import { EvervaultCard } from "@/components/ui/evervault-card";
 import { cn } from "@/lib/utils";
 import { useEffect, useRef, useState } from "react";
-import ImageLoader from "./ImageLoaders";
-import ShinyText from "./ui/ShinyText";
-import { EvervaultCard } from "@/components/ui/evervault-card";
+import ImageLoader from "./ui/ImageLoaders";
+import { TextShimmerWave } from "./ui/text-shimmer-wave";
 
 const experiences = [
+  {
+    title: "Technical Support Associate",
+    company: "Sutherland",
+    period: "Sep 2025 - Ongoing",
+    description: "",
+    logoUrl:
+      "https://media.licdn.com/dms/image/v2/D560BAQF6deC0eyBN7Q/company-logo_100_100/company-logo_100_100/0/1719844269957/sutherland_global_logo?e=1762992000&v=beta&t=VwAhQXexdxUI3rDnJhFXu4WKBg-XxW6B2Fjeho0ldIE",
+  },
   {
     title: "LLM Trainer",
     company: "Outlier",
     period: "Oct 2024 - Apr 2025",
-    description: "Working on training large language models.",
-    logoUrl:
-      "./outlier.png",
+    description: "Working on training large language models through RLHF.",
+    logoUrl: "./outlier.png",
   },
   {
     title: "Web Developer",
@@ -21,15 +28,7 @@ const experiences = [
     period: "Feb 2025",
     description: "Built web apps, mastered software development.",
     logoUrl:
-      "https://media.licdn.com/dms/image/v2/D4D0BAQExMstlk24B7Q/company-logo_100_100/B4DZTz7.EmG8AU-/0/1739259375223/readautomation1_logo?e=1756339200&v=beta&t=oTcvqMrSrjjhKD8e4pBDZZSzvDaSZDP4rEnAJ4WXWv0",
-  },
-  {
-    title: "Software Engineering Fellow",
-    company: "Headstarter AI",
-    period: "Jul 2024 - Sep 2024",
-    description: "Completed SWE AI fellowship, honed AI development skills.",
-    logoUrl:
-      "./headstarter.png",
+      "https://media.licdn.com/dms/image/v2/D4D0BAQExMstlk24B7Q/company-logo_100_100/B4DZTz7.EmG8AU-/0/1739259375223/readautomation1_logo?e=1762992000&v=beta&t=RukZM8Qzdc_CtLI9TmddiDk9K7Pj-1eia9o5mozJQMg",
   },
 ];
 
@@ -38,7 +37,7 @@ const ExperienceItem = ({ experience, index, activeIndex, setActiveIndex }) => {
   const [isClicking, setIsClicking] = useState(false);
 
   const glowColors = [
-    "rgba(79, 70, 229, 0.6)", 
+    "rgba(79, 70, 229, 0.6)",
     "rgba(16, 185, 129, 0.6)",
     "rgba(59, 130, 246, 0.6)",
   ];
@@ -98,7 +97,8 @@ const ExperienceItem = ({ experience, index, activeIndex, setActiveIndex }) => {
             <h3
               className={cn(
                 "text-base sm:text-lg font-semibold transition-colors duration-300",
-                experience.title === "LLM Trainer"
+                experience.title === "LLM Trainer" ||
+                  experience.title === "Technical Support Associate"
                   ? "text-white"
                   : activeIndex === index
                   ? "text-primary"
@@ -112,7 +112,7 @@ const ExperienceItem = ({ experience, index, activeIndex, setActiveIndex }) => {
               <span className="mx-1 sm:mx-2">•</span>
               <span>{experience.period}</span>
             </div>
-            <div className="overflow-hidden transition-all duration-300 ease-in-out max-h-16 sm:max-h-20 md:max-h-24 mt-1.5 sm:mt-2">
+            <div className="overflow-hidden transition-all duration-300 ease-in-out min-h-[4rem] sm:min-h-[5rem] md:min-h-[6rem] max-h-16 sm:max-h-20 md:max-h-24 mt-1.5 sm:mt-2">
               <p className="text-xs sm:text-sm text-opacity-100 text-gray-300">
                 {experience.description}
               </p>
@@ -169,13 +169,9 @@ const Experience = () => {
             <div className="absolute top-0 bg-gradient-to-r from-transparent via-sky-500 to-transparent h-[5px] blur-sm w-full md:left-1/4 md:right-1/4 md:w-1/2" />
             <div className="absolute top-0 bg-gradient-to-r from-transparent via-sky-500 to-transparent h-px w-full md:left-1/4 md:right-1/4 md:w-1/2" />
           </div>
-          <ShinyText
-            text="My journey through different roles that have shaped my career path
-            and expertise in AI and software development"
-            disabled={false}
-            speed={3}
-            className="custom-class"
-          />
+          <TextShimmerWave as="p" duration={3} className="custom-class">
+            {`My journey through different roles that have shaped my career path and expertise in AI and software development`}
+          </TextShimmerWave>
         </div>
 
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 sm:gap-8 md:gap-12 lg:gap-20">

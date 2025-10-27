@@ -2,11 +2,12 @@
 
 import { motion, useAnimation } from "framer-motion";
 import { ArrowDown } from "lucide-react";
-import { useEffect, useState } from "react";
+import { useEffect } from "react";
 import { LuMouse } from "react-icons/lu";
 import { useInView } from "react-intersection-observer";
-import ImageLoader from "./ImageLoaders";
+import ImageLoader from "./ui/ImageLoaders";
 import RotatingText from "./ui/RotatingText";
+import AnimatedBadge from "./ui/animated-badge";
 import { LineShadowText } from "./ui/line-shadow-text";
 import { RainbowButton } from "./ui/rainbow-button";
 import { Sparkles } from "./ui/sparkles";
@@ -17,17 +18,6 @@ const Hero = () => {
     triggerOnce: true,
     threshold: 0.1,
   });
-
-  const [isMobile, setIsMobile] = useState(false);
-
-  useEffect(() => {
-    if (typeof window !== "undefined") {
-      const checkMobile = () => setIsMobile(window.innerWidth < 640);
-      checkMobile();
-      window.addEventListener("resize", checkMobile);
-      return () => window.removeEventListener("resize", checkMobile);
-    }
-  }, []);
 
   useEffect(() => {
     if (inView) {
@@ -86,11 +76,11 @@ const Hero = () => {
             variants={item}
             className="order-2 lg:order-1 mt-6 sm:mt-0"
           >
-            <motion.div
-              variants={item}
-              className="inline-block px-2 py-1 sm:px-3 sm:py-1 mb-2 sm:mb-4 rounded-full bg-accent/10 text-accent text-xs sm:text-sm font-medium"
-            >
-              Aspiring Software Engineer
+            <motion.div variants={item} className="mb-2 sm:mb-4 ">
+              <AnimatedBadge
+                text="Aspiring AI Software Engineer"
+                color="#3273ff"
+              />
             </motion.div>
 
             <motion.h1
@@ -100,7 +90,7 @@ const Hero = () => {
               <span className="mr-2 xs:mr-3 sm:mr-5 text-white">
                 Hello&#44;
               </span>
-              <span className="inline-block mr-3 xs:mr-4 sm:mr-1 md:mr-1">
+              <span className="inline-block mr-3 xs:mr-4 sm:mr-1 md:mr-4 lg:mr-1">
                 <RotatingText
                   texts={["I", "Am"]}
                   mainClassName="inline-flex text-white w-[50px] xs:w-[60px] sm:w-[80px] md:w-[100px] px-0.5 sm:px-1 md:px-1.5 text-black overflow-hidden py-0.5 sm:py-1 md:py-2 justify-center"
@@ -132,7 +122,7 @@ const Hero = () => {
 
             <motion.div
               variants={item}
-              className="flex flex-wrap justify-center sm:justify-start gap-4 sm:gap-6 md:gap-8"
+              className="flex flex-wrap justify-center sm:justify-start gap-4 sm:gap-6 md:gap-8 md:-mt-2 lg:mt-0"
             >
               <RainbowButton
                 className="rounded-full text-sm sm:text-base font-medium shadow-md hover:shadow-lg transition-all py-1.5 sm:py-2.5"
@@ -152,13 +142,13 @@ const Hero = () => {
 
           <motion.div
             variants={item}
-            className="order-1 lg:order-2 flex justify-center mb-2 sm:mb-4 md:mb-0"
+            className="order-1 lg:order-2 flex justify-center mb-2 sm:mb-4 md:mb-0 md:mt-2 lg:mt-0"
           >
             <div className="relative">
               <div className="absolute -z-10 inset-0 rounded-full bg-blue-500 blur-[80px] sm:blur-[100px] opacity-70 animate-pulse-subtle"></div>
-              <div className="relative w-48 h-48 xs:w-56 xs:h-56 sm:w-64 sm:h-64 md:w-80 md:h-80 overflow-hidden rounded-full glass-card-darker p-1 shadow-xl animate-float">
+              <div className="relative w-48 h-48 xs:w-56 xs:h-56 sm:w-64 sm:h-64 md:w-72 md:h-72 lg:w-80 lg:h-80 overflow-hidden rounded-full glass-card-darker p-1 shadow-xl animate-float">
                 <ImageLoader
-                  src="https://media.licdn.com/dms/image/v2/D5603AQEPC6lv8YlAVQ/profile-displayphoto-shrink_400_400/B56ZTGq8UeHwAg-/0/1738499936338?e=1756339200&v=beta&t=W8MGqdDD82711cAIx38JupnJmWBlzNtMvcw5SwVI0wg"
+                  src="https://media.licdn.com/dms/image/v2/D5603AQEPC6lv8YlAVQ/profile-displayphoto-shrink_400_400/B56ZTGq8UeHwAg-/0/1738499936338?e=1762992000&v=beta&t=ymAaScjZi04H4OVXh_FGqU4MKQIki12FidUF2_2XR-0"
                   alt="Noorul Ameen"
                   className="rounded-full"
                 />
@@ -167,19 +157,18 @@ const Hero = () => {
           </motion.div>
         </motion.div>
 
-        {!isMobile && (
-          <div className="absolute bottom-4 sm:bottom-6 md:bottom-8 left-1/2 transform -translate-x-1/2 animate-bounce">
-            <a
-              href="#experience"
-              className="flex flex-col items-center text-muted-foreground hover:text-accent transition-colors"
-            >
-              <span className="mb-1 sm:mb-2">
-                <LuMouse className="h-4 w-4 sm:h-5 sm:w-5 md:h-6 md:w-6" />
-              </span>
-              <ArrowDown className="h-3 w-3 sm:h-4 sm:w-4 md:h-5 md:w-5" />
-            </a>
-          </div>
-        )}
+        {/* Always render but hide on small screens to avoid SSR flicker */}
+        <div className="hidden sm:block absolute bottom-4 sm:bottom-6 md:bottom-8 left-1/2 transform -translate-x-1/2 animate-bounce">
+          <a
+            href="#experience"
+            className="flex flex-col items-center text-muted-foreground hover:text-accent transition-colors"
+          >
+            <span className="mb-1 sm:mb-2 inline-block md:hidden lg:inline-block">
+              <LuMouse className="h-4 w-4 sm:h-5 sm:w-5 md:h-6 md:w-6" />
+            </span>
+            <ArrowDown className="h-3 w-3 sm:h-4 sm:w-4 md:h-5 md:w-5 md:hidden lg:inline-block" />
+          </a>
+        </div>
       </div>
 
       {/* Gradient background effect */}

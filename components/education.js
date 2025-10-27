@@ -2,9 +2,9 @@
 
 import { BookOpen, Calendar } from "lucide-react";
 import { useEffect, useRef } from "react";
-import ImageLoader from "./ImageLoaders";
 import { PinContainer } from "./ui/3d-pin";
-import ShinyText from "./ui/ShinyText";
+import ImageLoader from "./ui/ImageLoaders";
+import { TextShimmerWave } from "./ui/text-shimmer-wave";
 
 const education = {
   university: "Thiruvalluvar University",
@@ -14,7 +14,7 @@ const education = {
   description:
     "Graduated with a Computer Science degree specializing in software engineering, database management, and advanced computing concepts",
   logoUrl:
-    "https://media.licdn.com/dms/image/v2/C4E0BAQHYLXwJ-jOXLw/company-logo_200_200/company-logo_200_200/0/1631356511246?e=1756339200&v=beta&t=jFw4vItS_ddsnbYpnPEOINIlyCUun-elIemH67qBRFY",
+    "https://media.licdn.com/dms/image/v2/C4E0BAQHYLXwJ-jOXLw/company-logo_100_100/company-logo_100_100/0/1631356511246?e=1762992000&v=beta&t=ve-BZjDjZs4RsUlrEZQUXNMYs9bvoLnSg80FWgrg2mM",
 };
 
 const Education = () => {
@@ -60,20 +60,16 @@ const Education = () => {
             <div className="absolute left-1/4 right-1/4 top-0 bg-gradient-to-r from-transparent via-sky-500 to-transparent h-px w-1/2" />
           </div>
           <div className="text-sm sm:text-base">
-            <ShinyText
-              text="My academic background that has provided the foundation for my
-              professional journey"
-              disabled={false}
-              speed={3}
-              className="custom-class"
-            />
+            <TextShimmerWave as="p" duration={3} className="custom-class">
+              {`My academic background that has provided the foundation for my professional journey`}
+            </TextShimmerWave>
           </div>
         </div>
 
         <div className="max-w-2xl mx-auto">
           {/* Wrap the card with PinContainer */}
           <PinContainer
-            title="CGPA : 8.5 ⭐"
+            title="CGPA : 8.15 ⭐"
             className="h-auto"
             containerClassName="animate-on-scroll"
           >

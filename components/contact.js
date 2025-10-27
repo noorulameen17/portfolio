@@ -6,7 +6,7 @@ import { useEffect, useState } from "react";
 import { BsGithub, BsLinkedin } from "react-icons/bs";
 import { RiTwitterXLine } from "react-icons/ri";
 import { GlareCard } from "./ui/glare-card";
-import ShinyText from "./ui/ShinyText";
+import { TextShimmerWave } from "./ui/text-shimmer-wave";
 
 const Contact = () => {
   const mouseX = useMotionValue(0);
@@ -49,16 +49,17 @@ const Contact = () => {
           </div>
           {/* Fix: Change from paragraph to div to prevent nesting issues */}
           <div className="text-sm sm:text-base">
-            <ShinyText
-              text="Reach out through any of these platforms and let's create something amazing together"
-              disabled={false}
-              speed={3}
+            <TextShimmerWave
+              as="p"
+              duration={3}
               className="custom-class text-sm sm:text-base"
-            />
+            >
+              {`Reach out through any of these platforms and let's create something amazing together`}
+            </TextShimmerWave>
           </div>
         </motion.div>
 
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-6 md:gap-8 w-full">
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-6 md:gap-8 w-full pl-4 sm:pl-0">
           {contactMethods.map((method, i) => (
             <a
               key={method.title}
@@ -112,12 +113,9 @@ const Contact = () => {
       </div>
 
       <div className="text-center mt-6 sm:mt-8 mx-auto max-w-xs sm:max-w-sm md:max-w-xl text-xs sm:text-sm">
-        <ShinyText
-          text="Available for freelance opportunities and collaborations"
-          disabled={false}
-          speed={3}
-          className="text-xs sm:text-sm"
-        />
+        <TextShimmerWave as="p" duration={3} className="text-xs sm:text-sm">
+          Available for freelance opportunities and collaborations
+        </TextShimmerWave>
       </div>
     </section>
   );

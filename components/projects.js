@@ -1,6 +1,5 @@
 "use client";
 
-import { CardBody, CardContainer, CardItem } from "@/components/ui/3d-card";
 import { Badge } from "@/components/ui/badge";
 import { motion } from "framer-motion";
 import { Github } from "lucide-react";
@@ -12,8 +11,9 @@ import {
   TabsList,
   TabsTrigger,
 } from "../components/ui/tabs";
-import CircularGallery from "./ui/CircularGallery";
-import ShinyText from "./ui/ShinyText";
+import { ImageGallery } from "./ui/carousel-circular-image-gallery";
+import { CircularTestimonials } from "./ui/circular-testimonials";
+import { TextShimmerWave } from "./ui/text-shimmer-wave";
 
 const projects = [
   {
@@ -27,7 +27,7 @@ const projects = [
       "Magic-UI",
       "Aceternity-UI",
       "Reactbits",
-      "Sonar API",
+      "Perplexity-Sonar",
     ],
     link: "https://path-lyst.vercel.app/",
     github: "https://github.com/noorulameen17/PathLyst",
@@ -36,11 +36,10 @@ const projects = [
   {
     title: "Fitgen",
     description:
-      "AI-powered diet planner that won 3rd place at IHack'25. Utilizes machine learning to create personalized nutrition plans based on individual goals and health metrics.",
+      "AI-powered diet planner that won 3rd place at InnoHack'25. Utilizes machine learning to create personalized nutrition plans based on individual goals and health metrics.",
     tags: [
       "React",
       "Next.js",
-      "Material-UI",
       "Shadcn/UI",
       "Magic-UI",
       "Clerk",
@@ -58,9 +57,9 @@ const projects = [
     tags: [
       "React",
       "Next.js",
-      "Material-UI",
+      "Shadcn",
       "Clerk",
-      "Cerebras",
+      "Perplexity-Sonar",
       "Vercel",
       "Motion",
     ],
@@ -93,7 +92,17 @@ const graphicProjects = [
   },
 ];
 
-// ProjectCard component
+// Map software projects into the testimonial shape required by CircularTestimonials
+const softwareTestimonials = projects.map((p) => ({
+  src: p.image,
+  name: p.title,
+  designation: Array.isArray(p.tags) ? p.tags.join(" • ") : "",
+  quote: p.description,
+  github: p.github,
+  link: p.link,
+}));
+
+// ProjectCard component (3D removed)
 const ProjectCard = ({ project, index }) => {
   const cardRef = useRef(null);
 
@@ -119,34 +128,27 @@ const ProjectCard = ({ project, index }) => {
   }, []);
 
   return (
-    <CardContainer className="inter-var">
-      <CardBody
+    <div className="inter-var">
+      <div
         ref={cardRef}
-        className="bg-gradient-to-b from-gray-100 to-gray-300 relative group/card dark:hover:shadow-2xl dark:hover:shadow-emerald-500/[0.1] dark:bg-black dark:border-white/[0.2] border-black/[0.1] w-auto h-auto rounded-xl p-6 border animate-on-scroll"
+        className="bg-gradient-to-b from-gray-100 to-gray-300 relative group/card dark:hover:shadow-2xl dark:hover:shadow-emerald-500/[0.1] dark:bg-black dark:border-white/[0.2] border-black/[0.1] w-auto rounded-xl p-6 border animate-on-scroll min-h-[30rem]"
       >
-        <CardItem
-          translateZ="50"
-          className="text-xl font-bold text-neutral-600 dark:text-white"
-        >
+        <div className="text-xl font-bold text-neutral-600 dark:text-white">
           {project.title}
-        </CardItem>
+        </div>
 
-        <CardItem
-          as="p"
-          translateZ="60"
-          className="text-neutral-500 text-sm max-w-sm mt-2 dark:text-neutral-300"
-        >
+        <p className="text-neutral-500 text-sm max-w-sm mt-2 dark:text-neutral-300">
           {project.description}
-        </CardItem>
+        </p>
 
         {project.achievement && (
-          <CardItem translateZ="60" className="mt-2">
+          <div className="mt-2">
             <Badge variant="secondary">{project.achievement}</Badge>
-          </CardItem>
+          </div>
         )}
 
         {project.image && (
-          <CardItem translateZ="100" className="w-full mt-4">
+          <div className="w-full mt-4">
             <Image
               src={project.image}
               alt={project.title}
@@ -154,41 +156,36 @@ const ProjectCard = ({ project, index }) => {
               height={300}
               className="h-60 w-full object-cover rounded-xl group-hover/card:shadow-xl"
             />
-          </CardItem>
+          </div>
         )}
 
         <div className="flex justify-between items-center mt-6">
-          <CardItem
-            translateZ={20}
-            as="a"
-            href={project.github}
-            target="_blank"
-            rel="noopener noreferrer"
-          >
+          <a href={project.github} target="_blank" rel="noopener noreferrer">
             <Badge className="flex items-center gap-1 px-3 py-1.5 bg-gray-200 dark:bg-gray-800 hover:bg-gray-300 dark:hover:bg-gray-700 transition-colors">
-              <span className="text-black font-medium dark:text-white" style={{ 
-                textShadow: "0 0 2px rgba(0,0,0,0.3)",
-                color: "#000000" 
-              }}>
+              <span
+                className="text-black font-medium dark:text-white"
+                style={{
+                  textShadow: "0 0 2px rgba(0,0,0,0.3)",
+                  color: "#000000",
+                }}
+              >
                 GitHub
-              </span> 
+              </span>
               <Github className="h-3.5 w-3.5 text-black dark:text-white" />
             </Badge>
-          </CardItem>
+          </a>
 
-          <CardItem
-            translateZ={20}
-            as="a"
+          <a
             href={project.link}
             target="_blank"
             rel="noopener noreferrer"
             className="px-4 py-2 rounded-xl bg-black dark:bg-white dark:text-black text-white text-xs font-bold"
           >
             Live Demo
-          </CardItem>
+          </a>
         </div>
 
-        <CardItem translateZ="30" className="w-full mt-4">
+        <div className="w-full mt-4">
           <div className="flex flex-wrap gap-2">
             {project.tags.map((tag, tagIndex) => (
               <Badge
@@ -200,15 +197,38 @@ const ProjectCard = ({ project, index }) => {
               </Badge>
             ))}
           </div>
-        </CardItem>
-      </CardBody>
-    </CardContainer>
+        </div>
+      </div>
+    </div>
   );
 };
+
+function GraphicGrid() {
+  return (
+    <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-4">
+      {graphicProjects.map((item, idx) => (
+        <div key={idx} className="group relative overflow-hidden rounded-xl">
+          <Image
+            src={item.image}
+            alt={item.text}
+            width={600}
+            height={600}
+            className="aspect-square object-cover w-full h-full transition-transform duration-300 group-hover:scale-105"
+          />
+          <div className="absolute inset-0 bg-gradient-to-t from-black/50 to-transparent opacity-0 group-hover:opacity-100 transition-opacity" />
+          <div className="absolute bottom-2 left-2 text-white text-xs sm:text-sm font-medium">
+            {item.text}
+          </div>
+        </div>
+      ))}
+    </div>
+  );
+}
 
 export function Projects() {
   const sectionRef = useRef(null);
   const [selectedGraphicProject, setSelectedGraphicProject] = useState(null);
+  const [activeTab, setActiveTab] = useState("software");
 
   useEffect(() => {
     const observer = new IntersectionObserver(
@@ -237,7 +257,7 @@ export function Projects() {
   return (
     <section
       id="projects"
-      className="py-24 sm:py-32 bg-slate-950 text-white"
+      className="relative isolate py-24 sm:py-32 bg-slate-950 text-white"
       ref={sectionRef}
     >
       <div className="container max-w-6xl mx-auto px-4">
@@ -253,39 +273,39 @@ export function Projects() {
             <div className="absolute left-1/4 right-1/4 top-0 bg-gradient-to-r from-transparent via-sky-500 to-transparent h-px w-1/2" />
           </div>
           <div className="text-sm sm:text-base">
-            <ShinyText
-              text="Innovative solutions I've developed that showcase my skills in AI
-              and software development."
-              disabled={false}
-              speed={3}
-              className="custom-class"
-            />
+            <TextShimmerWave as="p" duration={3} className="custom-class">
+              {`Innovative solutions I've developed that showcase my skills in AI and software development.`}
+            </TextShimmerWave>
           </div>
         </div>
 
-        <Tabs defaultValue="software" className="w-full">
+        <Tabs value={activeTab} onValueChange={setActiveTab} className="w-full">
           <TabsList className="grid w-full grid-cols-2 mb-8 text-gray-300">
             <TabsTrigger value="software">Software Projects</TabsTrigger>
             <TabsTrigger value="graphic">Graphic Designs</TabsTrigger>
           </TabsList>
 
+          {/* Software tab: replaced grid with CircularTestimonials */}
           <TabsContent value="software">
-            <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 sm:gap-6 md:gap-8">
-              {projects.map((project, index) => (
-                <ProjectCard key={index} project={project} index={index} />
-              ))}
+            <div className="w-full flex justify-center">
+              <CircularTestimonials
+                testimonials={softwareTestimonials}
+                colors={{
+                  name: "#ffffff",
+                  designation: "#9CA3AF",
+                  testimony: "#E5E7EB",
+                  arrowBackground: "#111827",
+                  arrowForeground: "#E5E7EB",
+                  arrowHoverBackground: "#6366F1",
+                }}
+              />
             </div>
           </TabsContent>
 
+          {/* Graphic tab: restore carousel */}
           <TabsContent value="graphic">
             <div className="h-[300px] sm:h-[400px] md:h-[500px] w-full">
-              <CircularGallery
-                items={graphicProjects}
-                bend={3}
-                textColor="#ffffff"
-                borderRadius={0.05}
-                font="bold clamp(16px, 2vw, 24px) DM Sans"
-              />
+              <ImageGallery items={graphicProjects} />
             </div>
           </TabsContent>
         </Tabs>

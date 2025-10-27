@@ -216,6 +216,10 @@ module.exports = {
             opacity: "0.8",
           },
         },
+        "orbit-spin": {
+          from: { transform: "rotate(0deg)" },
+          to: { transform: "rotate(360deg)" },
+        },
       },
       animation: {
         led: "led 100ms ease-in-out",
@@ -234,6 +238,7 @@ module.exports = {
         "blur-in": "blur-in 0.4s ease-out",
         "pulse-subtle": "pulse-subtle 2s ease-in-out infinite",
         "line-shadow": "line-shadow 15s linear infinite",
+        "orbit-spin": "orbit-spin var(--duration, 10s) linear infinite",
       },
       backgroundImage: {
         "gradient-radial": "radial-gradient(var(--tw-gradient-stops))",

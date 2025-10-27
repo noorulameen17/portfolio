@@ -4,8 +4,8 @@ import { Analytics } from "@vercel/analytics/react";
 import { Inter } from "next/font/google";
 import React from "react";
 import Footer from "../components/footer";
-import LenisProvider from "../components/LenisProvider";
-import Loader from "../components/loader";
+import LenisProvider from "../components/ui/LenisProvider";
+import Loader from "../components/ui/loader";
 import { CustomThemeProvider } from "../components/theme-provider";
 import "./globals.css";
 
