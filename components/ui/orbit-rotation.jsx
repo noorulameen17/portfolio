@@ -1,4 +1,5 @@
 "use client";
+import { useEffect, useRef, useState } from "react";
 import {
   FaApple,
   FaAws,
@@ -67,6 +68,69 @@ export function OrbitRotation({
     lg: "w-10 h-10",
   };
 
+  const orbitRefs = useRef([]);
+  const [useJsFallback, setUseJsFallback] = useState(false);
+
+  useEffect(() => {
+    // Detect if CSS animations are actually running; if not, enable JS fallback
+    const timer = setTimeout(() => {
+      try {
+        let anyStopped = false;
+        orbitRefs.current.forEach((el) => {
+          if (!el || anyStopped) return;
+          // Prefer Web Animations API when available
+          if (typeof el.getAnimations === "function") {
+            const anims = el.getAnimations();
+            if (!anims || anims.length === 0) {
+              anyStopped = true;
+              return;
+            }
+            if (!anims.some((a) => a.playState === "running")) {
+              anyStopped = true;
+              return;
+            }
+          }
+          // Fallback: computed style check
+          const cs = window.getComputedStyle(el);
+          const name = (
+            cs.animationName ||
+            cs.webkitAnimationName ||
+            ""
+          ).toString();
+          if (!name || name === "none") {
+            anyStopped = true;
+          }
+        });
+        if (anyStopped) setUseJsFallback(true);
+      } catch (_) {
+        // ignore
+      }
+    }, 400);
+    return () => clearTimeout(timer);
+  }, []);
+
+  useEffect(() => {
+    if (!useJsFallback) return;
+    let rafId = 0;
+    const start = performance.now();
+    const tick = (now) => {
+      const t = (now - start) / 1000; // seconds
+      orbitRefs.current.forEach((el, idx) => {
+        if (!el) return;
+        const period = 12 + idx * 6; // sync with CSS durations
+        const angle = (t / period) * 360;
+        el.style.animation = "none";
+        el.style.webkitAnimation = "none";
+        el.style.transformOrigin = "50% 50%";
+        el.style.willChange = "transform";
+        el.style.transform = `rotate(${angle}deg)`;
+      });
+      rafId = requestAnimationFrame(tick);
+    };
+    rafId = requestAnimationFrame(tick);
+    return () => cancelAnimationFrame(rafId);
+  }, [useJsFallback]);
+
   return (
     <div
       className={cn(
@@ -95,13 +159,22 @@ export function OrbitRotation({
           return (
             <div
               key={orbitIdx}
-              className="border-zinc-500/30 absolute rounded-full border-2 border-dotted dark:border-zinc-400/30 animate-orbit-spin"
+              ref={(el) => (orbitRefs.current[orbitIdx] = el)}
+              className="border-zinc-500/30 absolute rounded-full border-2 border-dotted dark:border-zinc-400/30"
               style={{
                 width: orbitSize,
                 height: orbitSize,
-                // Use full animation declaration inline to ensure compatibility on browsers
-                // that don't support CSS variables in animation shorthands.
-                animation: `orbit-spin ${animationDuration} linear infinite`,
+                ...(useJsFallback
+                  ? {
+                      animation: "none",
+                      WebkitAnimation: "none",
+                    }
+                  : {
+                      animation: `orbit-spin ${animationDuration} linear infinite`,
+                      WebkitAnimation: `orbit-spin ${animationDuration} linear infinite`,
+                    }),
+                transformOrigin: "50% 50%",
+                willChange: "transform",
               }}
             >
               {icons

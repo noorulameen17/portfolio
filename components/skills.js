@@ -2,6 +2,7 @@
 
 import { motion } from "framer-motion";
 import Image from "next/image";
+import dynamic from "next/dynamic";
 import { FaCss3Alt, FaGitAlt } from "react-icons/fa";
 import { FaHtml5, FaJs, FaReact } from "react-icons/fa6";
 import { RiNextjsFill, RiTailwindCssFill } from "react-icons/ri";
@@ -14,8 +15,12 @@ import {
 } from "react-icons/si";
 
 import useIsMobile from "../hooks/useIsMobile";
-import { OrbitRotation } from "./ui/orbit-rotation";
 import { TextShimmerWave } from "./ui/text-shimmer-wave";
+
+const OrbitRotationNoSSR = dynamic(
+  () => import("./ui/orbit-rotation").then((m) => m.OrbitRotation),
+  { ssr: false }
+);
 
 export default function Skills() {
   const sizeFromClass = (cls = "") =>
@@ -257,7 +262,7 @@ export default function Skills() {
 
       <div className="flex justify-center items-center min-h-[200px] sm:min-h-[260px] md:min-h-[320px] mt-24 sm:mt-36 md:mt-48 mb-16">
         <div className="flex flex-wrap justify-center items-center gap-6">
-          <OrbitRotation
+          <OrbitRotationNoSSR
             icons={techIcons}
             orbitCount={3}
             orbitGap={isMobile ? 6 : 8}

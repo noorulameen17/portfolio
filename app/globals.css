@@ -210,13 +210,18 @@ html {
   -webkit-text-fill-color: transparent;
 }
 
-@theme inline {
-  @keyframes orbit-spin {
+/* Ensure orbit-spin keyframes are always available in production */
+@keyframes orbit-spin {
   from {
     transform: rotate(0deg);
-    }
+  }
   to {
     transform: rotate(360deg);
-    }
   }
+}
+
+/* Perf hint for rotating elements */
+.orbit-will-change {
+  will-change: transform;
+  transform-origin: 50% 50%;
 }
